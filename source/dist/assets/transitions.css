@@ -1,0 +1,33 @@
+/* All motion is optional, brief, and leaves navigation and focus behavior intact. */
+@media(prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  .site-header{view-transition-name:site-header}
+  main{view-transition-name:page-content}
+  .mobile-contact{view-transition-name:mobile-contact}
+  ::view-transition-group(*){animation-duration:.62s;animation-timing-function:cubic-bezier(.22,.7,.15,1)}
+  ::view-transition-group(page-content){animation:none}
+  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+  ::view-transition-old(site-header),::view-transition-new(site-header),::view-transition-old(mobile-contact),::view-transition-new(mobile-contact){animation:none;mix-blend-mode:normal}
+  ::view-transition-old(page-content){animation:page-leave .2s ease both;mix-blend-mode:normal}
+  ::view-transition-new(page-content){animation:page-enter .58s cubic-bezier(.22,.7,.15,1) .06s both;mix-blend-mode:normal}
+  /* Also animate entry where cross-document transitions are unsupported. */
+  .js:not(.has-native-transition) main{animation:page-enter .64s cubic-bezier(.22,.7,.15,1) .04s backwards}
+  .js.is-loading main{animation-play-state:paused}
+  .reveal{opacity:0;transform:translateY(10px);transition:opacity .4s ease var(--reveal-delay,0ms),transform .4s cubic-bezier(.22,.7,.15,1) var(--reveal-delay,0ms)}
+  .reveal.is-visible,.reveal:focus-within{opacity:1;transform:none}
+  .hero-copy,.hero-visual,.hero-photo{animation:none!important}
+  .button,.text-link .icon,.icon-button,.brand-card,.desktop-nav a:after{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .button:hover{transform:translateY(-1px)}
+  .button:hover .icon:last-child,.text-link:hover .icon:last-child{transform:translateX(2px)}
+  .mobile-nav:not([hidden]){animation:menu-reveal .2s ease both}
+}
+@keyframes page-leave{to{opacity:0;transform:translateY(-8px)}}
+@keyframes page-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes menu-reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+}
+@media print{.reveal{opacity:1!important;transform:none!important}.reading-progress,.back-to-top{display:none!important}}

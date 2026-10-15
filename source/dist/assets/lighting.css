@@ -1,0 +1,60 @@
+/* Light is the focal point; the site retains its white, restrained surfaces. */
+.page-home .hero-stage{position:relative;isolation:isolate;background:#fff;overflow:hidden}
+.page-home .hero-stage:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 75% 42%,#f9efd9 0,transparent 59%);pointer-events:none}
+.page-home .hero{grid-template-columns:1fr 1fr;gap:68px;padding-block:46px 58px}
+.page-home .hero-copy .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.page-home .hero-copy .eyebrow:before{content:"";width:27px;height:2px;flex-shrink:0;background:#dbb65a;box-shadow:0 0 12px #e5b64e60}
+.page-home .hero h1{font-size:clamp(46px,5.1vw,66px);letter-spacing:-2.8px;line-height:1.12}
+.page-home .light-word{display:inline-block;position:relative;color:#93671f;white-space:nowrap}
+.page-home .light-word:after{content:"";position:absolute;left:2px;right:0;bottom:-11px;height:2px;background:linear-gradient(90deg,#dec077,#f5d780 68%,transparent);box-shadow:0 4px 14px #dcae4770;transform-origin:left}
+.page-home .hero-description{max-width:375px;margin-top:33px;font-size:14px;line-height:1.9}
+.page-home .hero-actions{margin-top:30px;gap:28px}
+.page-home .hero-visual{margin:0;height:510px;border-radius:5px;overflow:hidden;background:#eee8dc;box-shadow:0 16px 44px #b6a27c0e}
+.page-home .hero-photo{object-position:50% 46%}
+.page-home .hero-visual:after{content:"";position:absolute;inset:65% 0 0;background:linear-gradient(transparent,#33291685);pointer-events:none}
+.hero-caption{position:absolute;bottom:25px;left:27px;right:27px;z-index:1;color:#fff}
+.hero-caption span{display:block;font-size:8px;letter-spacing:1.7px;margin-bottom:6px}
+.hero-caption strong{font-size:18px;letter-spacing:-.35px;font-weight:500;line-height:1.45}
+.page-home .image-note{top:14px;right:14px;bottom:auto;font-size:8px;background:#fff9;color:#554f43}
+/* The new photo is already tightly framed; never crop the signage again. */
+.page-home .store-grid{grid-template-columns:1.12fr 1fr;gap:65px}
+.page-home .store-photo{aspect-ratio:4/3;max-height:none}
+.store-photo .store-image,.about-photo .store-image{transform:none;object-position:center}
+.about-photo .responsive-picture{aspect-ratio:4/3;overflow:hidden;border-radius:4px}
+.about-photo .store-image{width:100%;height:100%;object-fit:cover}
+@media(prefers-reduced-motion:no-preference){
+  .page-home .light-word:after{transition:transform .7s ease .15s,opacity .7s ease .15s}
+  .is-loading .page-home .light-word:after{transform:scaleX(.12);opacity:0}
+  /* One gentle ignition per page entry; wait behind the first-visit loader.
+     Animate only the picture, leaving captions, links and layout untouched.
+     Backwards fill releases the filter when the sequence has finished. */
+  .js .page-home .hero-visual .responsive-picture{animation:lights-on 2.6s cubic-bezier(.4,0,.2,1) .12s backwards}
+  .js .page-home .hero-stage:before{animation:ambient-on 2.9s cubic-bezier(.4,0,.2,1) .12s backwards}
+  .is-loading .page-home .hero-visual .responsive-picture,.is-loading .page-home .hero-stage:before{animation-play-state:paused}
+}
+@keyframes lights-on{from{filter:brightness(.58) saturate(.6)}to{filter:none}}
+@keyframes ambient-on{from{opacity:.18}to{opacity:1}}
+@media(min-width:761px) and (max-width:1100px){
+  .page-home .hero{gap:38px}
+  .page-home .hero h1{font-size:52px;letter-spacing:-2.2px}
+  .page-home .hero-visual{height:470px}
+  .page-home .hero-description{font-size:13px}
+  .page-home .hero-actions{gap:20px}
+  .page-home .store-grid{gap:40px}
+}
+@media(max-width:760px){
+  .page-home .hero{grid-template-columns:1fr;gap:32px;padding-block:37px 36px}
+  .page-home .hero-copy .eyebrow{font-size:8px;margin-bottom:23px;gap:9px}
+  .page-home .hero-copy .eyebrow:before{width:20px}
+  .page-home .hero h1{font-size:clamp(42px,11.9vw,58px);letter-spacing:-1.9px}
+  .page-home .hero-description{font-size:13px;margin-top:27px;max-width:355px}
+  .page-home .hero-actions{margin-top:23px;gap:24px}
+  .page-home .hero-visual{height:auto;aspect-ratio:1.02}
+  .page-home .hero-photo{object-position:50% 43%}
+  .hero-caption{left:20px;right:20px;bottom:20px}
+  .hero-caption strong{font-size:16px}.hero-caption span{font-size:7px}
+  .page-home .image-note{font-size:7px;top:11px;right:11px}
+  .page-home .store-grid{grid-template-columns:1fr;gap:27px}
+  .page-home .store-photo,.about-photo .responsive-picture{aspect-ratio:4/3}
+}
+@media print{.page-home .hero-stage:before,.page-home .light-word:after{display:none}.page-home .hero-visual{box-shadow:none}}

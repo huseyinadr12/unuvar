@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://huseyinadr12.github.io/unuvar/sitemap.xml

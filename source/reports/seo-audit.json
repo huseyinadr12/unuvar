@@ -1,0 +1,104 @@
+{
+  "kind": "Static technical SEO audit; not Lighthouse or field Core Web Vitals",
+  "publication": "owner-private",
+  "indexing_enabled": false,
+  "page_count": 6,
+  "sitemap_urls": 5,
+  "assets": {
+    "app.css": {
+      "bytes": 75721,
+      "gzip_estimate_bytes": 16349,
+      "budget_bytes": 90000
+    },
+    "app.js": {
+      "bytes": 17788,
+      "gzip_estimate_bytes": 6021,
+      "budget_bytes": 26000
+    },
+    "manrope-latin-ext.woff2": {
+      "bytes": 15120
+    },
+    "manrope-latin.woff2": {
+      "bytes": 24836
+    }
+  },
+  "product_data_sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+  "pages": [
+    {
+      "path": "/404.html",
+      "title": "Sayfa Bulunamadı | Ünüvar Aydınlatma",
+      "title_characters": 36,
+      "description_characters": 31,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/gizlilik/",
+      "title": "Gizlilik ve Site Bilgileri | Ünüvar Aydınlatma",
+      "title_characters": 46,
+      "description_characters": 79,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/hakkimizda/",
+      "title": "Hakkımızda | Karaköy Ünüvar Aydınlatma",
+      "title_characters": 38,
+      "description_characters": 140,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "AboutPage",
+        "BreadcrumbList"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/iletisim/",
+      "title": "İletişim ve Yol Tarifi | Ünüvar Aydınlatma Karaköy",
+      "title_characters": 50,
+      "description_characters": 150,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "ContactPage",
+        "BreadcrumbList"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/",
+      "title": "Ünüvar Aydınlatma | Karaköy Aydınlatma Mağazası",
+      "title_characters": 47,
+      "description_characters": 144,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/urunler/",
+      "title": "Katalog | Ünüvar Aydınlatma",
+      "title_characters": 27,
+      "description_characters": 53,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "robots": "noindex,nofollow"
+    }
+  ],
+  "errors": []
+}

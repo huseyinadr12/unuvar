@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+source/dist/*.html
+source/dist/*/
+!source/dist/assets/
+source/dist/sitemap.xml
+source/dist/robots.txt

@@ -1,0 +1,67 @@
+[
+  {
+    "url": "https://acklighting.com/wp-content/uploads/2024/08/ack-logo-siyah.png",
+    "file": "ack-logo.png",
+    "name": "ack",
+    "page": "https://acklighting.com/",
+    "width": 842,
+    "height": 257,
+    "format": "png",
+    "hasAlpha": true,
+    "verified_on": "2026-10-14",
+    "notes": "Official header logo. Preserve aspect ratio and brand colors.",
+    "label": "ACK"
+  },
+  {
+    "url": "https://www.noas.com.tr/assets/svg/logotype-color.svg",
+    "file": "noas-logo.svg",
+    "name": "noas",
+    "page": "https://www.noas.com.tr/",
+    "width": 170,
+    "height": 42,
+    "format": "svg",
+    "hasAlpha": true,
+    "verified_on": "2026-10-14",
+    "notes": "Official header logo. Preserve aspect ratio and brand colors.",
+    "label": "NOAS"
+  },
+  {
+    "url": "https://k2.kendalelektrik.com/images/brands/k2-logo.svg",
+    "file": "k2-logo.svg",
+    "name": "k2",
+    "page": "https://k2.kendalelektrik.com/",
+    "width": 134,
+    "height": 134,
+    "format": "svg",
+    "hasAlpha": true,
+    "verified_on": "2026-10-14",
+    "notes": "Official orange/black vertical logo; keep native square aspect ratio.",
+    "label": "K2"
+  },
+  {
+    "url": "https://horozelektrik.com/_next/static/media/horoz-electric-logo.652f717a.png",
+    "file": "horoz-logo.png",
+    "name": "horoz",
+    "page": "https://horozelektrik.com/",
+    "width": 202,
+    "height": 50,
+    "format": "png",
+    "hasAlpha": true,
+    "verified_on": "2026-10-14",
+    "notes": "Official header asset at 202x50; display at roughly 180-202 CSS px or smaller to preserve sharpness.",
+    "label": "Horoz Electric"
+  },
+  {
+    "url": "https://cata.com.tr/storage/app/uploads/public/Cat/a%20l/ogo/Cata%20logo%202.png",
+    "file": "cata-logo.png",
+    "name": "cata",
+    "page": "https://cata.com.tr/",
+    "width": 498,
+    "height": 249,
+    "format": "png",
+    "hasAlpha": true,
+    "verified_on": "2026-10-14",
+    "notes": "Official white/silver transparent wordmark; use a dark background. Original canvas has some padding.",
+    "label": "CATA"
+  }
+]
