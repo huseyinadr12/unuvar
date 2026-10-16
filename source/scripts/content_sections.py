@@ -1,36 +1,45 @@
-"""Editorial store content, with no catalog items or unverified business claims."""
+"""Shared store content. Product groups follow what the store stocks; no prices, stock or reviews are claimed."""
+
+# (title, description, icon, phrase used in the WhatsApp message)
+PRODUCT_GROUPS = [
+    ('Avize ve sarkıt', 'Salon, yemek masası ve giriş için tavan aydınlatmaları.', 'pendant', 'avize ve sarkıt modelleri'),
+    ('Aplik', 'Koridor, yatak odası ve cephe için duvar armatürleri.', 'sconce', 'aplik modelleri'),
+    ('Spot ve panel', 'Sıva altı ve sıva üstü spotlar, ofis tipi LED paneller.', 'downlight', 'spot ve panel armatürler'),
+    ('LED ampul', 'Farklı duy tiplerinde ve ışık renklerinde ampuller.', 'bulb', 'LED ampuller'),
+    ('Şerit LED', 'Gizli ışık, raf ve tavan detayları için şerit LED çözümleri.', 'strip', 'şerit LED ürünleri'),
+    ('Lambader ve masa lambası', 'Okuma köşesi, çalışma masası ve komodin için.', 'floor', 'lambader ve masa lambaları'),
+    ('Dış mekân', 'Bahçe armatürleri, projektörler ve cephe aydınlatması.', 'bollard', 'dış mekân aydınlatması'),
+    ('Elektrik malzemesi', 'Anahtar, priz, kablo ve tesisat ihtiyaçları.', 'socket', 'elektrik malzemeleri'),
+]
 
 
 def presentation_sections(icon, out, wa, instagram, facebook):
-    spaces = f'''<section class="spaces-section content-section" id="mekanlar" aria-labelledby="spaces-title"><div class="container">
-      <div class="chapter-heading"><div><span class="eyebrow">IŞIK VE YAŞAM</span><h2 id="spaces-title">Her alanın<br/>ışığı farklı.</h2></div><p>Dinlenirken, çalışırken, misafirlerinizi karşılarken… Önce mekânınızda nasıl bir his istediğinizi konuşalım.</p></div>
-      <div class="spaces-grid">
-        <article class="space-panel"><div class="space-top"><span>01 / YAŞAM</span>{icon('lamp')}</div><h3>Evinizin atmosferi.</h3><p>Günün sonunda dinlendiğiniz köşe, yemek masanız ya da birlikte vakit geçirdiğiniz salon. Işık, evinizdeki her ana eşlik etsin.</p><span class="space-keywords">Sıcaklık · Denge · Konfor</span></article>
-        <article class="space-panel"><div class="space-top"><span>02 / ÇALIŞMA</span>{icon('bulb')}</div><h3>Günün ritmine uyum.</h3><p>Masanızda, ofisinizde veya çalışma alanınızda günlük rutininizi düşünün. Beklentilerinizi, mekânın kullanımıyla birlikte değerlendirelim.</p><span class="space-keywords">Odak · Kullanım · Düzen</span></article>
-        <article class="space-panel"><div class="space-top"><span>03 / KARŞILAMA</span>{icon('spark')}</div><h3>İlk izlenimin ışığı.</h3><p>İşletmenizin girişi, vitrini ya da misafirlerinizi ağırladığınız alan. Mekânınızın karakterini öne çıkaran bir atmosfer üzerine konuşalım.</p><span class="space-keywords">Atmosfer · Vurgu · Karakter</span></article>
-      </div><a class="text-link section-link" href="/iletisim/">Mekânınızı birlikte konuşalım {icon('arrow')}</a>
+    cards = ''.join(
+        out(wa(f'Merhaba Ünüvar Aydınlatma, {phrase} hakkında bilgi almak istiyorum.'),
+            f'<span class="range-icon">{icon(symbol)}</span><span class="range-name">{title}</span><span class="range-desc">{desc}</span><span class="range-ask">WhatsApp’tan sor {icon("up")}</span>',
+            'range-card')
+        for title, desc, symbol, phrase in PRODUCT_GROUPS)
+
+    def product_range(heading_level='h2', title='Mağazada neler var?'):
+        return f'''<section class="range-section" id="urun-gruplari" aria-labelledby="range-title"><div class="container">
+      <div class="section-head"><div><span class="eyebrow">ÜRÜN GRUPLARI</span><{heading_level} id="range-title">{title}</{heading_level}></div><p>Online katalog hazırlanıyor. Bu sırada aradığınız ürünün fiyat ve stok bilgisini WhatsApp’tan hızlıca alabilirsiniz.</p></div>
+      <div class="range-grid">{cards}</div>
     </div></section>'''
 
-    process = f'''<section class="process-section content-section" aria-labelledby="process-title"><div class="container process-grid">
-      <div class="process-intro"><span class="eyebrow">NEREDEN BAŞLAYALIM?</span><h2 id="process-title">Bir fikirle<br/>başlayalım.</h2><p>Aklınızda net bir fikir de olabilir, yalnızca değiştirmek istediğiniz bir atmosfer de. Bize anlatmanız yeterli.</p>{out(wa('Merhaba, mekânımın aydınlatması hakkında sizinle görüşmek istiyorum.'),'WhatsApp’tan konuşalım '+icon('up'),'button yellow')}</div>
-      <ol class="process-steps"><li><span class="step-number" aria-hidden="true">01</span><div><h3>Mekânınızı anlatın.</h3><p>Neresi için düşündüğünüzü, alanı nasıl kullandığınızı ve nasıl bir his istediğinizi paylaşın.</p></div></li><li><span class="step-number" aria-hidden="true">02</span><div><h3>Detayları birlikte konuşalım.</h3><p>Varsa bir fotoğraf ve yaklaşık ölçüler, ihtiyacınızı daha iyi anlamamıza yardımcı olur.</p></div></li><li><span class="step-number" aria-hidden="true">03</span><div><h3>Mağazada devam edelim.</h3><p>Karaköy’de yüz yüze görüşmek isterseniz gelmeden önce ziyaret saatinizi telefonla teyit edebilirsiniz.</p></div></li></ol>
+    ask = f'''<section class="ask-section" aria-labelledby="ask-title"><div class="container ask-grid">
+      <div class="ask-copy"><span class="eyebrow">FOTOĞRAFLA SOR</span><h2 id="ask-title">Fotoğrafını gönderin,<br/><span class="glow">birlikte bulalım.</span></h2><p>Yanan bir ampul, eşi aranan bir spot ya da beğendiğiniz bir avize. Ürünün fotoğrafını veya kodunu WhatsApp’tan iletin, mağazamızda uygun ürün olup olmadığını size bildirelim.</p>
+      <ol class="ask-steps"><li><span class="step-number" aria-hidden="true">1</span><div><h3>Fotoğraf veya kod gönderin</h3><p>Ürünün kendisi, kutusu ya da üzerindeki etiket yeterli.</p></div></li><li><span class="step-number" aria-hidden="true">2</span><div><h3>Fiyat ve stok bilgisini alın</h3><p>Uygun seçenekleri fiyat ve bulunabilirlik bilgisiyle iletelim.</p></div></li><li><span class="step-number" aria-hidden="true">3</span><div><h3>Mağazadan alın</h3><p>Ürünü Karaköy’deki mağazamızda görüp yerinde alabilirsiniz.</p></div></li></ol></div>
+      <div class="ask-card"><div class="chat-top">{icon('wa')}<span><strong>Ünüvar Aydınlatma</strong><small>WhatsApp</small></span></div><div class="chat-body"><span class="chat-label">Örnek mesaj</span><div class="chat-bubble"><span class="chat-photo">{icon('camera')}<small>spot.jpg</small></span><p>Merhaba, fotoğraftaki spotun aynısından 6 adet lazım. Mağazada var mı?</p></div></div>{out(wa('Merhaba Ünüvar Aydınlatma, bir ürün hakkında bilgi almak istiyorum. Fotoğrafını gönderiyorum:'),icon('wa')+' WhatsApp’ta yazın','button yellow chat-send')}</div>
     </div></section>'''
 
     questions = [
-        ('İhtiyacımı anlatmak için neleri paylaşabilirim?', 'Mekânın kullanımını, yaklaşık ölçülerini ve nasıl bir atmosfer istediğinizi anlatabilirsiniz. Varsa bir fotoğraf eklemek de görüşmeye yardımcı olur.'),
-        ('Mağazada yüz yüze görüşebilir miyiz?', 'Karaköy’deki mağazamıza uğrayabilirsiniz. Adresimiz Emekyemez Mahallesi, Tutsak Sokak No:8, Beyoğlu / İstanbul. Gelmeden önce ziyaret saatinizi telefonla teyit edebilirsiniz.'),
-        ('Çalışma saatlerini nasıl öğrenebilirim?', '<a href="tel:+905456105009">0545 610 50 09</a> numaralı telefondan ziyaret etmek istediğiniz gün ve saat için bilgi alabilirsiniz.'),
-        ('Size en kolay nasıl ulaşabilirim?', f'Telefonla arayabilir veya {out(wa(),"WhatsApp üzerinden yazabilirsiniz")}. Yol tarifi ve mağaza konumu için <a href="/iletisim/">İletişim sayfamızı</a> kullanabilirsiniz.'),
+        ('Online sipariş verebilir miyim?', f'Online katalog hazırlanıyor. Şimdilik ürün, fiyat ve stok bilgisini {out(wa(),"WhatsApp üzerinden")} ya da <a href="tel:+905456105009">0545 610 50 09</a> numaralı telefondan alabilirsiniz.'),
+        ('Elimdeki ürünün aynısını bulabilir misiniz?', 'Ürünün ya da kutusunun fotoğrafını, varsa üzerindeki kodu gönderin. Mağazamızda aynısı veya uygun bir seçenek olup olmadığını size bildirelim.'),
+        ('Mağazaya gelmeden önce aramalı mıyım?', 'Aradığınız ürün belliyse yola çıkmadan önce stok durumunu sormanızı öneririz. Ziyaret saatinizi de aynı numaradan teyit edebilirsiniz.'),
+        ('Mağaza tam olarak nerede?', 'Karaköy’de, Emekyemez Mahallesi Tutsak Sokak No:8, Beyoğlu / İstanbul. Yol tarifi ve harita için <a href="/iletisim/#magaza-konumu">İletişim sayfamıza</a> bakabilirsiniz.'),
     ]
     rows = ''.join(f'<details class="question" {"open" if i == 0 else ""}><summary><span>{question}</span><span class="question-toggle" aria-hidden="true"></span></summary><div class="question-answer"><p>{answer}</p></div></details>' for i, (question, answer) in enumerate(questions))
-    faq = f'''<section class="questions-section content-section" id="sorular" aria-labelledby="questions-title"><div class="container questions-grid"><div class="questions-intro"><span class="eyebrow">MERAK ETTİKLERİNİZ</span><h2 id="questions-title">Aklınızdaki<br/>sorular.</h2><p>Birlikte konuşmak isterseniz bize bir mesajla ulaşabilirsiniz.</p>{out(wa(),'Bize sorun '+icon('up'),'text-link')}</div><div class="questions-list">{rows}</div></div></section>'''
+    faq = f'''<section class="faq-section" id="sorular" aria-labelledby="questions-title"><div class="container faq-grid"><div class="faq-intro"><span class="eyebrow">SIK SORULANLAR</span><h2 id="questions-title">Aklınıza takılanlar</h2><p>Cevabını bulamadığınız bir soru varsa bize yazın.</p>{out(wa(),'WhatsApp’tan sorun '+icon('up'),'text-link')}</div><div class="faq-list">{rows}</div></div></section>'''
 
-    about = f'''<section class="approach-section content-section" aria-labelledby="approach-title"><div class="container"><div class="chapter-heading"><div><span class="eyebrow">BAKIŞ AÇIMIZ</span><h2 id="approach-title">Önce mekân.<br/>Sonra ışık.</h2></div><p>Bir odanın yalnızca görünüşü değil, nasıl kullanıldığı da önemlidir. Konuşmaya sizin günlük hayatınızdan ve beklentilerinizden başlayalım.</p></div><div class="approach-grid"><article><span class="approach-index">01</span><h3>İhtiyacı anlamak.</h3><p>Ev, çalışma alanı ya da işletme. Ne için düşündüğünüzü ve neleri değiştirmek istediğinizi dinleyelim.</p></article><article><span class="approach-index">02</span><h3>Bütünü düşünmek.</h3><p>Mekânın renkleri, kullanım şekli ve hayalinizdeki atmosfer üzerine birlikte konuşalım.</p></article><article><span class="approach-index">03</span><h3>İletişimde kalmak.</h3><p>Sorularınızı telefonla, WhatsApp üzerinden veya Karaköy mağazamızda yüz yüze paylaşabilirsiniz.</p></article></div></div></section>'''
-
-    visit = f'''<section class="visit-section content-section" id="ziyaret" aria-labelledby="visit-title"><div class="container visit-grid">
-      <div class="visit-card"><span class="eyebrow">KARAKÖY’DE GÖRÜŞELİM</span><h2 id="visit-title">Ziyaretiniz<br/>için küçük bir not.</h2><p>Yola çıkmadan önce bizi arayarak ziyaret gününüzü ve saatinizi teyit edebilirsiniz.</p><a class="visit-phone" href="tel:+905456105009">{icon('phone')} 0545 610 50 09</a><div class="visit-address"><span>MAĞAZA ADRESİ</span><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8, 34421<br/>Beyoğlu / İstanbul</address><button class="text-button" type="button" data-copy="Ünüvar Aydınlatma, Emekyemez Mahallesi, Tutsak Sokak No:8, 34421 Beyoğlu / İstanbul">{icon('copy')} Adresi kopyala</button></div></div>
-      <div class="prepare-copy"><span class="eyebrow">GÖRÜŞMEYE HAZIRLIK</span><h2>Biraz detay,<br/>daha net bir başlangıç.</h2><p>Mesajınızda aşağıdaki bilgileri paylaşmanız ihtiyacınızı anlatmayı kolaylaştırır.</p><dl class="prepare-list"><div><dt>Mekân</dt><dd>Ev, ofis veya işletme; hangi alan için düşündüğünüz.</dd></div><div><dt>Beklenti</dt><dd>Değiştirmek istediğiniz şey ve istediğiniz atmosfer.</dd></div><div><dt>Varsa bir görsel</dt><dd>Mekânın fotoğrafı veya yaklaşık ölçüleri.</dd></div></dl>{out(wa('Merhaba, aydınlatma ihtiyacım hakkında sizinle görüşmek istiyorum. Mekânım: '),'İhtiyacınızı WhatsApp’tan anlatın '+icon('up'),'button outline')}</div>
-    </div></section>'''
-
-    social = f'''<section class="follow-section" aria-labelledby="follow-title"><div class="container follow-inner"><div><span class="eyebrow">BAĞLANTIDA KALALIM</span><h2 id="follow-title">Mağazamızdan paylaşımlar.</h2><p>Ünüvar Aydınlatma’yı sosyal medyada da bulabilirsiniz.</p></div><div class="follow-links">{out(instagram,'<span>Instagram<small>@unuvar.aydinlatma</small></span>'+icon('up'),'follow-link')}{out(facebook,'<span>Facebook<small>Ünüvar Elektrik ve Aydınlatma</small></span>'+icon('up'),'follow-link')}</div></div></section>'''
-    return dict(spaces=spaces, process=process, faq=faq, about=about, visit=visit, social=social)
+    social = f'''<section class="follow-section" aria-labelledby="follow-title"><div class="container follow-inner"><div><span class="eyebrow">SOSYAL MEDYA</span><h2 id="follow-title">Mağazamızı takip edin.</h2></div><div class="follow-links">{out(instagram,'<span>Instagram<small>@unuvar.aydinlatma</small></span>'+icon('up'),'follow-link')}{out(facebook,'<span>Facebook<small>Ünüvar Elektrik ve Aydınlatma</small></span>'+icon('up'),'follow-link')}</div></div></section>'''
+    return dict(range=product_range, ask=ask, faq=faq, social=social)

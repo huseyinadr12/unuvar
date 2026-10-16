@@ -12,7 +12,7 @@
   ::view-transition-new(page-content){animation:page-enter .58s cubic-bezier(.22,.7,.15,1) .06s both;mix-blend-mode:normal}
   /* Also animate entry where cross-document transitions are unsupported. */
   .js:not(.has-native-transition) main{animation:page-enter .64s cubic-bezier(.22,.7,.15,1) .04s backwards}
-  .js.is-loading main{animation-play-state:paused}
+
   .reveal{opacity:0;transform:translateY(10px);transition:opacity .4s ease var(--reveal-delay,0ms),transform .4s cubic-bezier(.22,.7,.15,1) var(--reveal-delay,0ms)}
   .reveal.is-visible,.reveal:focus-within{opacity:1;transform:none}
   .hero-copy,.hero-visual,.hero-photo{animation:none!important}

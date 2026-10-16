@@ -6,13 +6,13 @@
   "sitemap_urls": 5,
   "assets": {
     "app.css": {
-      "bytes": 75721,
-      "gzip_estimate_bytes": 16349,
+      "bytes": 35875,
+      "gzip_estimate_bytes": 8272,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 17788,
-      "gzip_estimate_bytes": 6021,
+      "bytes": 14870,
+      "gzip_estimate_bytes": 5055,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {

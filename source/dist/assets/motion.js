@@ -16,7 +16,7 @@
         }
       });
     }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
-    document.querySelectorAll('.page-heading,.brands-showcase h2,.section-head,.store-copy,.store-photo,.location-copy,.map-shell,.faq-section>div,.brand-card,.conversion-copy,.conversion-action,.about-copy,.about-photo,.contact-row,.chapter-heading,.space-panel,.process-intro,.process-steps,.questions-intro,.questions-list,.approach-grid article,.visit-card,.prepare-copy,.follow-inner,.story-details-grid>div,.light-story-visual,.light-story-copy,.destination-heading,.destination-store,.conversation-intro,.conversation-form').forEach((el, index) => {
+    document.querySelectorAll('.page-heading,.section-head,.brand-card,.range-card,.ask-copy,.ask-card,.faq-intro,.faq-list,.location-copy,.map-shell,.about-photo,.value-card,.channel-card,.destination-store,.conversation-intro,.conversation-form,.follow-inner').forEach((el, index) => {
       if (el.getBoundingClientRect().top < innerHeight) return;
       el.style.setProperty('--reveal-delay', `${index % 3 * 45}ms`);
       el.classList.add('reveal');

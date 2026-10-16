@@ -4,7 +4,13 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, katalog duyurusu, hakkımızda, iletişim ve gizlilik sayfaları bulunur. Ürün yayınlanmamıştır. WhatsApp mesaj hazırlama ve gelecekte kullanılacak sipariş listesi altyapısı hazırdır.
+Ana sayfa, ürün grupları, hakkımızda, iletişim ve gizlilik sayfaları bulunur. Ürün grupları WhatsApp'tan fiyat ve stok sormaya yönlendirir; tekil ürün ve fiyat yayınlanmamıştır. Gelecekte kullanılacak sipariş listesi altyapısı hazırdır ve katalogda ürün olduğunda görünür.
+
+## Sık düzenlenenler
+
+- **Çalışma saatleri:** `source/scripts/build.py` içindeki `HOURS` listesi. Boş bırakılırsa sitede "telefonla teyit edin" notu görünür; doldurulduğunda ana sayfa, konum bölümü ve İletişim sayfasında listelenir.
+- **Ürün grupları:** `source/scripts/content_sections.py` içindeki `PRODUCT_GROUPS`.
+- **Renkler ve tasarım:** `source/dist/assets/site.css` (en üstteki `:root` değişkenleri tabela ve logodan alınan antrasit, beyaz ve sarıdır).
 
 ## Düzenleme ve yayınlama
 
@@ -17,7 +23,7 @@ python source/scripts/audit_seo.py
 python source/scripts/export_pages.py --output docs --url https://huseyinadr12.github.io/unuvar
 ```
 
-`source/scripts/inner_pages.py` Hakkımızda ve İletişim içeriğini, `source/scripts/content_sections.py` ortak bölümleri, `source/dist/assets/` tasarımı ve etkileşimleri içerir. Ürünler daha sonra `source/data/order-catalog.json` üzerinden eklenebilir.
+`source/scripts/inner_pages.py` Hakkımızda ve İletişim içeriğini, `source/scripts/content_sections.py` ortak bölümleri (ürün grupları, fotoğrafla sor, SSS), `source/dist/assets/` tasarımı ve etkileşimleri içerir. Ürünler daha sonra `source/data/order-catalog.json` üzerinden eklenebilir.
 
 GitHub Pages, `main` dalının `/docs` klasörünü yayınlar. Değişiklikten sonra yukarıdaki komutlarla çıktıyı güncelleyip `docs` ile kaynak değişikliklerini birlikte commit/push edin. Dışa aktarım yalnızca kullanılan görselleri ve dosyaları alır, `/unuvar/` bağlantılarını ve arama motoru meta verilerini yayın adresine uyarlar.
 

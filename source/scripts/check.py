@@ -61,12 +61,14 @@ for path in pages:
         if name in source: errors.append(f'{path}: archived product is still published: {name}')
     if not order_records and 'data-order-add=' in source: errors.append(f'{path}: unexpected orderable product')
     if 'qa-one' in source or 'Yalnızca yerel QA' in source: errors.append(f'{path}: test fixture leaked into publication')
-    for required in ['order-dialog','order-data','site-loader']:
+    for required in ['order-dialog','order-data']:
         if required not in parsed.ids: errors.append(f'{path}: missing {required}')
     if parsed.h1 != 1: errors.append(f'{path}: expected 1 h1, got {parsed.h1}')
     if 'main' not in parsed.ids: errors.append(f'{path}: missing main anchor')
 if len(pages) != 6: errors.append('Expected exactly 5 pages and a 404; check for stale catalog/category pages')
-if not order_records and 'Çok yakında<br/> yüklenecektir.' not in (DIST / 'urunler/index.html').read_text(encoding='utf-8'):
-    errors.append('Catalog coming-soon message is missing')
+if 'range-card' not in (DIST / 'urunler/index.html').read_text(encoding='utf-8'):
+    errors.append('Product groups are missing from the products page')
+for path in pages:
+    if 'site-loader' in path.read_text(encoding='utf-8'): errors.append(f'{path}: first-visit loader is published')
 if errors: raise SystemExit('\n'.join(errors))
-print(f'PASS: {len(pages)} pages; {len(order_records)} published orderable products; no QA fixtures; internal links, assets/srcsets, headings, IDs, automatic maps, loader/order markup and JSON-LD.')
+print(f'PASS: {len(pages)} pages; {len(order_records)} published orderable products; no QA fixtures; internal links, assets/srcsets, headings, IDs, automatic maps, order markup, product groups and JSON-LD.')

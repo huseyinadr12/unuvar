@@ -18,7 +18,7 @@
   function render(){
     list.replaceChildren();rows=core.items(rows,products);
     const count=rows.reduce((sum,row)=>sum+row.quantity,0);
-    document.querySelectorAll('[data-order-open]').forEach(button=>{button.hidden=false;button.setAttribute('aria-label',`Sipariş listesi (${count})`);button.querySelector('[data-order-count]').textContent=count;});
+    document.querySelectorAll('[data-order-open]').forEach(button=>{button.hidden=!products.size;button.setAttribute('aria-label',`Sipariş listesi (${count})`);button.querySelector('[data-order-count]').textContent=count;});
     empty.hidden=rows.length>0;filled.hidden=!rows.length;clear.hidden=!rows.length;
     dialog.querySelector('[data-order-total]').textContent=`${rows.length} ürün kalemi`;
     rows.forEach(row=>{

@@ -1,7 +1,7 @@
 from pathlib import Path
 import json, html, urllib.parse, hashlib
 from seo import metadata, robots
-from order_markup import order_markup, loader_markup, validate_products
+from order_markup import order_markup, validate_products
 from content_sections import presentation_sections
 from inner_pages import about_page, contact_page
 
@@ -12,8 +12,9 @@ BRANDS = json.loads((ROOT / 'data/brands.json').read_text(encoding='utf-8'))
 MEDIA = json.loads((ROOT / 'data/media.json').read_text(encoding='utf-8'))
 PHONE = '905456105009'
 ORDER_PRODUCTS = validate_products(json.loads((ROOT / 'data/order-catalog.json').read_text(encoding='utf-8')), DIST)
-LOADER_HEAD = (DIST / 'assets/loader-head.js').read_text(encoding='utf-8')
-LOADER_HEAD += '\n' + (DIST / 'assets/navigation-head.js').read_text(encoding='utf-8')
+HEAD_JS = (DIST / 'assets/navigation-head.js').read_text(encoding='utf-8')
+# Çalışma saatleri teyit edildiğinde doldurun, örn. [('Pazartesi - Cumartesi', '09:00 - 19:00'), ('Pazar', 'Kapalı')]
+HOURS = []
 IG = 'https://www.instagram.com/unuvar.aydinlatma/'
 FB = 'https://www.facebook.com/p/%C3%9Cn%C3%BCvar-Elektrik-VE-Aydinlatma-100089000323477/'
 BUSINESS_MAP = 'https://www.google.com/maps/place/%C3%9Cn%C3%BCvar+Ayd%C4%B1nlatma+Elektrik/@41.0262442,28.9710587,17z/data=!3m1!4b1!4m6!3m5!1s0x14cab9f6e7d1a36d:0xfa8c9bd37519d265!8m2!3d41.0262442!4d28.9710587!16s%2Fg%2F11vcmwg5yl'
@@ -25,8 +26,8 @@ def bundle(filename, parts):
     (DIST / 'assets' / filename).write_text(content, encoding='utf-8')
     return '/assets/' + filename + '?v=' + hashlib.sha256(content.encode()).hexdigest()[:12]
 
-CSS = bundle('app.css', ['light.css', 'lighting.css', 'experience.css', 'theme.css', 'content.css', 'inner-pages.css', 'transitions.css'])
-JS = bundle('app.js', ['loader.js', 'site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js'])
+CSS = bundle('app.css', ['site.css', 'orders.css', 'transitions.css'])
+JS = bundle('app.js', ['site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js'])
 CATEGORIES = {
     'panel-spot': ('Panel ve spot', 'İhtiyacınız olan ışık, sade bir görünüm.', 'spot'),
     'dekoratif-led': ('Dekoratif LED', 'Mekânınızın çizgilerini ışıkla vurgulayın.', 'spark'),
@@ -50,6 +51,15 @@ ICONS = {
     'check':'<path d="m5 12 4 4L19 6"/>',
     'copy':'<rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>',
     'chevron':'<path d="m9 5 7 7-7 7"/>',
+    'pendant':'<path d="M12 2v5"/><path d="M4 15a8 8 0 0 1 16 0Z"/><path d="M10 18.5a2 2 0 0 0 4 0"/>',
+    'sconce':'<path d="M4 8v8M4 12h5"/><path d="M10 5h6l3 10H7Z"/><path d="M11 19h4"/>',
+    'downlight':'<path d="M3 7h18"/><path d="M7 7a5 5 0 0 0 10 0"/><path d="m9 16-1.5 4M12 16v4m3-4 1.5 4"/>',
+    'strip':'<rect x="2" y="9" width="20" height="6" rx="1.5"/><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"/>',
+    'floor':'<path d="M8 3h8l2.5 6h-13Z"/><path d="M12 9v12M8 21h8"/>',
+    'bollard':'<rect x="8" y="3" width="8" height="6" rx="1.5"/><path d="M9 9h6v12H9ZM5 21h14M4 6H2m20 0h-2"/>',
+    'socket':'<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="5"/><path d="M10 12h.01M14 12h.01"/>',
+    'camera':'<path d="M4 8h3l2-3h6l2 3h3v11H4Z"/><circle cx="12" cy="13" r="3.5"/>',
+    'clock':'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
 }
 
 def e(s): return html.escape(str(s), quote=True)
@@ -59,18 +69,24 @@ def wa(text='Merhaba, Ünüvar Aydınlatma hakkında bilgi almak istiyorum.'):
 def out(url, label, cls=''):
     return f'<a class="{cls}" href="{e(url)}" target="_blank" rel="noopener noreferrer">{label}</a>'
 def logo(): return '<span class="logo-crop"><img src="/assets/logo.webp" width="230" height="230" alt="Ünüvar Aydınlatma"></span>'
-def photo(kind, alt, hero=False, priority=False):
-    name, widths, height = ('hero-lighting-v2', [640, 960, 1122], 1402) if kind == 'hero' else ('magaza-profesyonel-v5', [480, 800, 1448], 1086)
-    sizes = '(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) calc(50vw - 47px), (max-width: 1240px) calc(50vw - 74px), 546px' if hero else '(max-width: 760px) calc(100vw - 40px), (max-width: 1240px) 50vw, 660px'
+def photo(alt, hero=False, priority=False):
+    name, widths, height = 'magaza-profesyonel-v5', [480, 800, 1448], 1086
+    sizes = '(max-width: 900px) calc(100vw - 40px), 640px' if hero else '(max-width: 900px) calc(100vw - 40px), 600px'
     srcsets = {ext: ', '.join(f'/assets/{name}-{w}.{ext} {w}w' for w in widths) for ext in ['avif', 'webp']}
-    loading = 'fetchpriority="high"' if hero or priority else 'loading="lazy"'
-    return f'<picture class="responsive-picture"><source type="image/avif" srcset="{srcsets["avif"]}" sizes="{sizes}"><img class="{"hero-photo" if hero else "store-image"}" src="/assets/{name}-{widths[1]}.webp" srcset="{srcsets["webp"]}" sizes="{sizes}" width="{widths[-1]}" height="{height}" alt="{e(alt)}" {loading} decoding="async"></picture>'
+    loading = 'fetchpriority="high"' if hero or priority else 'loading="lazy" decoding="async"'
+    return f'<picture class="responsive-picture"><source type="image/avif" srcset="{srcsets["avif"]}" sizes="{sizes}"><img class="store-image" src="/assets/{name}-{widths[1]}.webp" srcset="{srcsets["webp"]}" sizes="{sizes}" width="{widths[-1]}" height="{height}" alt="{e(alt)}" {loading}></picture>'
+
+def hours_block():
+    if HOURS:
+        rows = ''.join(f'<div><dt>{e(day)}</dt><dd>{e(time)}</dd></div>' for day, time in HOURS)
+        return f'<dl class="hours">{rows}</dl>'
+    return f'<p class="hours-note">{icon("clock")}<span>Çalışma saatlerini <a href="tel:+905456105009">0545 610 50 09</a> numarasından teyit edebilirsiniz.</span></p>'
 
 def map_panel():
     return f'''<div class="map-shell"><div class="map-heading"><span>{icon('pin')} Ünüvar Aydınlatma</span><small>KARAKÖY · İSTANBUL</small></div><div class="map-canvas"><iframe id="store-map" title="Ünüvar Aydınlatma Elektrik mağaza konumu" src="{e(MAP_EMBED)}" width="600" height="450" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen tabindex="0"></iframe></div><div class="map-footer"><p>Karaköy · Beyoğlu, İstanbul</p>{out(BUSINESS_MAP,'Google Haritalar’da aç '+icon('up'),'text-link')}</div></div>'''
 
 def location():
-    return f'''<section class="location-section" id="ulasim" aria-labelledby="location-title"><div class="container location-grid"><div class="location-copy"><span class="eyebrow">MAĞAZAMIZ</span><h2 id="location-title">Karaköy’de buluşalım.</h2><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8, 34421<br/>Beyoğlu / İstanbul</address><p>Ziyaret saatinizi gelmeden önce telefonla teyit edebilirsiniz.</p><div class="location-actions">{out(MAP,'Yol tarifi al '+icon('up'),'button outline')}<a class="text-link" href="tel:+905456105009">{icon('phone')} 0545 610 50 09</a></div></div>{map_panel()}</div></section>'''
+    return f'''<section class="location-section" id="ulasim" aria-labelledby="location-title"><div class="container location-grid"><div class="location-copy"><span class="eyebrow">MAĞAZAMIZ</span><h2 id="location-title">Karaköy’de, Tutsak Sokak’ta.</h2><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8, 34421<br/>Beyoğlu / İstanbul</address>{hours_block()}<div class="location-actions">{out(MAP,'Yol tarifi al '+icon('up'),'button yellow')}<a class="text-link" href="tel:+905456105009">{icon('phone')} 0545 610 50 09</a></div></div>{map_panel()}</div></section>'''
 
 def breadcrumb(items):
     links=['<a href="/">Ana sayfa</a>']
@@ -81,23 +97,23 @@ def brand_logos():
     return ''.join(f'<div class="brand-card brand-{brand["name"]}"><img src="/assets/brands/{brand["file"]}" width="{brand["width"]}" height="{brand["height"]}" alt="{e(brand["label"])}" loading="lazy"></div>' for brand in BRANDS)
 
 def brands():
-    return f'''<section class="brands-showcase" id="markalar"><div class="container"><h2>Markalar</h2><div class="brand-cards">{brand_logos()}</div></div></section>'''
+    return f'''<section class="brands-showcase" id="markalar" aria-labelledby="brands-title"><div class="container brands-inner"><h2 id="brands-title">Mağazamızda bulabileceğiniz markalar</h2><div class="brand-cards">{brand_logos()}</div></div></section>'''
 
 SECTIONS = presentation_sections(icon, out, wa, IG, FB)
 
 def shell(title, desc, body, current='home', path='/', hero=False, schema=None):
-    nav=''.join(f'<a href="{u}" {"aria-current=page" if current==key else ""}>{label}</a>' for key,label,u in [('home','Ana sayfa','/'),('products','Katalog','/urunler/'),('about','Hakkımızda','/hakkimizda/'),('contact','İletişim','/iletisim/')])
+    nav=''.join(f'<a href="{u}" {"aria-current=page" if current==key else ""}>{label}</a>' for key,label,u in [('home','Ana sayfa','/'),('products','Ürünler','/urunler/'),('about','Hakkımızda','/hakkimizda/'),('contact','İletişim','/iletisim/')])
     schema= schema or {'@context':'https://schema.org','@type':'Store','name':'Ünüvar Aydınlatma','url':ORIGIN,'logo':ORIGIN+'/assets/logo.webp','image':ORIGIN+'/assets/magaza-profesyonel-v5-1448.webp','telephone':'+90 545 610 50 09','sameAs':[IG,FB],'address':{'@type':'PostalAddress','streetAddress':'Emekyemez Mahallesi, Tutsak Sokak No:8','addressLocality':'Beyoğlu','addressRegion':'İstanbul','postalCode':'34421','addressCountry':'TR'},'geo':{'@type':'GeoCoordinates','latitude':41.0262442,'longitude':28.9710587},'hasMap':BUSINESS_MAP}
     seo = metadata(path, title, desc, ORIGIN, schema)
     schema = seo['schema']
     full_title, desc = seo['title'], seo['description']
     social = MEDIA[seo['image']]
-    preload = '<link rel="preload" as="image" type="image/avif" href="/assets/hero-lighting-v2-960.avif" imagesrcset="/assets/hero-lighting-v2-640.avif 640w, /assets/hero-lighting-v2-960.avif 960w, /assets/hero-lighting-v2-1122.avif 1122w" imagesizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) calc(50vw - 47px), (max-width: 1240px) calc(50vw - 74px), 546px" fetchpriority="high">' if hero else ''
-    return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>.site-loader{{display:none}}.is-loading .site-loader:not([hidden]){{display:flex;position:fixed;inset:0;background:#202622;color:#f5eddb;z-index:200;align-items:center;justify-content:center}}.is-loading{{overflow:hidden}}</style><script>document.documentElement.classList.add("js");{LOADER_HEAD}</script><title>{e(full_title)}</title><meta name="description" content="{e(desc)}"><meta name="robots" content="{seo['robots']}"><meta name="theme-color" content="#f4eee2"><link rel="canonical" href="{ORIGIN}{path}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><meta property="og:title" content="{e(full_title)}"><meta property="og:site_name" content="Ünüvar Aydınlatma"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}{seo['image']}"><meta property="og:image:width" content="{social['width']}"><meta property="og:image:height" content="{social['height']}"><meta property="og:image:type" content="{social['type']}"><meta property="og:image:alt" content="{e(title)} — Ünüvar Aydınlatma"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(full_title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{ORIGIN}{seo['image']}"><meta name="twitter:image:alt" content="{e(title)} — Ünüvar Aydınlatma"><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin-ext.woff2" crossorigin><link rel="stylesheet" href="{CSS}">{preload}<script defer src="{JS}"></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('</','<\\/')}</script></head>
-    <body class="page-{current}">{loader_markup()}<a class="skip" href="#main">İçeriğe geç</a>
-    <header class="site-header"><div class="container header-inner"><a href="/" class="logo-link" aria-label="Ünüvar Aydınlatma ana sayfa">{logo()}</a><nav class="desktop-nav" aria-label="Ana menü">{nav}</nav><div class="header-actions"><button class="icon-button order-trigger" type="button" data-order-open aria-label="Sipariş listesi (0)" aria-haspopup="dialog" aria-controls="order-dialog" hidden>{icon('bag')}<span class="order-count" data-order-count aria-hidden="true">0</span></button>{out(wa(),icon('wa')+' <span>Bize ulaşın</span>','button yellow header-wa')}<button class="icon-button menu-trigger" aria-label="Menüyü aç" aria-controls="mobile-nav" aria-expanded="false">{icon('menu')}</button></div></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobil menü" hidden>{nav}</nav></header>
+    preload = '<link rel="preload" as="image" type="image/avif" href="/assets/magaza-profesyonel-v5-800.avif" imagesrcset="/assets/magaza-profesyonel-v5-480.avif 480w, /assets/magaza-profesyonel-v5-800.avif 800w, /assets/magaza-profesyonel-v5-1448.avif 1448w" imagesizes="(max-width: 900px) calc(100vw - 40px), 640px" fetchpriority="high">' if hero else ''
+    return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>document.documentElement.classList.add("js");{HEAD_JS}</script><title>{e(full_title)}</title><meta name="description" content="{e(desc)}"><meta name="robots" content="{seo['robots']}"><meta name="theme-color" content="#ffffff"><link rel="canonical" href="{ORIGIN}{path}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><meta property="og:title" content="{e(full_title)}"><meta property="og:site_name" content="Ünüvar Aydınlatma"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}{seo['image']}"><meta property="og:image:width" content="{social['width']}"><meta property="og:image:height" content="{social['height']}"><meta property="og:image:type" content="{social['type']}"><meta property="og:image:alt" content="{e(title)} · Ünüvar Aydınlatma"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(full_title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{ORIGIN}{seo['image']}"><meta name="twitter:image:alt" content="{e(title)} · Ünüvar Aydınlatma"><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin-ext.woff2" crossorigin><link rel="stylesheet" href="{CSS}">{preload}<script defer src="{JS}"></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('</','<\\/')}</script></head>
+    <body class="page-{current}"><a class="skip" href="#main">İçeriğe geç</a>
+    <header class="site-header"><div class="container header-inner"><a href="/" class="logo-link" aria-label="Ünüvar Aydınlatma ana sayfa">{logo()}</a><nav class="desktop-nav" aria-label="Ana menü">{nav}</nav><div class="header-actions"><button class="icon-button order-trigger" type="button" data-order-open aria-label="Sipariş listesi (0)" aria-haspopup="dialog" aria-controls="order-dialog" hidden>{icon('bag')}<span class="order-count" data-order-count aria-hidden="true">0</span></button><a class="header-phone" href="tel:+905456105009">{icon('phone')} 0545 610 50 09</a>{out(wa(),icon('wa')+' <span>WhatsApp</span>','button yellow header-wa')}<button class="icon-button menu-trigger" aria-label="Menüyü aç" aria-controls="mobile-nav" aria-expanded="false">{icon('menu')}</button></div></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobil menü" hidden>{nav}</nav></header>
     <main id="main" tabindex="-1">{body}</main>
-    <footer class="site-footer"><div class="container footer-main"><div class="footer-brand"><a href="/" class="footer-wordmark">Ünüvar<span>AYDINLATMA</span></a><p>Karaköy, İstanbul.</p><div class="social-links">{out(IG,'Instagram '+icon('up'))}{out(FB,'Facebook '+icon('up'))}</div></div><div><h3>Ünüvar Aydınlatma</h3><a href="/hakkimizda/">Hakkımızda</a><a href="/iletisim/">İletişim ve ulaşım</a><a href="/urunler/">Katalog</a></div><div><h3>İletişim</h3><a class="footer-phone" href="tel:+905456105009">0545 610 50 09</a><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8<br/>Beyoğlu / İstanbul</address>{out(MAP,'Yol tarifi al '+icon('up'),'text-link')}</div></div><div class="container footer-bottom"><span>© 2026 Ünüvar Aydınlatma</span><a href="/gizlilik/">Gizlilik ve site bilgileri</a></div></footer>
+    <footer class="site-footer"><div class="container footer-main"><div class="footer-brand"><a href="/" class="footer-wordmark">Ünüvar<span>AYDINLATMA</span></a><p>Karaköy’de aydınlatma ve elektrik malzemesi.</p><div class="social-links">{out(IG,'Instagram '+icon('up'))}{out(FB,'Facebook '+icon('up'))}</div></div><div><h3>Ünüvar Aydınlatma</h3><a href="/hakkimizda/">Hakkımızda</a><a href="/iletisim/">İletişim ve ulaşım</a><a href="/urunler/">Ürün grupları</a><a href="/#sorular">Sık sorulanlar</a></div><div><h3>İletişim</h3><a class="footer-phone" href="tel:+905456105009">0545 610 50 09</a><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8<br/>Beyoğlu / İstanbul</address>{out(MAP,'Yol tarifi al '+icon('up'),'text-link')}</div></div><div class="container footer-bottom"><span>© 2026 Ünüvar Aydınlatma</span><a href="/gizlilik/">Gizlilik ve site bilgileri</a></div></footer>
     <button class="back-to-top" type="button" aria-label="Sayfanın başına dön" hidden>{icon("arrow")}</button><div class="mobile-contact"><a href="tel:+905456105009">{icon('phone')} Ara</a>{out(wa(),icon('wa')+' WhatsApp’tan yazın')}</div><div class="toast" role="status" aria-live="polite"></div>{order_markup(icon, ORDER_PRODUCTS, PHONE, ORIGIN)}</body></html>'''
 
 
@@ -114,27 +130,28 @@ for stale in [DIST / 'urun', *(DIST / 'urunler' / category for category in CATEG
         for generated in stale.rglob('*.html'):
             generated.unlink()
 
-home=f'''<section class="hero-stage"><div class="container hero"><div class="hero-copy"><span class="eyebrow">ÜNÜVAR AYDINLATMA · KARAKÖY</span><h1>Her mekâna<br/><span class="light-word">doğru ışık.</span></h1><p class="hero-description">Bir mekânın havası ışıkla değişir. Eviniz ve işletmeniz için doğru aydınlatmayı birlikte bulalım.</p><div class="hero-actions"><a class="button yellow" href="/iletisim/">Bize ulaşın {icon('arrow')}</a><a class="text-link" href="#magaza">Mağazamızı keşfedin</a></div></div><figure class="hero-visual">{photo('hero','Opal cam sarkıt ve duvar apliğinin sıcak ışık etkisi',hero=True)}<figcaption class="hero-caption"><span>IŞIĞIN MEKÂNA DOKUNUŞU</span><strong>Aydınlatmayla değişen atmosfer.</strong></figcaption></figure></div></section>
-    {SECTIONS['spaces']}<section class="store-section" id="magaza"><div class="container store-grid"><div class="store-photo">{photo('store','Karaköy’deki Ünüvar Aydınlatma mağazasının tabelası, vitrini ve girişi')}</div><div class="store-copy"><span class="eyebrow">BİZİ TANIYIN</span><h2>Ünüvar Aydınlatma.</h2><p>İstanbul’un aydınlatma duraklarından Karaköy’deyiz. Eviniz, çalışma alanınız ya da işletmeniz için ihtiyaçlarınızı birlikte değerlendirelim.</p><dl class="store-facts"><div><dt>KONUM</dt><dd>Karaköy, Beyoğlu</dd></div><div><dt>İLETİŞİM</dt><dd>Telefon &amp; WhatsApp</dd></div></dl><a class="text-link" href="/hakkimizda/">Bizi daha yakından tanıyın {icon('arrow')}</a></div></div></section>
-    {brands()}{SECTIONS['process']}{SECTIONS['faq']}{location()}'''
-write('/',shell('Karaköy’de Ünüvar Aydınlatma','Ünüvar Aydınlatma ile tanışın. Karaköy’deki mağazamızı ziyaret edin veya telefon ve WhatsApp üzerinden bizimle iletişime geçin.',home,hero=True))
+home=f'''<section class="hero-stage"><div class="container hero"><div class="hero-copy"><span class="eyebrow">KARAKÖY · AYDINLATMA VE ELEKTRİK</span><h1>Avizeden ampule,<br/><span class="glow">aradığınız ışık burada.</span></h1><p class="hero-description">Ünüvar Aydınlatma, Karaköy’de aydınlatma ve elektrik malzemesi mağazası. Ürünü mağazamızda görün ya da fotoğrafını WhatsApp’tan gönderin, fiyat ve stok bilgisini iletelim.</p><div class="hero-actions">{out(wa('Merhaba Ünüvar Aydınlatma, bir ürün hakkında bilgi almak istiyorum.'),icon('wa')+' WhatsApp’tan ürün sor','button yellow')}<a class="button ghost" href="#urun-gruplari">Ürün gruplarını görün {icon('arrow')}</a></div>
+      <dl class="hero-facts"><div><dt>{icon('pin')} Adres</dt><dd>Tutsak Sk. No:8, Karaköy</dd></div><div><dt>{icon('phone')} Telefon</dt><dd><a href="tel:+905456105009">0545 610 50 09</a></dd></div><div><dt>{icon('clock')} Saatler</dt><dd>{e(HOURS[0][1]) if HOURS else 'Telefonla teyit edin'}</dd></div></dl></div>
+      <figure class="hero-visual">{photo('Karaköy’deki Ünüvar Aydınlatma mağazasının tabelası, vitrini ve girişi',hero=True)}<figcaption><span class="live-dot" aria-hidden="true"></span> Karaköy mağazamız</figcaption></figure></div></section>
+    {brands()}{SECTIONS['range']()}{SECTIONS['ask']}{SECTIONS['faq']}{location()}'''
+write('/',shell('Karaköy’de aydınlatma ve elektrik malzemesi','Avize, sarkıt, aplik, spot, LED ampul, şerit LED ve elektrik malzemesi. Karaköy’deki Ünüvar Aydınlatma mağazasını ziyaret edin veya WhatsApp’tan ürün sorun.',home,hero=True))
 
-catalog=f'''<div class="container">{breadcrumb([('Katalog',None)])}<section class="coming-soon" aria-labelledby="catalog-title"><span class="eyebrow">KATALOG</span><h1 id="catalog-title">Çok yakında<br/> yüklenecektir.</h1></section></div>'''
+catalog=f'''<div class="container">{breadcrumb([('Ürünler',None)])}</div>{SECTIONS['range']('h1','Ürün grupları')}{SECTIONS['ask']}'''
 if ORDER_PRODUCTS:
     cards=''.join(f'<article class="order-card"><img src="{e(p["image"])}" alt="{e(p["name"])}" width="540" height="540" loading="lazy"><small>{e(p.get("brand",""))} {e(p.get("code",""))}</small><h2>{e(p["name"])}</h2><button type="button" class="button yellow" data-order-add="{e(p["id"])}">Listeye ekle {icon("bag")}</button><noscript>Sipariş listesi için JavaScript gereklidir. Telefonla bize ulaşabilirsiniz.</noscript></article>' for p in ORDER_PRODUCTS)
-    catalog=f'<div class="container">{breadcrumb([("Katalog",None)])}<section class="page-heading"><h1>Katalog.</h1><p>Seçimlerinizi listeye ekleyin, WhatsApp üzerinden bize iletin.</p></section><div class="order-grid">{cards}</div></div>'
-write('/urunler/',shell('Katalog','Ünüvar Aydınlatma kataloğu çok yakında yüklenecektir.',catalog,current='products',path='/urunler/'))
+    catalog=f'<div class="container">{breadcrumb([("Ürünler",None)])}<section class="page-heading"><h1>Katalog.</h1><p>Seçimlerinizi listeye ekleyin, WhatsApp üzerinden bize iletin.</p></section><div class="order-grid">{cards}</div></div>'
+write('/urunler/',shell('Ürün grupları','Avize, aplik, spot, panel, LED ampul, şerit LED, dış mekân aydınlatması ve elektrik malzemesi. Fiyat ve stok bilgisini WhatsApp’tan sorun.',catalog,current='products',path='/urunler/'))
 
 about = about_page(icon, out, wa, photo, breadcrumb, SECTIONS, brands)
-write('/hakkimizda/',shell('Hakkımızda','Karaköy’deki Ünüvar Aydınlatma mağazasını tanıyın. Aydınlatma ve elektrik ihtiyaçlarınız için bizimle iletişime geçin.',about,current='about',path='/hakkimizda/'))
+write('/hakkimizda/',shell('Hakkımızda','Ünüvar Aydınlatma, Karaköy’de aydınlatma ve elektrik malzemesi mağazası. Ürün gruplarımızı ve markalarımızı tanıyın.',about,current='about',path='/hakkimizda/'))
 
-contact = contact_page(icon, out, wa, photo, breadcrumb, map_panel, MAP, SECTIONS)
+contact = contact_page(icon, out, wa, photo, breadcrumb, map_panel, MAP, hours_block())
 write('/iletisim/',shell('İletişim ve ulaşım','Ünüvar Aydınlatma: 0545 610 50 09. Karaköy mağazamıza ulaşın, telefon veya WhatsApp üzerinden bizimle görüşün.',contact,current='contact',path='/iletisim/'))
 
-privacy='''<div class="container narrow"><section class="page-heading"><span class="eyebrow">SİTE BİLGİLERİ</span><h1>Gizlilik ve iletişim.</h1><p>Son güncelleme: 15 Ekim 2026</p></section><div class="prose"><h2>Bu site nasıl çalışır?</h2><p>Bu site Ünüvar Aydınlatma’yı tanıtır ve mağaza iletişim bilgilerini sunar. Site üzerinde üyelik veya ödeme bulunmaz. Sipariş listesi bir talep taslağıdır; kesinleşmiş sipariş ya da satın alma oluşturmaz. Reklam veya ziyaretçi analitiği için ek izleme kodu kullanılmaz.</p><h2>Sipariş listesi</h2><p>Ürünler yayınlandığında seçtiğiniz ürünlerin kimlikleri ve miktarları, bu cihazın tarayıcısında en fazla yedi gün tutulur. Sipariş notu kalıcı kaydedilmez. Listeyi temizleyerek kayıtları silebilirsiniz. Siteye bir sipariş kaydı gönderilmez; WhatsApp düğmesi, seçiminizi hazır mesaj olarak ilgili hizmete aktarır. Mesajı WhatsApp içinde siz gönderirsiniz.</p><h2>İletişim mesajı</h2><p>İletişim sayfasında seçtiğiniz konu ve yazdığınız not, yalnızca tarayıcınızda bir WhatsApp mesaj taslağı hazırlar. Bilgiler bu siteye gönderilmez ve kalıcı olarak kaydedilmez. WhatsApp’ta aç düğmesine bastığınızda taslak ilgili hizmete aktarılır; mesajı siz gönderirsiniz.</p><h2>Açılış tercihi</h2><p>Açılış animasyonunun aynı sekmede tekrar gösterilmemesi için oturum depolaması kullanılır.</p><h2>Dış bağlantılar</h2><p>WhatsApp, Instagram, Facebook ve Google Haritalar bağlantıları ilgili hizmetleri açar. Bu hizmetlere geçişinizde onların gizlilik ve kullanım koşulları geçerlidir. WhatsApp bağlantısı bir karşılama mesajı hazırlar; mesajı siz gönderirsiniz.</p><h2>Mağaza haritası</h2><p>Google Haritalar bileşeni ana sayfa ve iletişim sayfası açıldığında otomatik yüklenir. Bu işlem, tarayıcınızın Google ile bağlantı kurmasına ve IP adresi gibi teknik bağlantı bilgilerinin Google’a iletilmesine neden olur. Harita için Google’ın gizlilik ve kullanım koşulları geçerlidir. Mağaza adresini ayrıca sayfadaki metinden okuyabilir ve telefonla bize ulaşabilirsiniz.</p><h2>Barındırma</h2><p>Siteye erişim, barındırma sağlayıcısının altyapısı üzerinden gerçekleşir. Erişim yönetimi ve teknik kayıtlar sağlayıcının politikaları kapsamında işlenebilir.</p><h2>Bize ulaşın</h2><p>Site ve içerikler hakkında 0545 610 50 09 numaralı telefondan Ünüvar Aydınlatma’ya ulaşabilirsiniz.</p></div></div>'''
+privacy='''<div class="container narrow"><section class="page-heading"><span class="eyebrow">SİTE BİLGİLERİ</span><h1>Gizlilik ve iletişim.</h1><p>Son güncelleme: 15 Ekim 2026</p></section><div class="prose"><h2>Bu site nasıl çalışır?</h2><p>Bu site Ünüvar Aydınlatma’yı tanıtır ve mağaza iletişim bilgilerini sunar. Site üzerinde üyelik veya ödeme bulunmaz. Sipariş listesi bir talep taslağıdır; kesinleşmiş sipariş ya da satın alma oluşturmaz. Reklam veya ziyaretçi analitiği için ek izleme kodu kullanılmaz.</p><h2>Sipariş listesi</h2><p>Ürünler yayınlandığında seçtiğiniz ürünlerin kimlikleri ve miktarları, bu cihazın tarayıcısında en fazla yedi gün tutulur. Sipariş notu kalıcı kaydedilmez. Listeyi temizleyerek kayıtları silebilirsiniz. Siteye bir sipariş kaydı gönderilmez; WhatsApp düğmesi, seçiminizi hazır mesaj olarak ilgili hizmete aktarır. Mesajı WhatsApp içinde siz gönderirsiniz.</p><h2>İletişim mesajı</h2><p>İletişim sayfasında seçtiğiniz konu ve yazdığınız not, yalnızca tarayıcınızda bir WhatsApp mesaj taslağı hazırlar. Bilgiler bu siteye gönderilmez ve kalıcı olarak kaydedilmez. WhatsApp’ta aç düğmesine bastığınızda taslak ilgili hizmete aktarılır; mesajı siz gönderirsiniz.</p><h2>Dış bağlantılar</h2><p>WhatsApp, Instagram, Facebook ve Google Haritalar bağlantıları ilgili hizmetleri açar. Bu hizmetlere geçişinizde onların gizlilik ve kullanım koşulları geçerlidir. WhatsApp bağlantısı bir karşılama mesajı hazırlar; mesajı siz gönderirsiniz.</p><h2>Mağaza haritası</h2><p>Google Haritalar bileşeni ana sayfa ve iletişim sayfası açıldığında otomatik yüklenir. Bu işlem, tarayıcınızın Google ile bağlantı kurmasına ve IP adresi gibi teknik bağlantı bilgilerinin Google’a iletilmesine neden olur. Harita için Google’ın gizlilik ve kullanım koşulları geçerlidir. Mağaza adresini ayrıca sayfadaki metinden okuyabilir ve telefonla bize ulaşabilirsiniz.</p><h2>Barındırma</h2><p>Siteye erişim, barındırma sağlayıcısının altyapısı üzerinden gerçekleşir. Erişim yönetimi ve teknik kayıtlar sağlayıcının politikaları kapsamında işlenebilir.</p><h2>Bize ulaşın</h2><p>Site ve içerikler hakkında 0545 610 50 09 numaralı telefondan Ünüvar Aydınlatma’ya ulaşabilirsiniz.</p></div></div>'''
 write('/gizlilik/',shell('Gizlilik ve site bilgileri','Ünüvar Aydınlatma web sitesinin veri akışı, bağlantıları ve iletişim bilgileri.',privacy,current='legal',path='/gizlilik/'))
 write('/404.html',shell('Sayfa bulunamadı','Aradığınız sayfaya ulaşılamadı.',f'<div class="container not-found"><span class="eyebrow">404</span><h1>Bu sayfanın ışığı kapalı.</h1><p>Aradığınız sayfa taşınmış veya kaldırılmış olabilir.</p><a href="/" class="button yellow">Ana sayfaya dön {icon("arrow")}</a></div>',current='notfound',path='/404.html'))
 paths=['/','/urunler/','/hakkimizda/','/iletisim/','/gizlilik/']
 write('/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{path}</loc></url>' for path in paths)+'</urlset>')
 write('/robots.txt',robots(ORIGIN))
-print(f'Built {len(paths)} pages + 404, sitemap and robots. Catalog content is not published.')
+print(f'Built {len(paths)} pages + 404, sitemap and robots. Orderable catalog items: {len(ORDER_PRODUCTS)}.')

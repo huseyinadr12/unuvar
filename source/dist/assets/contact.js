@@ -7,10 +7,10 @@
   const note = document.querySelector('#contact-note');
   const preview = document.querySelector('[data-contact-preview]');
   const link = document.querySelector('.composer-send');
-  const topics = ['mekânımın aydınlatması', 'mağaza ziyareti', 'genel bir soru'];
+  const topics = ['bir ürün hakkında bilgi almak', 'mağaza ziyareti hakkında görüşmek', 'bir soru sormak'];
   const update = () => {
     const extra = note.value.trim().slice(0, 700);
-    const text = `Merhaba Ünüvar Aydınlatma, ${topics[topic.selectedIndex] || topics[0]} hakkında görüşmek istiyorum.${extra ? '\n\n' + extra : ''}`;
+    const text = `Merhaba Ünüvar Aydınlatma, ${topics[topic.selectedIndex] || topics[0]} istiyorum.${extra ? '\n\n' + extra : ''}`;
     preview.textContent = text;
     link.href = 'https://wa.me/905456105009?text=' + encodeURIComponent(text);
   };
