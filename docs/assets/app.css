@@ -394,7 +394,19 @@ main:focus{outline:none}
 
   .reveal{opacity:0;transform:translateY(10px);transition:opacity .4s ease var(--reveal-delay,0ms),transform .4s cubic-bezier(.22,.7,.15,1) var(--reveal-delay,0ms)}
   .reveal.is-visible,.reveal:focus-within{opacity:1;transform:none}
-  .hero-copy,.hero-visual,.hero-photo{animation:none!important}
+  /* Home opening: the storefront lights come on and the headline ignites like a tube.
+     Content is in place from the first paint; only opacity, transform and filter move. */
+  .js:not(.has-native-transition) .page-home main{animation:none}
+  .js .hero-stage:before{animation:glow-in 2.2s ease .25s backwards}
+  .js .hero .eyebrow,.js .hero h1,.js .hero-description,.js .hero-actions,.js .hero-facts{animation:rise .85s cubic-bezier(.22,.7,.15,1) backwards}
+  .js .hero h1{animation-delay:.08s}
+  .js .hero-description{animation-delay:.2s}
+  .js .hero-actions{animation-delay:.3s}
+  .js .hero-facts{animation-delay:.42s}
+  .js .hero .glow{animation:ignite 1.8s linear .5s backwards}
+  .js .hero-visual{animation:rise 1s cubic-bezier(.22,.7,.15,1) .1s backwards}
+  .js .hero-visual img{animation:lights-on 1.8s linear .5s backwards}
+  .js .hero-visual figcaption{animation:rise .6s cubic-bezier(.22,.7,.15,1) 1.5s backwards}
   .button,.text-link .icon,.icon-button,.brand-card,.desktop-nav a:after{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
   .button:hover{transform:translateY(-1px)}
   .button:hover .icon:last-child,.text-link:hover .icon:last-child{transform:translateX(2px)}
@@ -403,6 +415,26 @@ main:focus{outline:none}
 @keyframes page-leave{to{opacity:0;transform:translateY(-8px)}}
 @keyframes page-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes menu-reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes glow-in{from{opacity:0}to{opacity:1}}
+@keyframes ignite{
+  0%,6%{color:#4d4832;text-shadow:none}
+  9%{color:var(--yellow);text-shadow:0 0 36px #f9d84a99}
+  13%{color:#5a5434;text-shadow:none}
+  20%{color:var(--yellow);text-shadow:0 0 40px #f9d84aa6}
+  24%{color:#9c8a3e;text-shadow:0 0 12px #f9d84a40}
+  34%{color:var(--yellow);text-shadow:0 0 48px #f9d84ab3}
+  100%{color:var(--yellow);text-shadow:0 0 32px #f9d84a59}
+}
+@keyframes lights-on{
+  0%,6%{filter:brightness(.28) saturate(.45);transform:scale(1.06)}
+  9%{filter:brightness(.7) saturate(.8)}
+  13%{filter:brightness(.34) saturate(.5)}
+  20%{filter:brightness(.82) saturate(.9)}
+  24%{filter:brightness(.55) saturate(.7)}
+  34%{filter:brightness(1.06) saturate(1.05)}
+  100%{filter:none;transform:none}
+}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto!important}
   *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
