@@ -4,12 +4,14 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, ürün grupları, hakkımızda, iletişim ve gizlilik sayfaları bulunur. Ürün grupları WhatsApp'tan fiyat ve stok sormaya yönlendirir; tekil ürün ve fiyat yayınlanmamıştır. Gelecekte kullanılacak sipariş listesi altyapısı hazırdır ve katalogda ürün olduğunda görünür.
+Ana sayfa, ürün grupları, ışık rehberi, hakkımızda, iletişim ve gizlilik sayfaları bulunur. Ürün grupları WhatsApp'tan fiyat ve stok sormaya yönlendirir; tekil ürün ve fiyat yayınlanmamıştır. Gelecekte kullanılacak sipariş listesi altyapısı hazırdır ve katalogda ürün olduğunda görünür.
 
 ## Sık düzenlenenler
 
 - **Çalışma saatleri:** `source/scripts/build.py` içindeki `HOURS` listesi. Boş bırakılırsa sitede "telefonla teyit edin" notu görünür; doldurulduğunda ana sayfa, konum bölümü ve İletişim sayfasında listelenir.
 - **Ürün grupları:** `source/scripts/content_sections.py` içindeki `PRODUCT_GROUPS`.
+- **Mekâna göre öneriler ve ışık rengi seçici:** aynı dosyada `SPACES` ve `KELVINS`; rehber tabloları (lümen, duy tipleri, IP) `source/scripts/inner_pages.py` içinde.
+- **Açılış animasyonu:** `source/dist/assets/intro-head.js` (sekme başına bir kez, yalnızca ana sayfada) ve `transitions.css`.
 - **Renkler ve tasarım:** `source/dist/assets/site.css` (en üstteki `:root` değişkenleri tabela ve logodan alınan antrasit, beyaz ve sarıdır).
 
 ## Düzenleme ve yayınlama

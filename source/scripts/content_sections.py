@@ -1,4 +1,5 @@
-"""Shared store content. Product groups follow what the store stocks; no prices, stock or reviews are claimed."""
+"""Shared store content. Product groups follow what the store stocks; no prices, stock or reviews are claimed.
+Guide content is general lighting knowledge (colour temperature, lumen, sockets, IP ratings), not store claims."""
 
 # (title, description, icon, phrase used in the WhatsApp message)
 PRODUCT_GROUPS = [
@@ -11,6 +12,31 @@ PRODUCT_GROUPS = [
     ('Dış mekân', 'Bahçe armatürleri, projektörler ve cephe aydınlatması.', 'bollard', 'dış mekân aydınlatması'),
     ('Elektrik malzemesi', 'Anahtar, priz, kablo ve tesisat ihtiyaçları.', 'socket', 'elektrik malzemeleri'),
 ]
+
+# (title, icon, advice, suggested product groups, WhatsApp phrase)
+SPACES = [
+    ('Salon ve oturma odası', 'sofa', 'Tek bir tavan ışığı yerine katmanlı düşünün: genel ışık için avize veya sarkıt, okuma köşesine lambader, duvarlara aplik. 2700K ile 3000K arası sıcak beyaz rahat bir ortam verir.', ['Avize', 'Lambader', 'Aplik'], 'salonum'),
+    ('Mutfak', 'kitchen', 'Tezgâhta gölgesiz çalışmak için üst dolap altına şerit LED, genel ışık için spot veya panel. 3000K ile 4000K arası renkler yemeği doğal gösterir.', ['Şerit LED', 'Spot', 'Panel'], 'mutfağım'),
+    ('Banyo', 'drop', 'Nemli alanda en az IP44 korumalı armatür seçin. Ayna çevresinde yüzü eşit aydınlatan aplik veya şerit LED işe yarar.', ['IP44 aplik', 'Spot', 'Şerit LED'], 'banyom'),
+    ('Çalışma odası ve ofis', 'desk', 'Odaklanmak için 4000K nötr beyaz ve göz kamaştırmayan panel veya spot. Masada ayrıca yönlendirilebilir bir masa lambası.', ['Panel', 'Spot', 'Masa lambası'], 'çalışma alanım'),
+    ('Mağaza ve vitrin', 'shop', 'Ürünü öne çıkarmak için yönlendirilebilir spot veya ray spot. Renk sunumu (CRI) 90 ve üzeri ışık, ürün renklerini doğru gösterir.', ['Ray spot', 'Panel', 'Şerit LED'], 'iş yerim'),
+    ('Bahçe, balkon ve cephe', 'tree', 'Yağmur alan yerlerde en az IP65. Yol ve bahçe kenarında alçak armatür, cephede projektör veya dış mekân apliği.', ['IP65 aplik', 'Projektör', 'Bahçe armatürü'], 'dış mekânım'),
+]
+
+# (id, kelvin, name, swatch colour, description, where)
+KELVINS = [
+    ('k2700', '2700K', 'Sıcak beyaz', '#ffb46b', 'Eski akkor ampule en yakın, sarımsı ve dinlendirici ışık.', 'Yatak odası, salon, restoran'),
+    ('k3000', '3000K', 'Sıcak beyaz', '#ffc787', 'Biraz daha temiz ama hâlâ sıcak. Evin hemen her yerinde rahat kullanılır.', 'Salon, mutfak, otel ve kafe'),
+    ('k4000', '4000K', 'Nötr beyaz', '#ffe2bf', 'Gün ışığına yakın, net bir ışık. Ayrıntıyı görmeniz gereken yerler için.', 'Ofis, mutfak tezgâhı, banyo, mağaza'),
+    ('k6500', '6500K', 'Soğuk beyaz', '#e6eeff', 'Mavimsi ve keskin. Evde yorucu olabilir, teknik alanlarda tercih edilir.', 'Depo, atölye, otopark'),
+]
+
+
+def kelvin_widget(icon):
+    inputs = ''.join(f'<input type="radio" name="kelvin" id="{kid}" value="{k}" {"checked" if i == 0 else ""}><label for="{kid}" style="--swatch:{sw}"><b>{k}</b><small>{name}</small></label>' for i, (kid, k, name, sw, _, _) in enumerate(KELVINS))
+    descs = ''.join(f'<div class="k-desc" data-for="{kid}"><h3>{k} · {name}</h3><p>{desc}</p><p class="k-where">{icon("pin")} {where}</p></div>' for kid, k, name, _, desc, where in KELVINS)
+    return f'''<div class="kelvin"><div class="kelvin-stage" aria-hidden="true"><span class="k-glow"></span><span class="k-cord"></span><span class="k-shade"></span><span class="k-beam"></span><span class="k-table"></span></div>
+      <div class="kelvin-panel"><fieldset class="kelvin-picker"><legend>Bir ışık rengi seçin</legend><div class="kelvin-options">{inputs}</div></fieldset><div class="kelvin-info">{descs}</div></div></div>'''
 
 
 def presentation_sections(icon, out, wa, instagram, facebook):
@@ -26,6 +52,18 @@ def presentation_sections(icon, out, wa, instagram, facebook):
       <div class="range-grid">{cards}</div>
     </div></section>'''
 
+    space_cards = ''.join(f'''<article class="space-card"><div class="space-top"><span class="space-icon">{icon(symbol)}</span><span class="space-index">0{i + 1}</span></div><h3>{title}</h3><p>{advice}</p><ul class="space-tags">{''.join(f'<li>{tag}</li>' for tag in tags)}</ul>{out(wa(f'Merhaba Ünüvar Aydınlatma, {phrase} için aydınlatma önerisi almak istiyorum.'), 'Bu alan için öneri alın '+icon('up'), 'text-link')}</article>''' for i, (title, symbol, advice, tags, phrase) in enumerate(SPACES))
+    spaces = f'''<section class="spaces-section" id="mekanlar" aria-labelledby="spaces-title"><div class="container">
+      <div class="section-head"><div><span class="eyebrow">MEKÂNA GÖRE IŞIK</span><h2 id="spaces-title">Hangi alana ne lazım?</h2></div><p>Her odanın ihtiyacı farklı. Aşağıdaki önerilerle başlayın, mekânınızın fotoğrafını gönderirseniz birlikte netleştirelim.</p></div>
+      <div class="spaces-grid">{space_cards}</div>
+    </div></section>'''
+
+    guide_teaser = f'''<section class="guide-teaser" aria-labelledby="kelvin-title"><div class="container">
+      <div class="section-head"><div><span class="eyebrow">IŞIK REHBERİ</span><h2 id="kelvin-title">Işığın rengi, mekânın havasını değiştirir.</h2></div><p>Ampul kutusundaki “K” değeri ışığın rengini gösterir. Seçenekleri deneyin, farkı görün.</p></div>
+      {kelvin_widget(icon)}
+      <div class="guide-links"><a class="guide-link" href="/rehber/#parlaklik"><b>Watt değil lümen</b><span>Eski ampulünüzün LED karşılığı</span>{icon('arrow')}</a><a class="guide-link" href="/rehber/#duy-tipleri"><b>Duy tipleri</b><span>E27, E14, GU10 ve diğerleri</span>{icon('arrow')}</a><a class="guide-link" href="/rehber/#ip-koruma"><b>IP koruma sınıfı</b><span>Banyo ve dış mekân için</span>{icon('arrow')}</a></div>
+    </div></section>'''
+
     ask = f'''<section class="ask-section" aria-labelledby="ask-title"><div class="container ask-grid">
       <div class="ask-copy"><span class="eyebrow">FOTOĞRAFLA SOR</span><h2 id="ask-title">Fotoğrafını gönderin,<br/><span class="glow">birlikte bulalım.</span></h2><p>Yanan bir ampul, eşi aranan bir spot ya da beğendiğiniz bir avize. Ürünün fotoğrafını veya kodunu WhatsApp’tan iletin, mağazamızda uygun ürün olup olmadığını size bildirelim.</p>
       <ol class="ask-steps"><li><span class="step-number" aria-hidden="true">1</span><div><h3>Fotoğraf veya kod gönderin</h3><p>Ürünün kendisi, kutusu ya da üzerindeki etiket yeterli.</p></div></li><li><span class="step-number" aria-hidden="true">2</span><div><h3>Fiyat ve stok bilgisini alın</h3><p>Uygun seçenekleri fiyat ve bulunabilirlik bilgisiyle iletelim.</p></div></li><li><span class="step-number" aria-hidden="true">3</span><div><h3>Mağazadan alın</h3><p>Ürünü Karaköy’deki mağazamızda görüp yerinde alabilirsiniz.</p></div></li></ol></div>
@@ -35,6 +73,9 @@ def presentation_sections(icon, out, wa, instagram, facebook):
     questions = [
         ('Online sipariş verebilir miyim?', f'Online katalog hazırlanıyor. Şimdilik ürün, fiyat ve stok bilgisini {out(wa(),"WhatsApp üzerinden")} ya da <a href="tel:+905456105009">0545 610 50 09</a> numaralı telefondan alabilirsiniz.'),
         ('Elimdeki ürünün aynısını bulabilir misiniz?', 'Ürünün ya da kutusunun fotoğrafını, varsa üzerindeki kodu gönderin. Mağazamızda aynısı veya uygun bir seçenek olup olmadığını size bildirelim.'),
+        ('Hangi ışık rengini seçmeliyim?', 'Dinlenme alanları için 2700K ile 3000K arası sıcak beyaz, mutfak tezgâhı, banyo ve çalışma alanı için 4000K nötr beyaz uygundur. Ayrıntılar <a href="/rehber/#isik-rengi">Işık rehberimizde</a>.'),
+        ('Eski ampulümün LED karşılığı kaç watt?', 'Karşılaştırırken watt yerine lümene bakın. 60W akkor ampulün ışığı yaklaşık 806 lümendir ve bunu genellikle 8 ile 9W arası bir LED ampul karşılar. <a href="/rehber/#parlaklik">Tablonun tamamı</a>'),
+        ('Banyo ve dış mekân için nelere dikkat etmeliyim?', 'Armatürün IP koruma sınıfına bakın: banyo için en az IP44, yağmur alan dış mekân için en az IP65. <a href="/rehber/#ip-koruma">IP sınıflarını inceleyin</a>.'),
         ('Mağazaya gelmeden önce aramalı mıyım?', 'Aradığınız ürün belliyse yola çıkmadan önce stok durumunu sormanızı öneririz. Ziyaret saatinizi de aynı numaradan teyit edebilirsiniz.'),
         ('Mağaza tam olarak nerede?', 'Karaköy’de, Emekyemez Mahallesi Tutsak Sokak No:8, Beyoğlu / İstanbul. Yol tarifi ve harita için <a href="/iletisim/#magaza-konumu">İletişim sayfamıza</a> bakabilirsiniz.'),
     ]
@@ -42,4 +83,4 @@ def presentation_sections(icon, out, wa, instagram, facebook):
     faq = f'''<section class="faq-section" id="sorular" aria-labelledby="questions-title"><div class="container faq-grid"><div class="faq-intro"><span class="eyebrow">SIK SORULANLAR</span><h2 id="questions-title">Aklınıza takılanlar</h2><p>Cevabını bulamadığınız bir soru varsa bize yazın.</p>{out(wa(),'WhatsApp’tan sorun '+icon('up'),'text-link')}</div><div class="faq-list">{rows}</div></div></section>'''
 
     social = f'''<section class="follow-section" aria-labelledby="follow-title"><div class="container follow-inner"><div><span class="eyebrow">SOSYAL MEDYA</span><h2 id="follow-title">Mağazamızı takip edin.</h2></div><div class="follow-links">{out(instagram,'<span>Instagram<small>@unuvar.aydinlatma</small></span>'+icon('up'),'follow-link')}{out(facebook,'<span>Facebook<small>Ünüvar Elektrik ve Aydınlatma</small></span>'+icon('up'),'follow-link')}</div></div></section>'''
-    return dict(range=product_range, ask=ask, faq=faq, social=social)
+    return dict(range=product_range, spaces=spaces, guide_teaser=guide_teaser, ask=ask, faq=faq, social=social)

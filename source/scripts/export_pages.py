@@ -47,7 +47,7 @@ def export(output, url):
                     text = text.replace('href="/', 'href="'+base+'/')
                     # Avoid applying the base twice to asset hrefs already rewritten.
                     text = text.replace(base+base+'/assets/', base+'/assets/') if base else text
-                    if relative.as_posix() not in ('404.html','urunler/index.html','gizlilik/index.html'):
+                    if relative.as_posix() not in ('404.html','gizlilik/index.html'):
                         text = text.replace('content="noindex,nofollow"', 'content="index,follow,max-image-preview:large"')
             if relative.as_posix() == 'robots.txt':
                 text = f'User-agent: *\nAllow: /\nSitemap: {origin}/sitemap.xml\n'

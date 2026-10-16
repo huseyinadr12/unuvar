@@ -11,23 +11,24 @@ def metadata(path, title, description, origin, business):
     name = CONFIG['site_name']
     titles = {
         '/': 'Ünüvar Aydınlatma | Karaköy Aydınlatma Mağazası',
-        '/urunler/': 'Katalog | Ünüvar Aydınlatma',
+        '/urunler/': 'Ürün Grupları | Ünüvar Aydınlatma Karaköy',
+        '/rehber/': 'Işık Rehberi: Kelvin, Lümen, Duy Tipleri ve IP | Ünüvar Aydınlatma',
         '/hakkimizda/': 'Hakkımızda | Karaköy Ünüvar Aydınlatma',
         '/iletisim/': 'İletişim ve Yol Tarifi | Ünüvar Aydınlatma Karaköy',
         '/gizlilik/': 'Gizlilik ve Site Bilgileri | Ünüvar Aydınlatma',
         '/404.html': 'Sayfa Bulunamadı | Ünüvar Aydınlatma',
     }
     descriptions = {
-        '/': 'Karaköy’de Ünüvar Aydınlatma. Aydınlatma ve elektrik seçeneklerini keşfedin, WhatsApp üzerinden bilgi alın veya Beyoğlu mağazamızı ziyaret edin.',
-        '/urunler/': 'Ünüvar Aydınlatma kataloğu çok yakında yüklenecektir.',
-        '/hakkimizda/': 'Karaköy’deki Ünüvar Aydınlatma’yı tanıyın. Emekyemez Mahallesi’ndeki mağazamızda aydınlatma ve elektrik ihtiyaçlarınız için bizimle görüşün.',
+        '/': 'Karaköy’de aydınlatma ve elektrik malzemesi: avize, sarkıt, aplik, spot, LED ampul, şerit LED. Ürün fotoğrafını WhatsApp’tan gönderin veya Tutsak Sokak’taki mağazamıza gelin.',
+        '/urunler/': 'Avize, aplik, spot, panel, LED ampul, şerit LED, dış mekân aydınlatması ve elektrik malzemesi. Fiyat ve stok bilgisini WhatsApp’tan sorun.',
+        '/hakkimizda/': 'Ünüvar Aydınlatma, Karaköy Tutsak Sokak’ta aydınlatma ve elektrik malzemesi mağazası. Ürün gruplarımızı ve çalıştığımız markaları tanıyın.',
         '/iletisim/': 'Ünüvar Aydınlatma iletişim: 0545 610 50 09. Tutsak Sokak No:8, Karaköy, Beyoğlu. Mağaza konumu, yol tarifi, telefon ve WhatsApp bağlantılarına ulaşın.',
     }
     full_title = titles.get(path, f'{title} | {name}')
     description = descriptions.get(path, description)
     crumbs = [('Ana sayfa', '/')]
     if path != '/':
-        crumbs += [({'/urunler/':'Katalog','/hakkimizda/':'Hakkımızda','/iletisim/':'İletişim','/gizlilik/':'Gizlilik ve site bilgileri'}.get(path, title), path)]
+        crumbs += [({'/urunler/':'Ürünler','/rehber/':'Işık rehberi','/hakkimizda/':'Hakkımızda','/iletisim/':'İletişim','/gizlilik/':'Gizlilik ve site bilgileri'}.get(path, title), path)]
     business = {key: value for key, value in business.items() if key != '@context'}
     business.update({'@id':origin+'/#business'})
     website = {'@type':'WebSite','@id':origin+'/#website','url':origin+'/','name':name,'inLanguage':CONFIG['language'],'publisher':{'@id':business['@id']}}

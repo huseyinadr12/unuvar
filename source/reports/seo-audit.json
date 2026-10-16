@@ -2,17 +2,17 @@
   "kind": "Static technical SEO audit; not Lighthouse or field Core Web Vitals",
   "publication": "owner-private",
   "indexing_enabled": false,
-  "page_count": 6,
-  "sitemap_urls": 5,
+  "page_count": 7,
+  "sitemap_urls": 6,
   "assets": {
     "app.css": {
-      "bytes": 37633,
-      "gzip_estimate_bytes": 8711,
+      "bytes": 51214,
+      "gzip_estimate_bytes": 11442,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 14870,
-      "gzip_estimate_bytes": 5055,
+      "bytes": 15090,
+      "gzip_estimate_bytes": 5159,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {
@@ -52,7 +52,7 @@
       "path": "/hakkimizda/",
       "title": "Hakkımızda | Karaköy Ünüvar Aydınlatma",
       "title_characters": 38,
-      "description_characters": 140,
+      "description_characters": 138,
       "schema_types": [
         "Store",
         "WebSite",
@@ -78,7 +78,7 @@
       "path": "/",
       "title": "Ünüvar Aydınlatma | Karaköy Aydınlatma Mağazası",
       "title_characters": 47,
-      "description_characters": 144,
+      "description_characters": 174,
       "schema_types": [
         "Store",
         "WebSite",
@@ -87,10 +87,23 @@
       "robots": "noindex,nofollow"
     },
     {
+      "path": "/rehber/",
+      "title": "Işık Rehberi: Kelvin, Lümen, Duy Tipleri ve IP | Ünüvar Aydınlatma",
+      "title_characters": 66,
+      "description_characters": 133,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
       "path": "/urunler/",
-      "title": "Katalog | Ünüvar Aydınlatma",
-      "title_characters": 27,
-      "description_characters": 53,
+      "title": "Ürün Grupları | Ünüvar Aydınlatma Karaköy",
+      "title_characters": 41,
+      "description_characters": 138,
       "schema_types": [
         "Store",
         "WebSite",

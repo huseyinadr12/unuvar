@@ -16,9 +16,11 @@
         }
       });
     }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
-    document.querySelectorAll('.page-heading,.section-head,.brand-card,.range-card,.ask-copy,.ask-card,.faq-intro,.faq-list,.location-copy,.map-shell,.about-photo,.value-card,.channel-card,.destination-store,.conversation-intro,.conversation-form,.follow-inner').forEach((el, index) => {
+    document.querySelectorAll('.page-heading,.guide-toc,.section-head,.brand-card,.range-card,.space-card,.kelvin,.guide-link,.socket-card,.ip-card,.guide-split>*,.ask-copy,.ask-card,.faq-intro,.faq-list,.location-copy,.map-shell,.about-photo,.value-card,.channel-card,.destination-store,.conversation-intro,.conversation-form,.follow-inner').forEach(el => {
       if (el.getBoundingClientRect().top < innerHeight) return;
-      el.style.setProperty('--reveal-delay', `${index % 3 * 45}ms`);
+      // Cards in a row follow one another; standalone blocks start straight away.
+      const index = [...el.parentElement.children].indexOf(el);
+      el.style.setProperty('--reveal-delay', `${index % 4 * 90}ms`);
       el.classList.add('reveal');
       observer.observe(el);
     });
