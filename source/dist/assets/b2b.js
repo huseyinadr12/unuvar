@@ -59,5 +59,6 @@
   const incoming=C.code(new URLSearchParams(location.search).get('urun')||'');
   if(incoming&&products.has(incoming)&&!rows.some(r=>r.code===incoming))add([{code:incoming,quantity:1}]);else render();
   const printable=make('pre','b2b-print');printable.id='b2b-print-copy';root.append(printable);
+  window.addEventListener('beforeprint',()=>{printable.textContent=text()||'Henüz ürün eklenmedi.';});
   filter();
 })();
