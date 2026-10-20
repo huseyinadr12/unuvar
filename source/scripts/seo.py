@@ -22,7 +22,7 @@ def metadata(path, title, description, origin, business):
     }
     descriptions = {
         '/': 'Karaköy’de aydınlatma ve elektrik malzemesi: avize, sarkıt, aplik, spot, LED ampul, şerit LED. Ürün fotoğrafını WhatsApp’tan gönderin veya Tutsak Sokak’taki mağazamıza gelin.',
-        '/urunler/': '55 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın.',
+        '/urunler/': f'{json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))["page_count"]} sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın.',
         '/hakkimizda/': 'Ünüvar Aydınlatma, Karaköy Tutsak Sokak’ta aydınlatma ve elektrik malzemesi mağazası. Ürün gruplarımızı ve çalıştığımız markaları tanıyın.',
         '/iletisim/': 'Ürün kodu, adet ve kullanım alanıyla fiyat ve stok bilgisi isteyin. Ünüvar Aydınlatma: 0545 610 50 09, Tutsak Sokak No:8, Karaköy.',
     }

@@ -1,6 +1,7 @@
 /* Motion supports browsing; content and links also work without it. */
 .b2b-summary [data-b2b-badge]{display:inline-grid;place-items:center;transform-origin:center}
 .media-retouched{display:block;margin-top:9px;font-size:9px;line-height:1.7;color:var(--muted)}
+.collection-image .studio-product{object-fit:contain;padding:22px;background:#f6f6f4}
 @media(prefers-reduced-motion:no-preference){
   html{scroll-behavior:smooth}
   .editorial-hero-copy>:is(.eyebrow,h1,p,.hero-actions),.b2b-intro h1,.solutions-intro h1{animation:refined-arrival .7s cubic-bezier(.2,.7,.2,1) both}

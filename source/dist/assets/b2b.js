@@ -56,7 +56,9 @@
   $('[data-b2b-copy]').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(text());say('Talep özeti kopyalandı.');}catch{const area=$('[data-b2b-preview]');area.closest('details').open=true;area.focus();area.select();say('Otomatik kopyalama kullanılamadı. Seçili metni kopyalayabilirsiniz.');}});
   $('[data-b2b-csv]').addEventListener('click',()=>{const blob=new Blob([C.csv(rows,products)],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=make('a');a.href=url;a.download='unuvar-teklif-listesi.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
   $('[data-b2b-print]').addEventListener('click',()=>{document.getElementById('b2b-print-copy').textContent=text();window.print();});
-  const incoming=C.code(new URLSearchParams(location.search).get('urun')||'');
+  const query=new URLSearchParams(location.search),catalogPage=Number(query.get('sayfa'));
+  if(Number.isInteger(catalogPage)&&catalogPage>0&&catalogPage<=Number(root.dataset.pageCount)&&!fields.note.value)fields.note.value='Katalog sayfası: '+catalogPage;
+  const incoming=C.code(query.get('urun')||'');
   if(incoming&&products.has(incoming)&&!rows.some(r=>r.code===incoming))add([{code:incoming,quantity:1}]);else render();
   const printable=make('pre','b2b-print');printable.id='b2b-print-copy';root.append(printable);
   window.addEventListener('beforeprint',()=>{printable.textContent=text()||'Henüz ürün eklenmedi.';});

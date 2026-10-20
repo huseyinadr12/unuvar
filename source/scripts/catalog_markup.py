@@ -63,7 +63,7 @@ def catalog_page(icon, wa, out):
           <div class="reader-page-field"><label for="reader-page">Sayfa</label><select id="reader-page">{options}</select><span>/ {count}</span></div>
           <button type="button" class="reader-step" data-reader-next aria-label="Sonraki katalog sayfası"><span>Sonraki</span> →</button>
         </div>
-        <div class="reader-canvas" aria-busy="false">
+        <div class="reader-canvas" aria-busy="false" tabindex="0" role="group" aria-label="Katalog sayfası. Sağ ve sol ok tuşlarıyla sayfa çevirebilirsiniz.">
           <img data-reader-image src="{pages[0]["image"]}" width="1684" height="1191" alt="Katalog sayfa 1: Kapak" loading="lazy" decoding="async">
           <p class="reader-error" data-reader-error hidden>Bu sayfanın önizlemesi yüklenemedi. Kataloğu aşağıdaki PDF bağlantısından açabilirsiniz.</p>
         </div>
@@ -73,6 +73,6 @@ def catalog_page(icon, wa, out):
         <noscript><p class="reader-noscript">Tüm sayfalara ulaşmak için PDF’yi açın. İçindekiler bağlantıları PDF’de ilgili sayfaya gider.</p></noscript>
       </div>
       <div class="catalog-enquiry"><div><h3>Beğendiğiniz ürünün kodunu bize iletin.</h3><p>Güncel fiyat, stok, ölçü ve teknik özellikleri birlikte teyit edelim.</p></div>
-      <a href="/iletisim/?sayfa=1#teklif" class="button yellow" data-reader-enquiry>Bu sayfadan ürün sorun {icon("arrow")}</a></div>
-      <p class="catalog-source-note">Katalogdaki teknik bilgiler ürün koduna göre teyit edilir. “Teyit gerekli” olarak işaretlenen ölçüler için mağazamızla görüşebilirsiniz.</p>
+      <a href="/b2c/?sayfa=1#hizli-giris" class="button yellow" data-reader-enquiry>B2C teklif listesine geçin {icon("arrow")}</a></div>
+      <p class="catalog-source-note">Sayfaları ok tuşlarıyla veya telefonda sağa ve sola kaydırarak çevirebilirsiniz. Teknik bilgiler ürün koduna göre teyit edilir. Düzenlenmiş ürün görselleri temsilidir; ölçü, renk ve donanım sipariş öncesinde doğrulanır.</p>
     </div></section>'''

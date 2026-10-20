@@ -6,13 +6,13 @@
   "sitemap_urls": 8,
   "assets": {
     "app.css": {
-      "bytes": 80715,
-      "gzip_estimate_bytes": 17028,
+      "bytes": 81480,
+      "gzip_estimate_bytes": 17254,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 23147,
-      "gzip_estimate_bytes": 7453,
+      "bytes": 19858,
+      "gzip_estimate_bytes": 6591,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {
@@ -129,7 +129,7 @@
       "path": "/urunler/",
       "title": "Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma",
       "title_characters": 50,
-      "description_characters": 147,
+      "description_characters": 148,
       "schema_types": [
         "Store",
         "WebSite",

@@ -7,10 +7,10 @@
     "source_page": 20,
     "image": "p20-00.jpg",
     "rotation": 0,
-    "page": 22,
-    "web_image": "/assets/collection/as5000.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 49,
+    "web_image": "/assets/collection/as5000-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5001",
@@ -20,10 +20,10 @@
     "source_page": 20,
     "image": "p20-01.jpg",
     "rotation": 0,
-    "page": 22,
-    "web_image": "/assets/collection/as5001.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 50,
+    "web_image": "/assets/collection/as5001-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5002",
@@ -33,10 +33,10 @@
     "source_page": 20,
     "image": "p20-02.jpg",
     "rotation": 0,
-    "page": 22,
-    "web_image": "/assets/collection/as5002.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 51,
+    "web_image": "/assets/collection/as5002-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5003",
@@ -46,10 +46,10 @@
     "source_page": 20,
     "image": "p20-03.jpg",
     "rotation": 0,
-    "page": 22,
-    "web_image": "/assets/collection/as5003.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 52,
+    "web_image": "/assets/collection/as5003-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5004",
@@ -59,10 +59,10 @@
     "source_page": 20,
     "image": "p20-03.jpg",
     "rotation": 0,
-    "page": 23,
-    "web_image": "/assets/collection/as5004.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 53,
+    "web_image": "/assets/collection/as5004-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5005",
@@ -72,10 +72,10 @@
     "source_page": 20,
     "image": "p20-04.jpg",
     "rotation": 0,
-    "page": 23,
-    "web_image": "/assets/collection/as5005.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 54,
+    "web_image": "/assets/collection/as5005-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5006",
@@ -85,10 +85,10 @@
     "source_page": 20,
     "image": "p20-05.jpg",
     "rotation": 0,
-    "page": 23,
-    "web_image": "/assets/collection/as5006.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 55,
+    "web_image": "/assets/collection/as5006-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5007",
@@ -98,10 +98,10 @@
     "source_page": 20,
     "image": "p20-06.jpg",
     "rotation": 0,
-    "page": 23,
-    "web_image": "/assets/collection/as5007.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 56,
+    "web_image": "/assets/collection/as5007-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5008",
@@ -111,10 +111,10 @@
     "source_page": 20,
     "image": "p20-07.jpg",
     "rotation": 0,
-    "page": 24,
-    "web_image": "/assets/collection/as5008.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 57,
+    "web_image": "/assets/collection/as5008-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5009",
@@ -124,10 +124,10 @@
     "source_page": 20,
     "image": "p20-08.jpg",
     "rotation": 0,
-    "page": 24,
-    "web_image": "/assets/collection/as5009.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 58,
+    "web_image": "/assets/collection/as5009-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5010",
@@ -137,10 +137,10 @@
     "source_page": 21,
     "image": "p21-06.jpg",
     "rotation": 0,
-    "page": 24,
-    "web_image": "/assets/collection/as5010.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 59,
+    "web_image": "/assets/collection/as5010-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5011",
@@ -150,10 +150,10 @@
     "source_page": 21,
     "image": "p21-07.jpg",
     "rotation": 0,
-    "page": 24,
-    "web_image": "/assets/collection/as5011.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 60,
+    "web_image": "/assets/collection/as5011-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5012",
@@ -163,10 +163,10 @@
     "source_page": 21,
     "image": "p21-08.jpg",
     "rotation": 0,
-    "page": 25,
-    "web_image": "/assets/collection/as5012.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 61,
+    "web_image": "/assets/collection/as5012-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5013",
@@ -176,10 +176,10 @@
     "source_page": 21,
     "image": "p21-03.jpg",
     "rotation": 0,
-    "page": 25,
-    "web_image": "/assets/collection/as5013.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 62,
+    "web_image": "/assets/collection/as5013-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5014",
@@ -189,10 +189,10 @@
     "source_page": 21,
     "image": "p21-04.jpg",
     "rotation": 0,
-    "page": 25,
-    "web_image": "/assets/collection/as5014.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 63,
+    "web_image": "/assets/collection/as5014-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5015",
@@ -202,10 +202,10 @@
     "source_page": 21,
     "image": "p21-05.jpg",
     "rotation": 0,
-    "page": 25,
-    "web_image": "/assets/collection/as5015.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 64,
+    "web_image": "/assets/collection/as5015-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5016",
@@ -215,10 +215,10 @@
     "source_page": 21,
     "image": "p21-02.jpg",
     "rotation": 0,
-    "page": 26,
-    "web_image": "/assets/collection/as5016.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 65,
+    "web_image": "/assets/collection/as5016-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5011*",
@@ -228,10 +228,10 @@
     "source_page": 21,
     "image": "p21-01.jpg",
     "rotation": 0,
-    "page": 26,
-    "web_image": "/assets/collection/as5011-teyit.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 66,
+    "web_image": "/assets/collection/as5011-alt-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5018",
@@ -241,10 +241,10 @@
     "source_page": 21,
     "image": "p21-00.jpg",
     "rotation": 0,
-    "page": 26,
-    "web_image": "/assets/collection/as5018.webp",
-    "image_width": 275,
-    "image_height": 275
+    "page": 67,
+    "web_image": "/assets/collection/as5018-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5200",
@@ -254,10 +254,10 @@
     "source_page": 22,
     "image": "p22-00.jpg",
     "rotation": 0,
-    "page": 27,
-    "web_image": "/assets/collection/as5200.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 68,
+    "web_image": "/assets/collection/as5200-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5201",
@@ -267,10 +267,10 @@
     "source_page": 22,
     "image": "p22-01.jpg",
     "rotation": 0,
-    "page": 27,
-    "web_image": "/assets/collection/as5201.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 69,
+    "web_image": "/assets/collection/as5201-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5202",
@@ -280,10 +280,10 @@
     "source_page": 22,
     "image": "p22-02.jpg",
     "rotation": 0,
-    "page": 27,
-    "web_image": "/assets/collection/as5202.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 70,
+    "web_image": "/assets/collection/as5202-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5203",
@@ -293,10 +293,10 @@
     "source_page": 22,
     "image": "p22-03.jpg",
     "rotation": 0,
-    "page": 27,
-    "web_image": "/assets/collection/as5203.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 71,
+    "web_image": "/assets/collection/as5203-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5204",
@@ -306,10 +306,10 @@
     "source_page": 22,
     "image": "p22-04.jpg",
     "rotation": 0,
-    "page": 28,
-    "web_image": "/assets/collection/as5204.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 72,
+    "web_image": "/assets/collection/as5204-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5205",
@@ -319,10 +319,10 @@
     "source_page": 23,
     "image": "p23-00.jpg",
     "rotation": 0,
-    "page": 28,
-    "web_image": "/assets/collection/as5205.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 73,
+    "web_image": "/assets/collection/as5205-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5206",
@@ -332,10 +332,10 @@
     "source_page": 23,
     "image": "p23-01.jpg",
     "rotation": 0,
-    "page": 28,
-    "web_image": "/assets/collection/as5206.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 74,
+    "web_image": "/assets/collection/as5206-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5207",
@@ -345,10 +345,10 @@
     "source_page": 23,
     "image": "p23-02.jpg",
     "rotation": 0,
-    "page": 28,
-    "web_image": "/assets/collection/as5207.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 75,
+    "web_image": "/assets/collection/as5207-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5208",
@@ -358,10 +358,10 @@
     "source_page": 23,
     "image": "p23-03.jpg",
     "rotation": 0,
-    "page": 29,
-    "web_image": "/assets/collection/as5208.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 76,
+    "web_image": "/assets/collection/as5208-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5209",
@@ -371,10 +371,10 @@
     "source_page": 23,
     "image": "p23-04.jpg",
     "rotation": 0,
-    "page": 29,
-    "web_image": "/assets/collection/as5209.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 77,
+    "web_image": "/assets/collection/as5209-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5210",
@@ -384,10 +384,10 @@
     "source_page": 23,
     "image": "p23-05.jpg",
     "rotation": 0,
-    "page": 29,
-    "web_image": "/assets/collection/as5210.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 78,
+    "web_image": "/assets/collection/as5210-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5211",
@@ -397,10 +397,10 @@
     "source_page": 23,
     "image": "p23-06.jpg",
     "rotation": 0,
-    "page": 29,
-    "web_image": "/assets/collection/as5211.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 79,
+    "web_image": "/assets/collection/as5211-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5212",
@@ -410,10 +410,10 @@
     "source_page": 23,
     "image": "p23-07.jpg",
     "rotation": 0,
-    "page": 30,
-    "web_image": "/assets/collection/as5212.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 80,
+    "web_image": "/assets/collection/as5212-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5213",
@@ -423,10 +423,10 @@
     "source_page": 23,
     "image": "p23-08.jpg",
     "rotation": 0,
-    "page": 30,
-    "web_image": "/assets/collection/as5213.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 81,
+    "web_image": "/assets/collection/as5213-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5214",
@@ -436,10 +436,10 @@
     "source_page": 23,
     "image": "p23-09.jpg",
     "rotation": 0,
-    "page": 30,
-    "web_image": "/assets/collection/as5214.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 82,
+    "web_image": "/assets/collection/as5214-studio.webp",
+    "image_width": 1100,
+    "image_height": 1005
   },
   {
     "code": "AS5215",
@@ -449,10 +449,10 @@
     "source_page": 24,
     "image": "p24-00.jpg",
     "rotation": 0,
-    "page": 30,
-    "web_image": "/assets/collection/as5215.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 83,
+    "web_image": "/assets/collection/as5215-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5216",
@@ -462,10 +462,10 @@
     "source_page": 24,
     "image": "p24-01.jpg",
     "rotation": 0,
-    "page": 31,
-    "web_image": "/assets/collection/as5216.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 84,
+    "web_image": "/assets/collection/as5216-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5217",
@@ -475,10 +475,10 @@
     "source_page": 24,
     "image": "p24-02.jpg",
     "rotation": 0,
-    "page": 31,
-    "web_image": "/assets/collection/as5217.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 85,
+    "web_image": "/assets/collection/as5217-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5218",
@@ -488,10 +488,10 @@
     "source_page": 24,
     "image": "p24-03.jpg",
     "rotation": 0,
-    "page": 31,
-    "web_image": "/assets/collection/as5218.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 86,
+    "web_image": "/assets/collection/as5218-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5219",
@@ -501,10 +501,10 @@
     "source_page": 24,
     "image": "p24-04.jpg",
     "rotation": 0,
-    "page": 31,
-    "web_image": "/assets/collection/as5219.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 87,
+    "web_image": "/assets/collection/as5219-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5220",
@@ -514,10 +514,10 @@
     "source_page": 24,
     "image": "p24-05.jpg",
     "rotation": 0,
-    "page": 32,
-    "web_image": "/assets/collection/as5220.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 88,
+    "web_image": "/assets/collection/as5220-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5221",
@@ -527,10 +527,10 @@
     "source_page": 24,
     "image": "p24-06.jpg",
     "rotation": 0,
-    "page": 32,
-    "web_image": "/assets/collection/as5221.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 89,
+    "web_image": "/assets/collection/as5221-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5222",
@@ -540,10 +540,10 @@
     "source_page": 24,
     "image": "p24-07.jpg",
     "rotation": 0,
-    "page": 32,
-    "web_image": "/assets/collection/as5222.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 90,
+    "web_image": "/assets/collection/as5222-studio.webp",
+    "image_width": 1015,
+    "image_height": 1100
   },
   {
     "code": "AS5223",
@@ -553,10 +553,10 @@
     "source_page": 24,
     "image": "p24-08.jpg",
     "rotation": 90,
-    "page": 32,
-    "web_image": "/assets/collection/as5223.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 91,
+    "web_image": "/assets/collection/as5223-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5224",
@@ -566,10 +566,10 @@
     "source_page": 24,
     "image": "p24-08.jpg",
     "rotation": -90,
-    "page": 33,
-    "web_image": "/assets/collection/as5224.webp",
-    "image_width": 275,
-    "image_height": 298
+    "page": 92,
+    "web_image": "/assets/collection/as5224-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5400",
@@ -579,10 +579,10 @@
     "source_page": 25,
     "image": "p25-00.jpg",
     "rotation": 0,
-    "page": 34,
-    "web_image": "/assets/collection/as5400.webp",
-    "image_width": 381,
-    "image_height": 561
+    "page": 93,
+    "web_image": "/assets/collection/as5400-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5401",
@@ -592,10 +592,10 @@
     "source_page": 25,
     "image": "p25-01.jpg",
     "rotation": 0,
-    "page": 34,
-    "web_image": "/assets/collection/as5401.webp",
-    "image_width": 486,
-    "image_height": 656
+    "page": 94,
+    "web_image": "/assets/collection/as5401-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5402",
@@ -605,10 +605,10 @@
     "source_page": 25,
     "image": "p25-02.jpg",
     "rotation": 0,
-    "page": 34,
-    "web_image": "/assets/collection/as5402.webp",
-    "image_width": 382,
-    "image_height": 656
+    "page": 95,
+    "web_image": "/assets/collection/as5402-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5403",
@@ -618,10 +618,10 @@
     "source_page": 25,
     "image": "p25-03.jpg",
     "rotation": 0,
-    "page": 34,
-    "web_image": "/assets/collection/as5403.webp",
-    "image_width": 380,
-    "image_height": 765
+    "page": 96,
+    "web_image": "/assets/collection/as5403-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5404",
@@ -631,10 +631,10 @@
     "source_page": 26,
     "image": "p26-01.jpg",
     "rotation": 0,
-    "page": 35,
-    "web_image": "/assets/collection/as5404.webp",
-    "image_width": 424,
-    "image_height": 821
+    "page": 97,
+    "web_image": "/assets/collection/as5404-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5405",
@@ -644,10 +644,10 @@
     "source_page": 26,
     "image": "p26-02.jpg",
     "rotation": 0,
-    "page": 35,
-    "web_image": "/assets/collection/as5405.webp",
-    "image_width": 380,
-    "image_height": 766
+    "page": 98,
+    "web_image": "/assets/collection/as5405-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5406",
@@ -657,10 +657,10 @@
     "source_page": 26,
     "image": "p26-00.jpg",
     "rotation": 0,
-    "page": 35,
-    "web_image": "/assets/collection/as5406.webp",
-    "image_width": 221,
-    "image_height": 400
+    "page": 99,
+    "web_image": "/assets/collection/as5406-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   },
   {
     "code": "AS5407",
@@ -670,9 +670,9 @@
     "source_page": 26,
     "image": "p26-03.jpg",
     "rotation": 0,
-    "page": 35,
-    "web_image": "/assets/collection/as5407.webp",
-    "image_width": 381,
-    "image_height": 766
+    "page": 100,
+    "web_image": "/assets/collection/as5407-studio.webp",
+    "image_width": 1100,
+    "image_height": 1100
   }
 ]

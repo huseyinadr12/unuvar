@@ -4,18 +4,19 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, koleksiyon/katalog, B2C teklif, proje çözümleri, teknik seçim bilgileri, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 55 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası fiyat talebi formuna aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
+Ana sayfa, koleksiyon/katalog, B2C teklif, proje çözümleri, teknik seçim bilgileri, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 164 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası B2C teklif listesine aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir.
 
 ## Dijital katalog
 
-- `source/data/catalog.json`: 55 sayfanın önizleme yolları, 19 bölümün sayfa aralıkları, koleksiyon görselleri ve filtre grupları.
+- `source/data/catalog.json`: 164 sayfanın önizleme yolları, 19 bölümün sayfa aralıkları, koleksiyon görselleri ve filtre grupları.
 - `source/data/editorial-products.json`: kaynak katalogdan kontrol edilen 52 Artline ürün kaydı. Fiyat veya canlı stok verisi değildir.
-- `source/dist/assets/catalog/`: düzenlenmiş PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; yaklaşık 12,6 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir.
+- `source/dist/assets/catalog/`: standart A4 yatay PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; yaklaşık 38,1 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir.
 - `source/scripts/catalog_markup.py`, `source/dist/assets/catalog.css`, `source/dist/assets/catalog.js`: katalog tanıtımı, içindekiler, sayfa seçici ve ana sayfa bağlantısı.
 - JavaScript kapalıyken PDF indirme ve bölümün PDF sayfasına açılan bağlantıları çalışır. `#sayfa-25` gibi adresler açık bir katalog sayfasını paylaşmak için kullanılabilir.
-- 52 Artline ürünü 14 sayfada büyük görseller ve standart teknik bilgilerle yeniden dizilmiştir. Kaynakta tekrar eden AS5011 kodu yıldızlı notla korunmuştur; AS5017 varsayılmamıştır. Eksik/çelişkili ölçüler, spot çizimindeki ölçü çelişkisi ve IP67/IP68 tutarsızlığı ilgili sayfalarda işaretlidir. Diğer teknik değerler ve belge/garanti ifadeleri ürün kodu üzerinden teyit edilmelidir.
+- Tüm ürün/model aileleri 160 ürün sayfasında aynı logo, görsel, teknik tablo ve sayfa düzeniyle sunulur. Kaynakta tekrar eden AS5011 kodu yıldızlı notla korunmuştur; AS5017 varsayılmamıştır. Eksik/çelişkili ölçüler, spot çizimindeki ölçü çelişkisi ve IP67/IP68 tutarsızlığı ilgili sayfalarda işaretlidir.
+- Sayfa çevirme animasyonu, sağ/sol ok tuşları ve yatay kaydırma desteklenir. Azaltılmış hareket tercihinde animasyon atlanır. Yeni sayfa yüklenmeden mevcut sayfa kaybolmaz; hızlı gezinmede eski istekler güncel sayfayı değiştirmez. `catalog.js` yalnız katalog sayfasında yüklenir.
 
-Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin, `catalog.json` sayfa/bölüm aralıklarını eşleştirin ve aşağıdaki derleme/denetim/dışa aktarım komutlarını çalıştırın. Kaynak ürün görselleri yeniden üretilmemiştir; mevcut katalogdan alınmıştır.
+Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin, `catalog.json` ve `editorial-products.json` sayfa/bölüm aralıklarını eşleştirin ve aşağıdaki derleme/denetim/dışa aktarım komutlarını çalıştırın. 146 ürün görseli kaynak referanslarıyla yapay zekâ kullanılarak standart stüdyo sunumuna dönüştürülmüştür. Görseller temsili olarak etiketlenir; üretici teknik fotoğrafı veya 8K orijinal değildir.
 
 ## Sık düzenlenenler
 
@@ -34,6 +35,7 @@ Python 3.10 veya üzeri yeterlidir; ek Python paketi gerektirmez.
 python source/scripts/build.py
 python source/scripts/check.py
 python source/scripts/audit_seo.py
+node --test source/tests/*.test.cjs
 python source/scripts/export_pages.py --output docs --url https://huseyinadr12.github.io/unuvar
 ```
 
@@ -57,12 +59,12 @@ Marka logoları ilgili sahiplerine aittir. Manrope yazı tipi lisansı `source/d
 
 ## Görsel çözünürlüğü
 
-Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altındadır; 8K orijinal yoktur. Ürün fotoğrafları 8K olarak etiketlenmez. Orijinaller geldiğinde ürün koduyla eşleştirilip kataloğa ve web boyutlarına aktarılmalıdır. Yapay zekâ ile hazırlanan tek ürün örneği inceleme çıktısıdır; gerçek ürün fotoğraflarının yerine yayımlanmamıştır.
+Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altındadır; 8K orijinal yoktur. Yeni stüdyo görselleri 8K olarak etiketlenmez. Üretici orijinalleri geldiğinde ürün koduyla eşleştirilip bu temsili görsellerin yerine aktarılmalıdır. Ana PNG dosyaları, üretim istemleri ve gerçek piksel boyutları çalışma alanındaki `output/imagegen/studio/manifest.json` ile kayıtlıdır.
 
 
 ## Görsel düzenleme ve B2C geçişi — 20 Ekim 2026
 
 - `/b2c/` bireysel müşteriler için ürün/adet listesi ve WhatsApp fiyat talebi sayfasıdır. `/b2b/` eski bağlantıları sorgu ve sayfa içi konumla birlikte buraya yönlendirir. Mevcut cihaz listelerinin korunması için teknik dosya adları, DOM anahtarları ve localStorage anahtarı değişmedi.
 - Ana sayfadaki kullanım görseli `interior-v2.webp` ve sıva üstü lineer kartı `lineer-siva-ustu-v2.webp`, yerleşik ImageGen ile düzenlendi. Duvar/tavan yüzeyleri iyileştirildi. Bu görseller düzenlenmiş kullanım örnekleri olarak etiketlenir; ürün teknik fotoğrafı veya tamamlanmış proje referansı değildir.
-- Yeni görseller 8K olarak etiketlenmez. PNG çıktıları ve kullanılan istemler çalışma alanındaki `output/imagegen/` klasöründedir. PDF kataloğun teknik ürün görselleri bu düzenlemede değişmedi.
+- Ana sayfa kapak görseli `hero-v2.webp` de düzenlendi. PNG çıktıları ve kullanılan istemler çalışma alanındaki `output/imagegen/` klasöründedir. PDF katalog ve sitedeki ürün kartları aynı yeni stüdyo görsellerini kullanır.
 - `refinements.css` ve `motion.js` sayfa, kart, filtre, liste ve açılır başlık geri bildirimlerini sağlar; azaltılmış hareket tercihi desteklenir. Bağlantılar animasyon için geciktirilmez.

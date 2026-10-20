@@ -1,12 +1,12 @@
 {
-  "title": "Ünüvar Aydınlatma | Mekânın Işığı",
-  "page_count": 55,
-  "pdf": "/assets/catalog/unuvar-aydinlatma-katalog.pdf",
+  "title": "Ünüvar Aydınlatma | Aydınlatma Koleksiyonu",
+  "page_count": 164,
+  "pdf": "/assets/catalog/unuvar-aydinlatma-katalog-studio.pdf",
   "sections": [
     {
       "id": "lineer-siva-ustu",
       "title": "Sıva üstü lineer",
-      "start": 6,
+      "start": 4,
       "end": 8,
       "image": "/assets/collection/lineer-siva-ustu-v2.webp",
       "width": 1217,
@@ -18,458 +18,1039 @@
       "id": "lineer-siva-alti",
       "title": "Sıva altı lineer",
       "start": 9,
-      "end": 10,
-      "image": "/assets/collection/lineer-siva-alti.webp",
-      "width": 717,
-      "height": 479,
-      "family": "mimari"
+      "end": 11,
+      "image": "/assets/collection/lineer-siva-alti-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "mimari",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "mercekli-lineer",
       "title": "Mercekli lineer",
-      "start": 11,
-      "end": 11,
-      "image": "/assets/collection/mercekli-lineer.webp",
-      "width": 441,
-      "height": 237,
-      "family": "mimari"
+      "start": 12,
+      "end": 13,
+      "image": "/assets/collection/mercekli-lineer-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "mimari",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "dekoratif-lineer",
       "title": "Dekoratif lineer",
-      "start": 13,
-      "end": 17,
-      "image": "/assets/collection/dekoratif-lineer.webp",
-      "width": 585,
-      "height": 471,
-      "family": "dekoratif"
+      "start": 14,
+      "end": 27,
+      "image": "/assets/collection/dekoratif-lineer-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dekoratif",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "ozel-dekoratif",
       "title": "Özel dekoratif lineer",
-      "start": 18,
-      "end": 20,
-      "image": "/assets/collection/ozel-dekoratif.webp",
-      "width": 587,
-      "height": 440,
-      "family": "dekoratif"
+      "start": 28,
+      "end": 45,
+      "image": "/assets/collection/ozel-dekoratif-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dekoratif",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "artline-sarkit",
       "title": "Artline sarkıt",
-      "start": 21,
-      "end": 26,
-      "image": "/assets/collection/artline-sarkit.webp",
-      "width": 275,
-      "height": 275,
-      "family": "dekoratif"
+      "start": 46,
+      "end": 67,
+      "image": "/assets/collection/artline-sarkit-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dekoratif",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "artline-aplik",
       "title": "Artline aplik",
-      "start": 27,
-      "end": 33,
-      "image": "/assets/collection/artline-aplik.webp",
-      "width": 362,
-      "height": 444,
-      "family": "dekoratif"
+      "start": 68,
+      "end": 92,
+      "image": "/assets/collection/artline-aplik-studio.webp",
+      "width": 1015,
+      "height": 1100,
+      "family": "dekoratif",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "artline-lambader",
       "title": "Artline lambader",
-      "start": 34,
-      "end": 35,
-      "image": "/assets/collection/artline-lambader.webp",
-      "width": 381,
-      "height": 561,
-      "family": "dekoratif"
+      "start": 93,
+      "end": 100,
+      "image": "/assets/collection/artline-lambader-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dekoratif",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "kuyumcu",
       "title": "Kuyumcu armatürleri",
-      "start": 37,
-      "end": 37,
-      "image": "/assets/collection/kuyumcu.webp",
-      "width": 200,
-      "height": 576,
-      "family": "ic"
+      "start": 101,
+      "end": 103,
+      "image": "/assets/collection/kuyumcu-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "ic",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "led-line",
       "title": "LED line",
-      "start": 38,
-      "end": 39,
-      "image": "/assets/collection/led-line.webp",
-      "width": 564,
-      "height": 775,
-      "family": "ic"
+      "start": 104,
+      "end": 112,
+      "image": "/assets/collection/led-line-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "ic",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "spot",
       "title": "Spot",
-      "start": 40,
-      "end": 41,
-      "image": "/assets/collection/spot.webp",
-      "width": 212,
-      "height": 183,
-      "family": "ic"
+      "start": 113,
+      "end": 124,
+      "image": "/assets/collection/spot-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "ic",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "wallwasher-ustu",
       "title": "Sıva üstü wallwasher",
-      "start": 43,
-      "end": 44,
-      "image": "/assets/collection/wallwasher-ustu.webp",
-      "width": 1576,
-      "height": 377,
-      "family": "dis"
+      "start": 125,
+      "end": 133,
+      "image": "/assets/collection/wallwasher-ustu-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "wallwasher-alti",
       "title": "Sıva altı wallwasher",
-      "start": 45,
-      "end": 46,
-      "image": "/assets/collection/wallwasher-alti.webp",
-      "width": 498,
-      "height": 943,
-      "family": "dis"
+      "start": 134,
+      "end": 140,
+      "image": "/assets/collection/wallwasher-alti-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "bahce",
       "title": "Ağaç ve bahçe",
-      "start": 47,
-      "end": 48,
-      "image": "/assets/collection/bahce.webp",
-      "width": 564,
-      "height": 845,
-      "family": "dis"
+      "start": 141,
+      "end": 149,
+      "image": "/assets/collection/bahce-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "zemin",
       "title": "Sıva altı zemin",
-      "start": 49,
-      "end": 49,
-      "image": "/assets/collection/zemin.webp",
-      "width": 564,
-      "height": 752,
-      "family": "dis"
+      "start": 150,
+      "end": 152,
+      "image": "/assets/collection/zemin-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "havuz",
       "title": "Havuz",
-      "start": 50,
-      "end": 51,
-      "image": "/assets/collection/havuz.webp",
-      "width": 564,
-      "height": 446,
-      "family": "dis"
+      "start": 153,
+      "end": 159,
+      "image": "/assets/collection/havuz-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "kanopi",
       "title": "Kanopi ve yüksek tavan",
-      "start": 52,
-      "end": 52,
-      "image": "/assets/collection/kanopi.webp",
-      "width": 970,
-      "height": 322,
-      "family": "dis"
+      "start": 160,
+      "end": 161,
+      "image": "/assets/collection/kanopi-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "projektor",
       "title": "Projektör",
-      "start": 53,
-      "end": 53,
-      "image": "/assets/collection/projektor.webp",
-      "width": 366,
-      "height": 384,
-      "family": "dis"
+      "start": 162,
+      "end": 162,
+      "image": "/assets/collection/projektor-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     },
     {
       "id": "etanj",
       "title": "Etanj",
-      "start": 54,
-      "end": 54,
-      "image": "/assets/collection/etanj.webp",
-      "width": 560,
-      "height": 840,
-      "family": "dis"
+      "start": 163,
+      "end": 163,
+      "image": "/assets/collection/etanj-studio.webp",
+      "width": 1100,
+      "height": 1100,
+      "family": "dis",
+      "studio": true,
+      "retouched": true
     }
   ],
   "pages": [
     {
       "page": 1,
       "title": "Kapak",
-      "image": "/assets/catalog/page-01.webp"
+      "image": "/assets/catalog/studio-001.webp"
     },
     {
       "page": 2,
-      "title": "Işığı birlikte düşünelim",
-      "image": "/assets/catalog/page-02.webp"
+      "title": "Nasıl sipariş verilir?",
+      "image": "/assets/catalog/studio-002.webp"
     },
     {
       "page": 3,
       "title": "İçindekiler",
-      "image": "/assets/catalog/page-03.webp"
+      "image": "/assets/catalog/studio-003.webp"
     },
     {
       "page": 4,
-      "title": "Seçim rehberi",
-      "image": "/assets/catalog/page-04.webp"
+      "title": "Sıva üstü lineer / Sıva üstü lineer / 5 × 8 cm",
+      "image": "/assets/catalog/studio-004.webp"
     },
     {
       "page": 5,
-      "title": "LINEER AYDINLATMA",
-      "image": "/assets/catalog/page-05.webp"
+      "title": "Sıva üstü lineer / Oval sıva üstü lineer / 8 × 8 cm",
+      "image": "/assets/catalog/studio-005.webp"
     },
     {
       "page": 6,
-      "title": "Sıva üstü lineer",
-      "image": "/assets/catalog/page-06.webp"
+      "title": "Sıva üstü lineer / Sıva üstü lineer / 5 × 5 cm",
+      "image": "/assets/catalog/studio-006.webp"
     },
     {
       "page": 7,
-      "title": "Sıva üstü lineer",
-      "image": "/assets/catalog/page-07.webp"
+      "title": "Sıva üstü lineer / Sıva üstü lineer / 3 × 4 cm",
+      "image": "/assets/catalog/studio-007.webp"
     },
     {
       "page": 8,
-      "title": "Sıva üstü lineer",
-      "image": "/assets/catalog/page-08.webp"
+      "title": "Sıva üstü lineer / Sıva üstü lineer / 3,5 × 1 cm",
+      "image": "/assets/catalog/studio-008.webp"
     },
     {
       "page": 9,
-      "title": "Sıva altı lineer",
-      "image": "/assets/catalog/page-09.webp"
+      "title": "Sıva altı lineer / Sıva altı lineer / 5 cm",
+      "image": "/assets/catalog/studio-009.webp"
     },
     {
       "page": 10,
-      "title": "Sıva altı lineer",
-      "image": "/assets/catalog/page-10.webp"
+      "title": "Sıva altı lineer / Sıva altı lineer / 8 cm",
+      "image": "/assets/catalog/studio-010.webp"
     },
     {
       "page": 11,
-      "title": "Mercekli lineer",
-      "image": "/assets/catalog/page-11.webp"
+      "title": "Sıva altı lineer / Sıva altı lineer / 3 cm",
+      "image": "/assets/catalog/studio-011.webp"
     },
     {
       "page": 12,
-      "title": "DEKORATİF AYDINLATMA",
-      "image": "/assets/catalog/page-12.webp"
+      "title": "Mercekli lineer / Sıva üstü mercekli lineer",
+      "image": "/assets/catalog/studio-012.webp"
     },
     {
       "page": 13,
-      "title": "Dekoratif lineer",
-      "image": "/assets/catalog/page-13.webp"
+      "title": "Mercekli lineer / Sıva altı mercekli lineer",
+      "image": "/assets/catalog/studio-013.webp"
     },
     {
       "page": 14,
-      "title": "Dekoratif lineer",
-      "image": "/assets/catalog/page-14.webp"
+      "title": "Dekoratif lineer / Davul",
+      "image": "/assets/catalog/studio-014.webp"
     },
     {
       "page": 15,
-      "title": "Dekoratif lineer",
-      "image": "/assets/catalog/page-15.webp"
+      "title": "Dekoratif lineer / Simit / 8 × 7,5 cm",
+      "image": "/assets/catalog/studio-015.webp"
     },
     {
       "page": 16,
-      "title": "Dekoratif lineer",
-      "image": "/assets/catalog/page-16.webp"
+      "title": "Dekoratif lineer / Simit / 5 × 5 cm",
+      "image": "/assets/catalog/studio-016.webp"
     },
     {
       "page": 17,
-      "title": "Dekoratif lineer",
-      "image": "/assets/catalog/page-17.webp"
+      "title": "Dekoratif lineer / Kare",
+      "image": "/assets/catalog/studio-017.webp"
     },
     {
       "page": 18,
-      "title": "Özel dekoratif lineer",
-      "image": "/assets/catalog/page-18.webp"
+      "title": "Dekoratif lineer / Dikdörtgen",
+      "image": "/assets/catalog/studio-018.webp"
     },
     {
       "page": 19,
-      "title": "Özel dekoratif lineer",
-      "image": "/assets/catalog/page-19.webp"
+      "title": "Dekoratif lineer / Altıgen",
+      "image": "/assets/catalog/studio-019.webp"
     },
     {
       "page": 20,
-      "title": "Özel dekoratif lineer",
-      "image": "/assets/catalog/page-20.webp"
+      "title": "Dekoratif lineer / Oval kare davul",
+      "image": "/assets/catalog/studio-020.webp"
     },
     {
       "page": 21,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-21.webp"
+      "title": "Dekoratif lineer / Oval dikdörtgen davul",
+      "image": "/assets/catalog/studio-021.webp"
     },
     {
       "page": 22,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-22.webp"
+      "title": "Dekoratif lineer / Oval altıgen davul",
+      "image": "/assets/catalog/studio-022.webp"
     },
     {
       "page": 23,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-23.webp"
+      "title": "Dekoratif lineer / Oval üçgen davul",
+      "image": "/assets/catalog/studio-023.webp"
     },
     {
       "page": 24,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-24.webp"
+      "title": "Dekoratif lineer / Oval üçgen simit",
+      "image": "/assets/catalog/studio-024.webp"
     },
     {
       "page": 25,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-25.webp"
+      "title": "Dekoratif lineer / Oval kare simit",
+      "image": "/assets/catalog/studio-025.webp"
     },
     {
       "page": 26,
-      "title": "Artline sarkıt",
-      "image": "/assets/catalog/page-26.webp"
+      "title": "Dekoratif lineer / Passion",
+      "image": "/assets/catalog/studio-026.webp"
     },
     {
       "page": 27,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-27.webp"
+      "title": "Dekoratif lineer / Su yolu",
+      "image": "/assets/catalog/studio-027.webp"
     },
     {
       "page": 28,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-28.webp"
+      "title": "Özel dekoratif lineer / Hasır",
+      "image": "/assets/catalog/studio-028.webp"
     },
     {
       "page": 29,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-29.webp"
+      "title": "Özel dekoratif lineer / Infinity",
+      "image": "/assets/catalog/studio-029.webp"
     },
     {
       "page": 30,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-30.webp"
+      "title": "Özel dekoratif lineer / Uzantılı kare",
+      "image": "/assets/catalog/studio-030.webp"
     },
     {
       "page": 31,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-31.webp"
+      "title": "Özel dekoratif lineer / Labirent",
+      "image": "/assets/catalog/studio-031.webp"
     },
     {
       "page": 32,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-32.webp"
+      "title": "Özel dekoratif lineer / İkili kare",
+      "image": "/assets/catalog/studio-032.webp"
     },
     {
       "page": 33,
-      "title": "Artline aplik",
-      "image": "/assets/catalog/page-33.webp"
+      "title": "Özel dekoratif lineer / Karecikler",
+      "image": "/assets/catalog/studio-033.webp"
     },
     {
       "page": 34,
-      "title": "Artline lambader",
-      "image": "/assets/catalog/page-34.webp"
+      "title": "Özel dekoratif lineer / İkili lineer",
+      "image": "/assets/catalog/studio-034.webp"
     },
     {
       "page": 35,
-      "title": "Artline lambader",
-      "image": "/assets/catalog/page-35.webp"
+      "title": "Özel dekoratif lineer / Üçlü lineer",
+      "image": "/assets/catalog/studio-035.webp"
     },
     {
       "page": 36,
-      "title": "İÇ MEKÂN VE VİTRİN",
-      "image": "/assets/catalog/page-36.webp"
+      "title": "Özel dekoratif lineer / X form",
+      "image": "/assets/catalog/studio-036.webp"
     },
     {
       "page": 37,
-      "title": "Kuyumcu armatürleri",
-      "image": "/assets/catalog/page-37.webp"
+      "title": "Özel dekoratif lineer / Y form",
+      "image": "/assets/catalog/studio-037.webp"
     },
     {
       "page": 38,
-      "title": "LED line",
-      "image": "/assets/catalog/page-38.webp"
+      "title": "Özel dekoratif lineer / Üçgen",
+      "image": "/assets/catalog/studio-038.webp"
     },
     {
       "page": 39,
-      "title": "LED line",
-      "image": "/assets/catalog/page-39.webp"
+      "title": "Özel dekoratif lineer / Balık",
+      "image": "/assets/catalog/studio-039.webp"
     },
     {
       "page": 40,
-      "title": "Spot",
-      "image": "/assets/catalog/page-40.webp"
+      "title": "Özel dekoratif lineer / Karma",
+      "image": "/assets/catalog/studio-040.webp"
     },
     {
       "page": 41,
-      "title": "Spot",
-      "image": "/assets/catalog/page-41.webp"
+      "title": "Özel dekoratif lineer / Dümen",
+      "image": "/assets/catalog/studio-041.webp"
     },
     {
       "page": 42,
-      "title": "DIŞ MEKÂN VE TEKNİK",
-      "image": "/assets/catalog/page-42.webp"
+      "title": "Özel dekoratif lineer / Kar tanesi",
+      "image": "/assets/catalog/studio-042.webp"
     },
     {
       "page": 43,
-      "title": "Sıva üstü wallwasher",
-      "image": "/assets/catalog/page-43.webp"
+      "title": "Özel dekoratif lineer / Gökkuşağı",
+      "image": "/assets/catalog/studio-043.webp"
     },
     {
       "page": 44,
-      "title": "Sıva üstü wallwasher",
-      "image": "/assets/catalog/page-44.webp"
+      "title": "Özel dekoratif lineer / Bulut",
+      "image": "/assets/catalog/studio-044.webp"
     },
     {
       "page": 45,
-      "title": "Sıva altı wallwasher",
-      "image": "/assets/catalog/page-45.webp"
+      "title": "Özel dekoratif lineer / Yıldız",
+      "image": "/assets/catalog/studio-045.webp"
     },
     {
       "page": 46,
-      "title": "Sıva altı wallwasher",
-      "image": "/assets/catalog/page-46.webp"
+      "title": "Artline sarkıt / 3 Ada",
+      "image": "/assets/catalog/studio-046.webp"
     },
     {
       "page": 47,
-      "title": "Ağaç ve bahçe",
-      "image": "/assets/catalog/page-47.webp"
+      "title": "Artline sarkıt / Kare Satürn",
+      "image": "/assets/catalog/studio-047.webp"
     },
     {
       "page": 48,
-      "title": "Ağaç ve bahçe",
-      "image": "/assets/catalog/page-48.webp"
+      "title": "Artline sarkıt / Yuvarlak Satürn",
+      "image": "/assets/catalog/studio-048.webp"
     },
     {
       "page": 49,
-      "title": "Sıva altı zemin",
-      "image": "/assets/catalog/page-49.webp"
+      "title": "Artline sarkıt / AS5000",
+      "image": "/assets/catalog/studio-049.webp"
     },
     {
       "page": 50,
-      "title": "Havuz",
-      "image": "/assets/catalog/page-50.webp"
+      "title": "Artline sarkıt / AS5001",
+      "image": "/assets/catalog/studio-050.webp"
     },
     {
       "page": 51,
-      "title": "Havuz",
-      "image": "/assets/catalog/page-51.webp"
+      "title": "Artline sarkıt / AS5002",
+      "image": "/assets/catalog/studio-051.webp"
     },
     {
       "page": 52,
-      "title": "Kanopi ve yüksek tavan",
-      "image": "/assets/catalog/page-52.webp"
+      "title": "Artline sarkıt / AS5003",
+      "image": "/assets/catalog/studio-052.webp"
     },
     {
       "page": 53,
-      "title": "Projektör",
-      "image": "/assets/catalog/page-53.webp"
+      "title": "Artline sarkıt / AS5004",
+      "image": "/assets/catalog/studio-053.webp"
     },
     {
       "page": 54,
-      "title": "Etanj",
-      "image": "/assets/catalog/page-54.webp"
+      "title": "Artline sarkıt / AS5005",
+      "image": "/assets/catalog/studio-054.webp"
     },
     {
       "page": 55,
+      "title": "Artline sarkıt / AS5006",
+      "image": "/assets/catalog/studio-055.webp"
+    },
+    {
+      "page": 56,
+      "title": "Artline sarkıt / AS5007",
+      "image": "/assets/catalog/studio-056.webp"
+    },
+    {
+      "page": 57,
+      "title": "Artline sarkıt / AS5008",
+      "image": "/assets/catalog/studio-057.webp"
+    },
+    {
+      "page": 58,
+      "title": "Artline sarkıt / AS5009",
+      "image": "/assets/catalog/studio-058.webp"
+    },
+    {
+      "page": 59,
+      "title": "Artline sarkıt / AS5010",
+      "image": "/assets/catalog/studio-059.webp"
+    },
+    {
+      "page": 60,
+      "title": "Artline sarkıt / AS5011",
+      "image": "/assets/catalog/studio-060.webp"
+    },
+    {
+      "page": 61,
+      "title": "Artline sarkıt / AS5012",
+      "image": "/assets/catalog/studio-061.webp"
+    },
+    {
+      "page": 62,
+      "title": "Artline sarkıt / AS5013",
+      "image": "/assets/catalog/studio-062.webp"
+    },
+    {
+      "page": 63,
+      "title": "Artline sarkıt / AS5014",
+      "image": "/assets/catalog/studio-063.webp"
+    },
+    {
+      "page": 64,
+      "title": "Artline sarkıt / AS5015",
+      "image": "/assets/catalog/studio-064.webp"
+    },
+    {
+      "page": 65,
+      "title": "Artline sarkıt / AS5016",
+      "image": "/assets/catalog/studio-065.webp"
+    },
+    {
+      "page": 66,
+      "title": "Artline sarkıt / AS5011*",
+      "image": "/assets/catalog/studio-066.webp"
+    },
+    {
+      "page": 67,
+      "title": "Artline sarkıt / AS5018",
+      "image": "/assets/catalog/studio-067.webp"
+    },
+    {
+      "page": 68,
+      "title": "Artline aplik / AS5200",
+      "image": "/assets/catalog/studio-068.webp"
+    },
+    {
+      "page": 69,
+      "title": "Artline aplik / AS5201",
+      "image": "/assets/catalog/studio-069.webp"
+    },
+    {
+      "page": 70,
+      "title": "Artline aplik / AS5202",
+      "image": "/assets/catalog/studio-070.webp"
+    },
+    {
+      "page": 71,
+      "title": "Artline aplik / AS5203",
+      "image": "/assets/catalog/studio-071.webp"
+    },
+    {
+      "page": 72,
+      "title": "Artline aplik / AS5204",
+      "image": "/assets/catalog/studio-072.webp"
+    },
+    {
+      "page": 73,
+      "title": "Artline aplik / AS5205",
+      "image": "/assets/catalog/studio-073.webp"
+    },
+    {
+      "page": 74,
+      "title": "Artline aplik / AS5206",
+      "image": "/assets/catalog/studio-074.webp"
+    },
+    {
+      "page": 75,
+      "title": "Artline aplik / AS5207",
+      "image": "/assets/catalog/studio-075.webp"
+    },
+    {
+      "page": 76,
+      "title": "Artline aplik / AS5208",
+      "image": "/assets/catalog/studio-076.webp"
+    },
+    {
+      "page": 77,
+      "title": "Artline aplik / AS5209",
+      "image": "/assets/catalog/studio-077.webp"
+    },
+    {
+      "page": 78,
+      "title": "Artline aplik / AS5210",
+      "image": "/assets/catalog/studio-078.webp"
+    },
+    {
+      "page": 79,
+      "title": "Artline aplik / AS5211",
+      "image": "/assets/catalog/studio-079.webp"
+    },
+    {
+      "page": 80,
+      "title": "Artline aplik / AS5212",
+      "image": "/assets/catalog/studio-080.webp"
+    },
+    {
+      "page": 81,
+      "title": "Artline aplik / AS5213",
+      "image": "/assets/catalog/studio-081.webp"
+    },
+    {
+      "page": 82,
+      "title": "Artline aplik / AS5214",
+      "image": "/assets/catalog/studio-082.webp"
+    },
+    {
+      "page": 83,
+      "title": "Artline aplik / AS5215",
+      "image": "/assets/catalog/studio-083.webp"
+    },
+    {
+      "page": 84,
+      "title": "Artline aplik / AS5216",
+      "image": "/assets/catalog/studio-084.webp"
+    },
+    {
+      "page": 85,
+      "title": "Artline aplik / AS5217",
+      "image": "/assets/catalog/studio-085.webp"
+    },
+    {
+      "page": 86,
+      "title": "Artline aplik / AS5218",
+      "image": "/assets/catalog/studio-086.webp"
+    },
+    {
+      "page": 87,
+      "title": "Artline aplik / AS5219",
+      "image": "/assets/catalog/studio-087.webp"
+    },
+    {
+      "page": 88,
+      "title": "Artline aplik / AS5220",
+      "image": "/assets/catalog/studio-088.webp"
+    },
+    {
+      "page": 89,
+      "title": "Artline aplik / AS5221",
+      "image": "/assets/catalog/studio-089.webp"
+    },
+    {
+      "page": 90,
+      "title": "Artline aplik / AS5222",
+      "image": "/assets/catalog/studio-090.webp"
+    },
+    {
+      "page": 91,
+      "title": "Artline aplik / AS5223",
+      "image": "/assets/catalog/studio-091.webp"
+    },
+    {
+      "page": 92,
+      "title": "Artline aplik / AS5224",
+      "image": "/assets/catalog/studio-092.webp"
+    },
+    {
+      "page": 93,
+      "title": "Artline lambader / AS5400",
+      "image": "/assets/catalog/studio-093.webp"
+    },
+    {
+      "page": 94,
+      "title": "Artline lambader / AS5401",
+      "image": "/assets/catalog/studio-094.webp"
+    },
+    {
+      "page": 95,
+      "title": "Artline lambader / AS5402",
+      "image": "/assets/catalog/studio-095.webp"
+    },
+    {
+      "page": 96,
+      "title": "Artline lambader / AS5403",
+      "image": "/assets/catalog/studio-096.webp"
+    },
+    {
+      "page": 97,
+      "title": "Artline lambader / AS5404",
+      "image": "/assets/catalog/studio-097.webp"
+    },
+    {
+      "page": 98,
+      "title": "Artline lambader / AS5405",
+      "image": "/assets/catalog/studio-098.webp"
+    },
+    {
+      "page": 99,
+      "title": "Artline lambader / AS5406",
+      "image": "/assets/catalog/studio-099.webp"
+    },
+    {
+      "page": 100,
+      "title": "Artline lambader / AS5407",
+      "image": "/assets/catalog/studio-100.webp"
+    },
+    {
+      "page": 101,
+      "title": "Kuyumcu armatürleri / Kare kuyumcu",
+      "image": "/assets/catalog/studio-101.webp"
+    },
+    {
+      "page": 102,
+      "title": "Kuyumcu armatürleri / Dikdörtgen kuyumcu",
+      "image": "/assets/catalog/studio-102.webp"
+    },
+    {
+      "page": 103,
+      "title": "Kuyumcu armatürleri / Yuvarlak kuyumcu",
+      "image": "/assets/catalog/studio-103.webp"
+    },
+    {
+      "page": 104,
+      "title": "LED line / Standart sıva üstü LED line / ECO",
+      "image": "/assets/catalog/studio-104.webp"
+    },
+    {
+      "page": 105,
+      "title": "LED line / Akım korumalı LED line",
+      "image": "/assets/catalog/studio-105.webp"
+    },
+    {
+      "page": 106,
+      "title": "LED line / Homojen ışık LED line",
+      "image": "/assets/catalog/studio-106.webp"
+    },
+    {
+      "page": 107,
+      "title": "LED line / Renkli sıva üstü LED line",
+      "image": "/assets/catalog/studio-107.webp"
+    },
+    {
+      "page": 108,
+      "title": "LED line / Standart sıva altı LED line",
+      "image": "/assets/catalog/studio-108.webp"
+    },
+    {
+      "page": 109,
+      "title": "LED line / Köşe LED line",
+      "image": "/assets/catalog/studio-109.webp"
+    },
+    {
+      "page": 110,
+      "title": "LED line / Köşe LED line / akım korumalı",
+      "image": "/assets/catalog/studio-110.webp"
+    },
+    {
+      "page": 111,
+      "title": "LED line / Köşe LED line / homojen ışık",
+      "image": "/assets/catalog/studio-111.webp"
+    },
+    {
+      "page": 112,
+      "title": "LED line / Köşe LED line / renkli",
+      "image": "/assets/catalog/studio-112.webp"
+    },
+    {
+      "page": 113,
+      "title": "Spot / AS8001 / Spot",
+      "image": "/assets/catalog/studio-113.webp"
+    },
+    {
+      "page": 114,
+      "title": "Spot / AS8002 / Spot",
+      "image": "/assets/catalog/studio-114.webp"
+    },
+    {
+      "page": 115,
+      "title": "Spot / AS8003 / Spot",
+      "image": "/assets/catalog/studio-115.webp"
+    },
+    {
+      "page": 116,
+      "title": "Spot / AS8004 / Spot",
+      "image": "/assets/catalog/studio-116.webp"
+    },
+    {
+      "page": 117,
+      "title": "Spot / AS8005 / Spot",
+      "image": "/assets/catalog/studio-117.webp"
+    },
+    {
+      "page": 118,
+      "title": "Spot / AS8006 / Spot",
+      "image": "/assets/catalog/studio-118.webp"
+    },
+    {
+      "page": 119,
+      "title": "Spot / AS8007 / Spot",
+      "image": "/assets/catalog/studio-119.webp"
+    },
+    {
+      "page": 120,
+      "title": "Spot / AS8008 / Spot",
+      "image": "/assets/catalog/studio-120.webp"
+    },
+    {
+      "page": 121,
+      "title": "Spot / AS8009 / Spot",
+      "image": "/assets/catalog/studio-121.webp"
+    },
+    {
+      "page": 122,
+      "title": "Spot / AS8010 / Spot",
+      "image": "/assets/catalog/studio-122.webp"
+    },
+    {
+      "page": 123,
+      "title": "Spot / AS8011 / Spot",
+      "image": "/assets/catalog/studio-123.webp"
+    },
+    {
+      "page": 124,
+      "title": "Spot / AS8012 / Spot",
+      "image": "/assets/catalog/studio-124.webp"
+    },
+    {
+      "page": 125,
+      "title": "Sıva üstü wallwasher / 10 cm / 3 LED",
+      "image": "/assets/catalog/studio-125.webp"
+    },
+    {
+      "page": 126,
+      "title": "Sıva üstü wallwasher / 20 cm / 6 LED",
+      "image": "/assets/catalog/studio-126.webp"
+    },
+    {
+      "page": 127,
+      "title": "Sıva üstü wallwasher / 30 cm / 9 LED",
+      "image": "/assets/catalog/studio-127.webp"
+    },
+    {
+      "page": 128,
+      "title": "Sıva üstü wallwasher / 35 cm / 12 LED",
+      "image": "/assets/catalog/studio-128.webp"
+    },
+    {
+      "page": 129,
+      "title": "Sıva üstü wallwasher / 50 cm / 18 LED",
+      "image": "/assets/catalog/studio-129.webp"
+    },
+    {
+      "page": 130,
+      "title": "Sıva üstü wallwasher / 70 cm / 24 LED",
+      "image": "/assets/catalog/studio-130.webp"
+    },
+    {
+      "page": 131,
+      "title": "Sıva üstü wallwasher / 100 cm / 36 LED",
+      "image": "/assets/catalog/studio-131.webp"
+    },
+    {
+      "page": 132,
+      "title": "Sıva üstü wallwasher / 120 cm / 45 LED",
+      "image": "/assets/catalog/studio-132.webp"
+    },
+    {
+      "page": 133,
+      "title": "Sıva üstü wallwasher / 150 cm / 54 LED",
+      "image": "/assets/catalog/studio-133.webp"
+    },
+    {
+      "page": 134,
+      "title": "Sıva altı wallwasher / 10 cm / 3 LED",
+      "image": "/assets/catalog/studio-134.webp"
+    },
+    {
+      "page": 135,
+      "title": "Sıva altı wallwasher / 20 cm / 6 LED",
+      "image": "/assets/catalog/studio-135.webp"
+    },
+    {
+      "page": 136,
+      "title": "Sıva altı wallwasher / 30 cm / 9 LED",
+      "image": "/assets/catalog/studio-136.webp"
+    },
+    {
+      "page": 137,
+      "title": "Sıva altı wallwasher / 35 cm / 12 LED",
+      "image": "/assets/catalog/studio-137.webp"
+    },
+    {
+      "page": 138,
+      "title": "Sıva altı wallwasher / 50 cm / 18 LED",
+      "image": "/assets/catalog/studio-138.webp"
+    },
+    {
+      "page": 139,
+      "title": "Sıva altı wallwasher / 70 cm / 24 LED",
+      "image": "/assets/catalog/studio-139.webp"
+    },
+    {
+      "page": 140,
+      "title": "Sıva altı wallwasher / 100 cm / 36 LED",
+      "image": "/assets/catalog/studio-140.webp"
+    },
+    {
+      "page": 141,
+      "title": "Ağaç ve bahçe / AS9001 / Bahçe",
+      "image": "/assets/catalog/studio-141.webp"
+    },
+    {
+      "page": 142,
+      "title": "Ağaç ve bahçe / AS9002 / Bahçe",
+      "image": "/assets/catalog/studio-142.webp"
+    },
+    {
+      "page": 143,
+      "title": "Ağaç ve bahçe / AS9003 / Bahçe",
+      "image": "/assets/catalog/studio-143.webp"
+    },
+    {
+      "page": 144,
+      "title": "Ağaç ve bahçe / AS9004 / Bahçe",
+      "image": "/assets/catalog/studio-144.webp"
+    },
+    {
+      "page": 145,
+      "title": "Ağaç ve bahçe / AS9007 / Bahçe",
+      "image": "/assets/catalog/studio-145.webp"
+    },
+    {
+      "page": 146,
+      "title": "Ağaç ve bahçe / AS9005 / Bahçe",
+      "image": "/assets/catalog/studio-146.webp"
+    },
+    {
+      "page": 147,
+      "title": "Ağaç ve bahçe / AS9008 / Bahçe",
+      "image": "/assets/catalog/studio-147.webp"
+    },
+    {
+      "page": 148,
+      "title": "Ağaç ve bahçe / AS9006 / Bahçe",
+      "image": "/assets/catalog/studio-148.webp"
+    },
+    {
+      "page": 149,
+      "title": "Ağaç ve bahçe / AS9009 / Bahçe",
+      "image": "/assets/catalog/studio-149.webp"
+    },
+    {
+      "page": 150,
+      "title": "Sıva altı zemin / AS9101 / Zemin",
+      "image": "/assets/catalog/studio-150.webp"
+    },
+    {
+      "page": 151,
+      "title": "Sıva altı zemin / AS9102 / Zemin",
+      "image": "/assets/catalog/studio-151.webp"
+    },
+    {
+      "page": 152,
+      "title": "Sıva altı zemin / AS9103 / Zemin",
+      "image": "/assets/catalog/studio-152.webp"
+    },
+    {
+      "page": 153,
+      "title": "Havuz / AS9201 / Havuz",
+      "image": "/assets/catalog/studio-153.webp"
+    },
+    {
+      "page": 154,
+      "title": "Havuz / AS9202 / Havuz",
+      "image": "/assets/catalog/studio-154.webp"
+    },
+    {
+      "page": 155,
+      "title": "Havuz / AS9203 / Havuz",
+      "image": "/assets/catalog/studio-155.webp"
+    },
+    {
+      "page": 156,
+      "title": "Havuz / AS9301 / PAR56 ampul",
+      "image": "/assets/catalog/studio-156.webp"
+    },
+    {
+      "page": 157,
+      "title": "Havuz / AS9302 / PAR56 sıva üstü",
+      "image": "/assets/catalog/studio-157.webp"
+    },
+    {
+      "page": 158,
+      "title": "Havuz / AS9303 / PAR56 sıva altı",
+      "image": "/assets/catalog/studio-158.webp"
+    },
+    {
+      "page": 159,
+      "title": "Havuz / AS9304 / Fıskiye armatürü",
+      "image": "/assets/catalog/studio-159.webp"
+    },
+    {
+      "page": 160,
+      "title": "Kanopi ve yüksek tavan / AS6301 / Kanopi",
+      "image": "/assets/catalog/studio-160.webp"
+    },
+    {
+      "page": 161,
+      "title": "Kanopi ve yüksek tavan / AS6401 / Yüksek tavan",
+      "image": "/assets/catalog/studio-161.webp"
+    },
+    {
+      "page": 162,
+      "title": "Projektör / Projektör ailesi",
+      "image": "/assets/catalog/studio-162.webp"
+    },
+    {
+      "page": 163,
+      "title": "Etanj / Etanj ailesi",
+      "image": "/assets/catalog/studio-163.webp"
+    },
+    {
+      "page": 164,
       "title": "İletişim",
-      "image": "/assets/catalog/page-55.webp"
+      "image": "/assets/catalog/studio-164.webp"
     }
   ]
 }

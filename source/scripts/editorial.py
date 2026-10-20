@@ -10,6 +10,7 @@ def data():
     return json.loads((ROOT/"data/catalog.json").read_text(encoding="utf-8"))
 
 def picture(s,cls="",priority=False):
+    if s.get("studio"): cls += " studio-product"
     return f'<img class="{cls}" src="{s["image"]}" width="{s["width"]}" height="{s["height"]}" alt="{e(s["title"])}" '+('fetchpriority="high"' if priority else 'loading="lazy" decoding="async"')+'>'
 
 def collection_grid(icon,full=False):
@@ -23,7 +24,7 @@ def collection_grid(icon,full=False):
       "bahce":"Peyzajı gece yeniden keşfedin."}
     cards="".join(f'''<a class="collection-card" href="/urunler/#sayfa-{s["start"]}" data-collection-family="{s["family"]}" data-collection-name="{e(s["title"])}">
     <div class="collection-image">{picture(s)}<span class="collection-number">{i+1:02d}</span><span class="collection-arrow">{icon("up")}</span></div>
-    <div class="collection-caption"><h3>{e(s["title"])}</h3><span>{f'Sayfa {s["start"]:02d}–{s["end"]:02d}' if full else descriptions[s["id"]]}</span>{'<small class="media-retouched">Dijital olarak düzenlenmiş kullanım örneği</small>' if s.get("retouched") else ""}</div></a>''' for i,s in enumerate(entries))
+    <div class="collection-caption"><h3>{e(s["title"])}</h3><span>{f'Sayfa {s["start"]:02d}–{s["end"]:02d}' if full else descriptions[s["id"]]}</span>{'<small class="media-retouched">Temsili stüdyo görseli</small>' if s.get("studio") else ('<small class="media-retouched">Dijital olarak düzenlenmiş kullanım örneği</small>' if s.get("retouched") else "")}</div></a>''' for i,s in enumerate(entries))
     controls='''<div class="collection-controls" data-collection-controls hidden>
       <div class="collection-filters" role="group" aria-label="Koleksiyon türü">
       <button type="button" data-family="all" aria-pressed="true">Tümü</button><button type="button" data-family="mimari" aria-pressed="false">Mimari lineer</button><button type="button" data-family="dekoratif" aria-pressed="false">Dekoratif</button><button type="button" data-family="ic" aria-pressed="false">İç mekân</button><button type="button" data-family="dis" aria-pressed="false">Dış mekân & teknik</button></div>
@@ -48,7 +49,7 @@ def featured(icon,full=False):
         <a class="text-link" href="{url}">Talep listesine ekleyin {icon("up")}</a></article>''')
     return f'''<section class="selection-section" aria-labelledby="selection-title"><div class="container">
     <div class="section-head"><div><span class="eyebrow">KOLEKSİYONDAN SEÇKİ</span><h2 id="selection-title">Bir detay, bambaşka bir atmosfer.</h2></div><a class="text-link" href="/urunler/#sayfa-{next(s for s in data()["sections"] if s["id"]=="artline-sarkit")["start"]}">Artline koleksiyonuna bakın {icon("arrow")}</a></div>
-    <div class="selection-grid">{"".join(cards)}</div><p class="selection-note">Görseller katalogdaki ürünleri gösterir. Güncel fiyat, renk seçenekleri ve stok bilgisini ürün koduyla öğrenebilirsiniz.</p></div></section>'''
+    <div class="selection-grid">{"".join(cards)}</div><p class="selection-note">Ürün görselleri dijital olarak düzenlenmiş temsili stüdyo görselleridir. Güncel fiyat, renk seçenekleri ve stok bilgisini ürün koduyla öğrenebilirsiniz.</p></div></section>'''
 
 def process(icon):
     return f'''<section class="project-section"><div class="container project-grid"><div class="project-intro"><span class="eyebrow">BİRLİKTE SEÇELİM</span><h2>Fikrinizi anlatın.<br><em>Işığını birlikte bulalım.</em></h2><p>Tek bir armatür ya da birden çok alan için ürün arıyor olabilirsiniz. Kod, adet ve mekân bilgisiyle başlayın.</p><a class="button yellow" href="/iletisim/#teklif">Fiyat ve ürün bilgisi isteyin {icon("arrow")}</a></div><ol class="project-steps">
@@ -75,7 +76,7 @@ def homepage(icon,out,wa,photo,brands,sections,location,catalog_teaser):
       <div class="editorial-hero-copy"><span class="eyebrow">ÜNÜVAR AYDINLATMA · KARAKÖY</span><h1>Işıkla değişen<br><em>mekânlar.</em></h1><p>Yalın bir çizgi, güçlü bir form, doğru bir vurgu. Eviniz ve iş yeriniz için aydınlatma seçeneklerini keşfedin.</p>
       <div class="hero-actions"><a class="button yellow" href="/urunler/#koleksiyonlar">Koleksiyonu keşfedin {icon("arrow")}</a><a class="text-link" href="/iletisim/#teklif">İhtiyacınızı paylaşın {icon("up")}</a></div>
       <div class="hero-footnote"><span>KEŞFET</span><p>Dekoratif formlardan<br>mimari aydınlatmaya.</p><a href="#koleksiyonlar" aria-label="Koleksiyonlara ilerle">↓</a></div></div>
-      <figure class="editorial-hero-image"><img src="/assets/collection/hero.webp" width="564" height="940" alt="Katalogdan dekoratif sarkıtların yer aldığı bir iç mekân örneği" fetchpriority="high"><figcaption><span>KOLEKSİYONDAN BİR GÖRÜNÜM</span><b>Işık. Form. Atmosfer.</b></figcaption></figure>
+      <figure class="editorial-hero-image"><img src="/assets/collection/hero-v2.webp" width="971" height="1619" alt="Dekoratif halka sarkıtların yer aldığı, dijital olarak düzenlenmiş iç mekân örneği" fetchpriority="high"><figcaption><span>DİJİTAL OLARAK DÜZENLENMİŞ KULLANIM ÖRNEĞİ</span><b>Işık. Form. Atmosfer.</b></figcaption></figure>
     </div></section>
     <div class="service-line"><div class="container"><span>19 ürün grubu</span><span>{data()["page_count"]} sayfalık dijital katalog</span><span>Ürün koduyla fiyat ve stok bilgisi</span><a href="/iletisim/#magaza-konumu">Karaköy’de mağaza {icon("up")}</a></div></div>
     {collection_grid(icon)}
