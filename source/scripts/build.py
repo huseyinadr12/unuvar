@@ -4,6 +4,7 @@ from seo import metadata, robots
 from order_markup import order_markup, validate_products
 from content_sections import presentation_sections, kelvin_widget
 from inner_pages import about_page, contact_page, guide_page
+from catalog_markup import catalog_page, catalog_teaser
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
@@ -27,8 +28,8 @@ def bundle(filename, parts):
     (DIST / 'assets' / filename).write_text(content, encoding='utf-8')
     return '/assets/' + filename + '?v=' + hashlib.sha256(content.encode()).hexdigest()[:12]
 
-CSS = bundle('app.css', ['site.css', 'orders.css', 'transitions.css'])
-JS = bundle('app.js', ['site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js'])
+CSS = bundle('app.css', ['site.css', 'orders.css', 'catalog.css', 'transitions.css'])
+JS = bundle('app.js', ['site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js', 'catalog.js'])
 CATEGORIES = {
     'panel-spot': ('Panel ve spot', 'İhtiyacınız olan ışık, sade bir görünüm.', 'spot'),
     'dekoratif-led': ('Dekoratif LED', 'Mekânınızın çizgilerini ışıkla vurgulayın.', 'spark'),
@@ -36,6 +37,7 @@ CATEGORIES = {
     'led-ampuller': ('LED ampuller', 'Günlük ihtiyaçlarınıza uygun ışığı bulun.', 'bulb'),
 }
 ICONS = {
+    'download':'<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
     'bag':'<path d="M5 7h14l1 14H4L5 7Z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/>',
     'arrow':'<path d="M5 12h14M13 6l6 6-6 6"/>',
     'up':'<path d="M6 18 18 6M6 6h12v12"/>',
@@ -111,7 +113,7 @@ SECTIONS = presentation_sections(icon, out, wa, IG, FB)
 INTRO = '<div class="intro-screen" aria-hidden="true"><div class="intro-mark"><span class="intro-word">Ünüvar<i class="intro-tab"></i></span><span class="intro-sub">AYDINLATMA</span><span class="intro-line"></span></div></div>'
 
 def shell(title, desc, body, current='home', path='/', hero=False, schema=None, intro=False):
-    nav=''.join(f'<a href="{u}" {"aria-current=page" if current==key else ""}>{label}</a>' for key,label,u in [('home','Ana sayfa','/'),('products','Ürünler','/urunler/'),('guide','Işık rehberi','/rehber/'),('about','Hakkımızda','/hakkimizda/'),('contact','İletişim','/iletisim/')])
+    nav=''.join(f'<a href="{u}" {"aria-current=page" if current==key else ""}>{label}</a>' for key,label,u in [('home','Ana sayfa','/'),('products','Katalog','/urunler/'),('guide','Işık rehberi','/rehber/'),('about','Hakkımızda','/hakkimizda/'),('contact','İletişim','/iletisim/')])
     schema= schema or {'@context':'https://schema.org','@type':'Store','name':'Ünüvar Aydınlatma','url':ORIGIN,'logo':ORIGIN+'/assets/logo.webp','image':ORIGIN+'/assets/magaza-profesyonel-v5-1448.webp','telephone':'+90 545 610 50 09','sameAs':[IG,FB],'address':{'@type':'PostalAddress','streetAddress':'Emekyemez Mahallesi, Tutsak Sokak No:8','addressLocality':'Beyoğlu','addressRegion':'İstanbul','postalCode':'34421','addressCountry':'TR'},'geo':{'@type':'GeoCoordinates','latitude':41.0262442,'longitude':28.9710587},'hasMap':BUSINESS_MAP}
     seo = metadata(path, title, desc, ORIGIN, schema)
     schema = seo['schema']
@@ -142,14 +144,14 @@ for stale in [DIST / 'urun', *(DIST / 'urunler' / category for category in CATEG
 home=f'''<section class="hero-stage"><div class="container hero"><div class="hero-copy"><span class="eyebrow">KARAKÖY · AYDINLATMA VE ELEKTRİK</span><h1>Avizeden ampule,<br/><span class="glow">aradığınız ışık burada.</span></h1><p class="hero-description">Ünüvar Aydınlatma, Karaköy’de aydınlatma ve elektrik malzemesi mağazası. Ürünü mağazamızda görün ya da fotoğrafını WhatsApp’tan gönderin, fiyat ve stok bilgisini iletelim.</p><div class="hero-actions">{out(wa('Merhaba Ünüvar Aydınlatma, bir ürün hakkında bilgi almak istiyorum.'),icon('wa')+' WhatsApp’tan ürün sor','button yellow')}<a class="button ghost" href="#urun-gruplari">Ürün gruplarını görün {icon('arrow')}</a></div>
       <dl class="hero-facts"><div><dt>{icon('pin')} Adres</dt><dd>Tutsak Sk. No:8, Karaköy</dd></div><div><dt>{icon('phone')} Telefon</dt><dd><a href="tel:+905456105009">0545 610 50 09</a></dd></div><div><dt>{icon('clock')} Saatler</dt><dd>{e(HOURS[0][1]) if HOURS else 'Telefonla teyit edin'}</dd></div></dl></div>
       <figure class="hero-visual">{photo('Karaköy’deki Ünüvar Aydınlatma mağazasının tabelası, vitrini ve girişi',hero=True)}<figcaption><span class="live-dot" aria-hidden="true"></span> Karaköy mağazamız</figcaption></figure></div></section>
-    {brands()}{SECTIONS['range']()}{SECTIONS['spaces']}{SECTIONS['guide_teaser']}{SECTIONS['ask']}{SECTIONS['faq']}{location()}'''
+    {brands()}{SECTIONS['range']()}{catalog_teaser(icon)}{SECTIONS['spaces']}{SECTIONS['guide_teaser']}{SECTIONS['ask']}{SECTIONS['faq']}{location()}'''
 write('/',shell('Karaköy’de aydınlatma ve elektrik malzemesi','Avize, sarkıt, aplik, spot, LED ampul, şerit LED ve elektrik malzemesi. Karaköy’deki Ünüvar Aydınlatma mağazasını ziyaret edin veya WhatsApp’tan ürün sorun.',home,hero=True,intro=True))
 
-catalog=f'''<div class="container">{breadcrumb([('Ürünler',None)])}</div>{SECTIONS['range']('h1','Ürün grupları')}{SECTIONS['ask']}'''
+catalog=f'''<div class="container">{breadcrumb([('Katalog',None)])}</div>{catalog_page(icon, wa, out)}{SECTIONS['range']()}{SECTIONS['ask']}'''
 if ORDER_PRODUCTS:
     cards=''.join(f'<article class="order-card"><img src="{e(p["image"])}" alt="{e(p["name"])}" width="540" height="540" loading="lazy"><small>{e(p.get("brand",""))} {e(p.get("code",""))}</small><h2>{e(p["name"])}</h2><button type="button" class="button yellow" data-order-add="{e(p["id"])}">Listeye ekle {icon("bag")}</button><noscript>Sipariş listesi için JavaScript gereklidir. Telefonla bize ulaşabilirsiniz.</noscript></article>' for p in ORDER_PRODUCTS)
-    catalog=f'<div class="container">{breadcrumb([("Ürünler",None)])}<section class="page-heading"><h1>Katalog.</h1><p>Seçimlerinizi listeye ekleyin, WhatsApp üzerinden bize iletin.</p></section><div class="order-grid">{cards}</div></div>'
-write('/urunler/',shell('Ürün grupları','Avize, aplik, spot, panel, LED ampul, şerit LED, dış mekân aydınlatması ve elektrik malzemesi. Fiyat ve stok bilgisini WhatsApp’tan sorun.',catalog,current='products',path='/urunler/'))
+    catalog+=f'<div class="container"><section class="page-heading"><h2>Sipariş listesine ekleyin.</h2><p>Seçimlerinizi listeye ekleyin, WhatsApp üzerinden bize iletin.</p></section><div class="order-grid">{cards}</div></div>'
+write('/urunler/',shell('Aydınlatma kataloğu','44 sayfalık Ünüvar Aydınlatma kataloğunu inceleyin veya PDF olarak indirin. Lineer, dekoratif, dış mekân ve teknik aydınlatma ürünleri.',catalog,current='products',path='/urunler/'))
 
 guide = guide_page(icon, out, wa, breadcrumb, SECTIONS, kelvin_widget)
 write('/rehber/',shell('Işık rehberi','Işık rengi (Kelvin), lümen ve watt karşılıkları, E27, E14, GU10 duy tipleri ve IP koruma sınıfları. Mekâna göre aydınlatma önerileri.',guide,current='guide',path='/rehber/'))

@@ -21,7 +21,7 @@ def export(output, url):
     output.mkdir(parents=True, exist_ok=True)
     files = set(DIST.rglob('*.html')) | {DIST/'sitemap.xml', DIST/'robots.txt'}
     pending = list(files)
-    asset_pattern = re.compile(r'/assets/[^\s"\'<>(),?]+')
+    asset_pattern = re.compile(r'/assets/[^\s"\'<>(),?#]+')
     while pending:
         file = pending.pop()
         if file.suffix not in ('.html','.css','.js','.svg','.xml','.txt'):

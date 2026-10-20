@@ -6,13 +6,13 @@
   "sitemap_urls": 6,
   "assets": {
     "app.css": {
-      "bytes": 51214,
-      "gzip_estimate_bytes": 11442,
+      "bytes": 57130,
+      "gzip_estimate_bytes": 12424,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 15090,
-      "gzip_estimate_bytes": 5159,
+      "bytes": 18133,
+      "gzip_estimate_bytes": 5981,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {
@@ -101,9 +101,9 @@
     },
     {
       "path": "/urunler/",
-      "title": "Ürün Grupları | Ünüvar Aydınlatma Karaköy",
-      "title_characters": 41,
-      "description_characters": 138,
+      "title": "Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma",
+      "title_characters": 50,
+      "description_characters": 146,
       "schema_types": [
         "Store",
         "WebSite",

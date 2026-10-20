@@ -4,7 +4,17 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, ürün grupları, ışık rehberi, hakkımızda, iletişim ve gizlilik sayfaları bulunur. Ürün grupları WhatsApp'tan fiyat ve stok sormaya yönlendirir; tekil ürün ve fiyat yayınlanmamıştır. Gelecekte kullanılacak sipariş listesi altyapısı hazırdır ve katalogda ürün olduğunda görünür.
+Ana sayfa, dijital katalog ve ürün grupları, ışık rehberi, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 44 sayfalık PDF katalog 19 bölüm, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Güncel fiyat ve stok bilgisi WhatsApp'tan sorulur. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
+
+## Dijital katalog
+
+- `source/data/catalog.json`: 44 sayfanın önizleme yolları ve 19 bölümün sayfa aralıkları.
+- `source/dist/assets/catalog/`: düzenlenmiş PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; 16 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir.
+- `source/scripts/catalog_markup.py`, `source/dist/assets/catalog.css`, `source/dist/assets/catalog.js`: katalog tanıtımı, içindekiler, sayfa seçici ve ana sayfa bağlantısı.
+- JavaScript kapalıyken PDF indirme ve bölümün PDF sayfasına açılan bağlantıları çalışır. `#sayfa-25` gibi adresler açık bir katalog sayfasını paylaşmak için kullanılabilir.
+- Düzenlenen katalogda Artline güç başlıkları ve 52 tablo standartlaştırılmıştır. AS5017 yüksekliği, AS5207 genişliği, AS5401 yüksekliği ve AS5405/AS5406 eksik ölçüleri tahmin edilmeden “Teyit gerekli” olarak işaretlenmiştir. Kaynakta yer alan diğer teknik değerler, belge/garanti ifadeleri ve IP sınıfı tutarsızlıkları ürün kodu üzerinden teyit edilmelidir.
+
+Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin, `catalog.json` sayfa/bölüm aralıklarını eşleştirin ve aşağıdaki derleme/denetim/dışa aktarım komutlarını çalıştırın. Kaynak ürün görselleri yeniden üretilmemiştir; mevcut katalogdan alınmıştır.
 
 ## Sık düzenlenenler
 

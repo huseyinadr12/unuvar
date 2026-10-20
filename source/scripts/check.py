@@ -68,6 +68,24 @@ for path in pages:
 if len(pages) != 7: errors.append('Expected exactly 6 pages and a 404; check for stale catalog/category pages')
 if 'range-card' not in (DIST / 'urunler/index.html').read_text(encoding='utf-8'):
     errors.append('Product groups are missing from the products page')
+catalog = json.loads((DIST.parent / 'data/catalog.json').read_text(encoding='utf-8'))
+catalog_html = (DIST / 'urunler/index.html').read_text(encoding='utf-8')
+if len(catalog['pages']) != catalog['page_count']:
+    errors.append('Catalog preview count does not match its page count')
+if [p['page'] for p in catalog['pages']] != list(range(1, catalog['page_count']+1)):
+    errors.append('Catalog preview sequence is incomplete')
+for entry in catalog['pages']:
+    if not (DIST / entry['image'].lstrip('/')).is_file():
+        errors.append('Missing catalog preview: '+entry['image'])
+    if entry['image'] not in catalog_html:
+        errors.append('Catalog preview not exposed to static export: '+entry['image'])
+if not (DIST / catalog['pdf'].lstrip('/')).is_file():
+    errors.append('Catalog PDF is missing')
+for section in catalog['sections']:
+    if not 1 <= section['start'] <= section['end'] <= catalog['page_count']:
+        errors.append('Invalid catalog chapter range: '+section['title'])
+if 'data-reader' not in catalog_html or 'download="unuvar-aydinlatma-katalog.pdf"' not in catalog_html:
+    errors.append('Catalog reader or download link is missing')
 for path in pages:
     if 'site-loader' in path.read_text(encoding='utf-8'): errors.append(f'{path}: first-visit loader is published')
 if errors: raise SystemExit('\n'.join(errors))

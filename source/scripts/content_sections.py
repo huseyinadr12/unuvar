@@ -48,7 +48,7 @@ def presentation_sections(icon, out, wa, instagram, facebook):
 
     def product_range(heading_level='h2', title='Mağazada neler var?'):
         return f'''<section class="range-section" id="urun-gruplari" aria-labelledby="range-title"><div class="container">
-      <div class="section-head"><div><span class="eyebrow">ÜRÜN GRUPLARI</span><{heading_level} id="range-title">{title}</{heading_level}></div><p>Online katalog hazırlanıyor. Bu sırada aradığınız ürünün fiyat ve stok bilgisini WhatsApp’tan hızlıca alabilirsiniz.</p></div>
+      <div class="section-head"><div><span class="eyebrow">ÜRÜN GRUPLARI</span><{heading_level} id="range-title">{title}</{heading_level}></div><p><a href="/urunler/#katalog">Dijital kataloğumuzu inceleyin.</a> Aradığınız ürünün güncel fiyat ve stok bilgisini WhatsApp’tan alabilirsiniz.</p></div>
       <div class="range-grid">{cards}</div>
     </div></section>'''
 
@@ -71,7 +71,7 @@ def presentation_sections(icon, out, wa, instagram, facebook):
     </div></section>'''
 
     questions = [
-        ('Online sipariş verebilir miyim?', f'Online katalog hazırlanıyor. Şimdilik ürün, fiyat ve stok bilgisini {out(wa(),"WhatsApp üzerinden")} ya da <a href="tel:+905456105009">0545 610 50 09</a> numaralı telefondan alabilirsiniz.'),
+        ('Online sipariş verebilir miyim?', f'<a href="/urunler/#katalog">Dijital katalogdan</a> beğendiğiniz ürünün kodunu bize iletebilirsiniz. Güncel fiyat, stok ve sipariş koşullarını {out(wa(),"WhatsApp üzerinden")} ya da <a href="tel:+905456105009">0545 610 50 09</a> numaralı telefondan öğrenebilirsiniz. Site üzerinden ödeme alınmaz.'),
         ('Elimdeki ürünün aynısını bulabilir misiniz?', 'Ürünün ya da kutusunun fotoğrafını, varsa üzerindeki kodu gönderin. Mağazamızda aynısı veya uygun bir seçenek olup olmadığını size bildirelim.'),
         ('Hangi ışık rengini seçmeliyim?', 'Dinlenme alanları için 2700K ile 3000K arası sıcak beyaz, mutfak tezgâhı, banyo ve çalışma alanı için 4000K nötr beyaz uygundur. Ayrıntılar <a href="/rehber/#isik-rengi">Işık rehberimizde</a>.'),
         ('Eski ampulümün LED karşılığı kaç watt?', 'Karşılaştırırken watt yerine lümene bakın. 60W akkor ampulün ışığı yaklaşık 806 lümendir ve bunu genellikle 8 ile 9W arası bir LED ampul karşılar. <a href="/rehber/#parlaklik">Tablonun tamamı</a>'),
