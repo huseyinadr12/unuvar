@@ -1,4 +1,4 @@
-<!doctype html><html lang="tr" data-site-revision="cd42c1b24949"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>document.documentElement.classList.add("js");/* Only a fresh visit/reload gets the opening. Internal arrivals never flash it. */
+<!doctype html><html lang="tr" data-site-revision="12ec2f3163c0"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>document.documentElement.classList.add("js");/* Only a fresh visit/reload gets the opening. Internal arrivals never flash it. */
 (() => {
   const root = document.documentElement;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -54,27 +54,28 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 .brand-transition[data-phase="out"] .brand-progress-fill{transform:scaleX(1)}
 .brand-transition[data-phase="out"]{animation:brand-reveal .4s ease-in-out both}
 /* Menu changes have their own scene; the fixture is reserved for the opening. */
-.brand-navigation{display:none;--runway-width:min(1000px,90vw);--brand-width:clamp(205px,28vw,300px);width:var(--runway-width)}
+.brand-navigation{display:none;--runway-width:min(1000px,90vw);--brand-width:calc(var(--runway-width) * .3);width:var(--runway-width)}
+.brand-transition[data-phase="navigate"]{background:#f8f7f3}
 .brand-transition[data-phase="navigate"] :is(.brand-wash,.brand-scene){display:none}
 .brand-transition[data-phase="navigate"] .brand-navigation{display:block}
-.brand-runway{position:relative;width:100%;height:200px}
-.brand-runway:after{content:"";position:absolute;left:0;right:0;bottom:12px;height:1px;background:linear-gradient(90deg,transparent,#c3ad6440 15%,#c3ad6440 85%,transparent)}
-.brand-traveller{position:absolute;top:12px;left:0;width:var(--brand-width);height:auto;overflow:visible;mix-blend-mode:screen;will-change:transform}
-.brand-travel-word{filter:grayscale(1) invert(1);mix-blend-mode:screen}
+.brand-runway{position:relative;width:100%;height:calc(var(--runway-width) * .2)}
+.brand-runway:after{content:"";position:absolute;left:0;right:0;bottom:6%;height:1px;background:linear-gradient(90deg,transparent,#c3ad6440 15%,#c3ad6440 85%,transparent)}
+/* Scale one scene on every screen; preserve the original black wordmark. */
+.brand-traveller{position:absolute;top:6%;left:0;width:var(--brand-width);height:auto;overflow:visible;mix-blend-mode:multiply;will-change:transform}
 .brand-travel-lamp{fill:#2c2e27}
 /* Keep the blur constant and animate its opacity, avoiding a changing filter each frame. */
-.brand-travel-glow{fill:#ffe871;opacity:0;filter:drop-shadow(0 0 16px #fff4b7) drop-shadow(0 0 40px #ffd251) drop-shadow(0 0 72px #ffbf3c99)}
+.brand-travel-glow{fill:#ffe871;opacity:0;filter:drop-shadow(0 0 16px #ffe685) drop-shadow(0 0 40px #ffd251) drop-shadow(0 0 72px #ffbf3c99)}
 .brand-transition[data-phase="navigate"] .brand-traveller{animation:brand-travel var(--brand-travel-duration) cubic-bezier(.4,0,.6,1) both}
 .brand-transition[data-phase="navigate"] .brand-travel-lamp{animation:brand-tab-ignite var(--brand-travel-duration) linear both}
 .brand-transition[data-phase="navigate"] .brand-travel-glow{animation:brand-tab-glow var(--brand-travel-duration) linear both}
-.brand-transition[data-phase="navigate"] .brand-skip{color:#c6c5b8}
+.brand-transition[data-phase="navigate"] .brand-skip{color:#53564b}
 @keyframes brand-travel{from{transform:translateX(0)}to{transform:translateX(calc(var(--runway-width) - var(--brand-width)))}}
 @keyframes brand-tab-ignite{
   0%{fill:#2c2e27}
   25%{fill:#78602a}
   50%{fill:#d6a331}
   75%{fill:#ffda52}
-  100%{fill:#fff5be}
+  100%{fill:#ffe45c}
 }
 @keyframes brand-tab-glow{0%{opacity:0}25%{opacity:.03}50%{opacity:.18}75%{opacity:.5}100%{opacity:1}}
 @keyframes brand-progress-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -87,7 +88,7 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 @keyframes brand-reveal{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-startup-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
-@media(max-width:600px){.brand-scene{height:340px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-progress{top:318px;width:240px}.brand-skip{right:20px;bottom:24px}.brand-runway{height:150px}}
+@media(max-width:600px){.brand-scene{height:340px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-progress{top:318px;width:240px}.brand-skip{right:20px;bottom:24px}}
 @media(prefers-reduced-motion:reduce){html[data-brand-intro] .brand-transition,.brand-transition[data-phase]{display:none!important}}
 @media print{.brand-transition{display:none!important}}
 </style><script defer src="/unuvar/assets/navigation.js?v=b826246de760"></script><script defer src="/unuvar/assets/app.js?v=adb0730cdbba"></script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Store", "name": "Ünüvar Aydınlatma", "url": "https://huseyinadr12.github.io/unuvar", "logo": "https://huseyinadr12.github.io/unuvar/assets/logo.webp", "image": "https://huseyinadr12.github.io/unuvar/assets/magaza-profesyonel-v5-1448.webp", "telephone": "+90 545 610 50 09", "sameAs": ["https://www.instagram.com/unuvar.aydinlatma/", "https://www.facebook.com/p/%C3%9Cn%C3%BCvar-Elektrik-VE-Aydinlatma-100089000323477/"], "address": {"@type": "PostalAddress", "streetAddress": "Emekyemez Mahallesi, Tutsak Sokak No:8", "addressLocality": "Beyoğlu", "addressRegion": "İstanbul", "postalCode": "34421", "addressCountry": "TR"}, "geo": {"@type": "GeoCoordinates", "latitude": 41.0262442, "longitude": 28.9710587}, "hasMap": "https://www.google.com/maps/place/%C3%9Cn%C3%BCvar+Ayd%C4%B1nlatma+Elektrik/@41.0262442,28.9710587,17z/data=!3m1!4b1!4m6!3m5!1s0x14cab9f6e7d1a36d:0xfa8c9bd37519d265!8m2!3d41.0262442!4d28.9710587!16s%2Fg%2F11vcmwg5yl", "@id": "https://huseyinadr12.github.io/unuvar/#business"}, {"@type": "WebSite", "@id": "https://huseyinadr12.github.io/unuvar/#website", "url": "https://huseyinadr12.github.io/unuvar/", "name": "Ünüvar Aydınlatma", "inLanguage": "tr-TR", "publisher": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}}, {"@type": "WebPage", "@id": "https://huseyinadr12.github.io/unuvar/gizlilik/#webpage", "url": "https://huseyinadr12.github.io/unuvar/gizlilik/", "name": "Gizlilik ve Site Bilgileri | Ünüvar Aydınlatma", "description": "Ünüvar Aydınlatma web sitesinin veri akışı, bağlantıları ve iletişim bilgileri.", "inLanguage": "tr-TR", "isPartOf": {"@id": "https://huseyinadr12.github.io/unuvar/#website"}, "about": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}, "primaryImageOfPage": {"@type": "ImageObject", "url": "https://huseyinadr12.github.io/unuvar/assets/share-cover.jpg"}}]}</script></head>
