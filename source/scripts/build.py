@@ -17,6 +17,12 @@ PHONE = '905456105009'
 ORDER_PRODUCTS = validate_products(json.loads((ROOT / 'data/order-catalog.json').read_text(encoding='utf-8')), DIST)
 HEAD_JS = (DIST / 'assets/navigation-head.js').read_text(encoding='utf-8')
 INTRO_JS = (DIST / 'assets/intro-head.js').read_text(encoding='utf-8')
+BRAND_CSS = (DIST / 'assets/brand-transition.css').read_text(encoding='utf-8')
+BRAND_TRANSITION = '''<div class="brand-transition" data-brand-transition>
+<div class="brand-wash" aria-hidden="true"></div><div class="brand-scene" aria-hidden="true">
+<div class="brand-fixture"><div class="brand-diffuser"><div class="brand-light"></div></div></div><div class="brand-beam"></div>
+<div class="brand-mark"><img src="/assets/logo.webp" width="903" height="903" alt=""></div>
+<p class="brand-motto">Mekânın ışığı.</p></div><button class="brand-skip" type="button" data-brand-skip>Geçişi atla ↗</button></div>'''
 # Çalışma saatleri teyit edildiğinde doldurun, örn. [('Pazartesi - Cumartesi', '09:00 - 19:00'), ('Pazar', 'Kapalı')]
 HOURS = []
 IG = 'https://www.instagram.com/unuvar.aydinlatma/'
@@ -34,7 +40,7 @@ def asset_url(name):
     return '/assets/' + name + '?v=' + hashlib.sha256((DIST/'assets'/name).read_bytes()).hexdigest()[:12]
 
 CSS = bundle('app.css', ['site.css', 'orders.css', 'catalog.css', 'transitions.css', 'editorial.css', 'refinements.css'])
-JS = bundle('app.js', ['site.js', 'navigation.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js', 'editorial.js'])
+JS = bundle('app.js', ['site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js', 'editorial.js'])
 CATEGORIES = {
     'panel-spot': ('Panel ve spot', 'İhtiyacınız olan ışık, sade bir görünüm.', 'spot'),
     'dekoratif-led': ('Dekoratif LED', 'Mekânınızın çizgilerini ışıkla vurgulayın.', 'spark'),
@@ -125,11 +131,12 @@ def shell(title, desc, body, current='home', path='/', hero=False, schema=None, 
     full_title, desc = seo['title'], seo['description']
     social = MEDIA[seo['image']]
     preload = '<link rel="preload" as="image" type="image/avif" href="/assets/magaza-profesyonel-v5-800.avif" imagesrcset="/assets/magaza-profesyonel-v5-480.avif 480w, /assets/magaza-profesyonel-v5-800.avif 800w, /assets/magaza-profesyonel-v5-1448.avif 1448w" imagesizes="(max-width: 900px) calc(100vw - 40px), 640px" fetchpriority="high">' if hero else ''
-    extras = f'<link rel="stylesheet" href="{asset_url("b2b.css")}">' if current in ("home","b2b","solutions") else ""
+    extras = f'<style>{BRAND_CSS}</style><script defer src="{asset_url("navigation.js")}"></script>'
+    extras += f'<link rel="stylesheet" href="{asset_url("b2b.css")}">' if current in ("home","b2b","solutions") else ""
     if current == "b2b": extras += f'<script defer src="{asset_url("b2b-core.js")}"></script><script defer src="{asset_url("b2b.js")}"></script>'
     if current == "products": extras += f'<script defer src="{asset_url("catalog.js")}"></script>'
     return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>document.documentElement.classList.add("js");{HEAD_JS}{INTRO_JS if intro else ""}</script><title>{e(full_title)}</title><meta name="description" content="{e(desc)}"><meta name="robots" content="{seo['robots']}"><meta name="theme-color" content="#ffffff"><link rel="canonical" href="{ORIGIN}{path}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><meta property="og:title" content="{e(full_title)}"><meta property="og:site_name" content="Ünüvar Aydınlatma"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}{seo['image']}"><meta property="og:image:width" content="{social['width']}"><meta property="og:image:height" content="{social['height']}"><meta property="og:image:type" content="{social['type']}"><meta property="og:image:alt" content="{e(title)} · Ünüvar Aydınlatma"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(full_title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{ORIGIN}{seo['image']}"><meta name="twitter:image:alt" content="{e(title)} · Ünüvar Aydınlatma"><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin-ext.woff2" crossorigin><link rel="stylesheet" href="{CSS}">{extras}{preload}<script defer src="{JS}"></script><script type="application/ld+json">{json.dumps(schema,ensure_ascii=False).replace('</','<\\/')}</script></head>
-    <body class="page-{current}">{INTRO if intro else ""}<a class="skip" href="#main">İçeriğe geç</a>
+    <body class="page-{current}">{BRAND_TRANSITION}<a class="skip" href="#main">İçeriğe geç</a>
     <div class="utility-strip"><div class="container"><span>KARAKÖY / İSTANBUL · AYDINLATMA VE ELEKTRİK</span><a href="tel:+905456105009">0545 610 50 09</a></div></div><header class="site-header"><div class="container header-inner"><a href="/" class="logo-link" aria-label="Ünüvar Aydınlatma ana sayfa">{logo()}</a><nav class="desktop-nav" aria-label="Ana menü">{nav}</nav><div class="header-actions"><button class="icon-button order-trigger" type="button" data-order-open aria-label="Sipariş listesi (0)" aria-haspopup="dialog" aria-controls="order-dialog" hidden>{icon('bag')}<span class="order-count" data-order-count aria-hidden="true">0</span></button><a class="header-phone" href="tel:+905456105009">{icon('phone')} 0545 610 50 09</a><a href="/iletisim/#teklif" class="button yellow header-wa">Fiyat bilgisi {icon("up")}</a><button class="icon-button menu-trigger" aria-label="Menüyü aç" aria-controls="mobile-nav" aria-expanded="false">{icon('menu')}</button></div></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobil menü" hidden>{nav}</nav></header>
     <main id="main" tabindex="-1">{body}</main>
     <footer class="site-footer"><div class="container footer-main"><div class="footer-brand"><a href="/" class="footer-wordmark">Ünüvar<span>AYDINLATMA</span></a><p>Karaköy’de aydınlatma ve elektrik malzemesi.</p><div class="social-links">{out(IG,'Instagram '+icon('up'))}{out(FB,'Facebook '+icon('up'))}</div></div><div><h3>Ünüvar Aydınlatma</h3><a href="/hakkimizda/">Hakkımızda</a><a href="/iletisim/">İletişim ve ulaşım</a><a href="/urunler/">Koleksiyon ve katalog</a><a href="/cozumler/">Proje çözümleri</a><a href="/b2c/">B2C teklif ve talep listesi</a><a href="/rehber/">Teknik seçim bilgileri</a><a href="/#sorular">Sık sorulanlar</a></div><div><h3>İletişim</h3><a class="footer-phone" href="tel:+905456105009">0545 610 50 09</a><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8<br/>Beyoğlu / İstanbul</address>{out(MAP,'Yol tarifi al '+icon('up'),'text-link')}</div></div><div class="container footer-bottom"><span>© 2026 Ünüvar Aydınlatma</span><a href="/gizlilik/">Gizlilik ve site bilgileri</a></div></footer>

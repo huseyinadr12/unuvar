@@ -1,4 +1,4 @@
-/* Short, explicit navigation motion also works without the View Transition API. */
+/* Branded light-on opening and navigation, independent of other site scripts. */
 (() => {
   'use strict';
   function destination(link, event, current) {
@@ -16,24 +16,64 @@
   if (typeof module === 'object' && module.exports) { module.exports = { destination }; return; }
   const root = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  let exitTimer, entryTimer, pending = null, revision = 0;
+  const brand = document.querySelector('[data-brand-transition]');
+  const arrival = root.dataset.brandArrival === '1';
+  delete root.dataset.brandArrival;
+  let exitTimer, entryTimer, brandTimer, pending = null, revision = 0, visibilityStart = null;
+  function hideBrand() {
+    if (!brand) return;
+    brand.hidden = true;
+    delete brand.dataset.phase;
+  }
   function reset() {
     ++revision;
     clearTimeout(exitTimer);
     clearTimeout(entryTimer);
+    clearTimeout(brandTimer);
+    visibilityStart = null;
     pending = null;
+    delete root.dataset.brandIntro;
     root.dataset.navMotion = 'idle';
+    hideBrand();
   }
-  function enter() {
+  function revealContent() {
+    if (brand) brand.dataset.phase = 'out';
+    root.dataset.navMotion = 'enter';
+    brandTimer = setTimeout(hideBrand, 400);
+    entryTimer = setTimeout(() => { root.dataset.navMotion = 'idle'; }, 1350);
+  }
+  function enter(fromNavigation = false) {
     reset();
     if (reduced.matches) return;
     const ticket = revision;
-    // Begin after the destination DOM is ready, rather than while CSS is loading.
-    requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (brand) { brand.hidden = false; brand.dataset.phase = 'waiting'; }
+    const begin = () => {
       if (ticket !== revision) return;
-      root.dataset.navMotion = 'enter';
-      entryTimer = setTimeout(() => { root.dataset.navMotion = 'idle'; }, 1350);
-    }));
+      // A background tab must not finish its opening before the visitor sees it.
+      if (document.visibilityState === 'hidden') { visibilityStart = begin; return; }
+      visibilityStart = null;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (ticket !== revision) return;
+        if (!brand) { revealContent(); return; }
+        if (fromNavigation) {
+          revealContent();
+          brand.dataset.phase = 'arrive';
+        } else {
+          brand.dataset.phase = 'intro';
+          brandTimer = setTimeout(revealContent, 1300);
+        }
+      }));
+    };
+    begin();
+  }
+  function navigateNow() {
+    if (!pending) return;
+    const url = pending;
+    clearTimeout(exitTimer);
+    try { sessionStorage.setItem('unuvar-navigation-arrival', JSON.stringify({ url, time: Date.now() })); } catch (_) {}
+    // Restore the current page if navigation is interrupted or fails.
+    entryTimer = setTimeout(reset, 2600);
+    location.assign(url);
   }
   function highlight(url) {
     let id;
@@ -70,14 +110,23 @@
     reset();
     pending = target.url.href;
     root.dataset.navMotion = 'leave';
-    exitTimer = setTimeout(() => { if (pending) location.assign(pending); }, 320);
+    if (brand) { brand.hidden = false; brand.dataset.phase = 'leave'; }
+    exitTimer = setTimeout(navigateNow, brand ? 620 : 320);
   });
-  addEventListener('pageshow', event => { if (event.persisted) enter(); });
+  const skip = () => { if (pending) navigateNow(); else reset(); };
+  document.querySelector('[data-brand-skip]')?.addEventListener('click', skip);
+  document.addEventListener('keydown', event => {
+    if (brand && !brand.hidden && (event.key === 'Escape' || event.key === 'Tab')) skip();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') visibilityStart?.();
+  });
+  addEventListener('pageshow', event => { if (event.persisted) enter(true); });
   addEventListener('pagehide', reset);
   reduced.addEventListener('change', () => {
     if (reduced.matches && pending) { const url = pending; reset(); location.assign(url); }
     else reset();
   });
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enter, { once: true });
-  else enter();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => enter(arrival), { once: true });
+  else enter(arrival);
 })();

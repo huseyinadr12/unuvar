@@ -27,7 +27,7 @@ Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte günce
 - **Ürün grupları:** `source/scripts/content_sections.py` içindeki `PRODUCT_GROUPS`.
 - **Mekâna göre öneriler ve ışık rengi seçici:** aynı dosyada `SPACES` ve `KELVINS`; rehber tabloları (lümen, duy tipleri, IP) `source/scripts/inner_pages.py` içinde.
 - **Ana sayfa ve satış akışı:** `source/scripts/editorial.py`; koleksiyon kartları, seçili ürünler, fiyat talebi formu ve üç adımlı süreç.
-- **Renkler ve tasarım:** `source/dist/assets/editorial.css`; krem, antrasit, sarı ve pirinç tonları, büyük tipografi ve görsel odaklı düzen. Açılış ekranı kullanılmaz; içerik görünürlüğü animasyona bağlı değildir.
+- **Renkler ve tasarım:** `source/dist/assets/editorial.css`; krem, antrasit, sarı ve pirinç tonları, büyük tipografi ve görsel odaklı düzen. Kısa marka açılışı atlanabilir; JavaScript kapalıysa içerik doğrudan görünür.
 - **Koleksiyon filtresi ve talep formu:** `source/dist/assets/editorial.js`. Türkçe karakterleri dikkate alan arama ve ürün/sayfa aktarımı.
 
 ## Düzenleme ve yayınlama
@@ -74,7 +74,10 @@ Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altı
 
 ## Sayfa ve etkileşim animasyonları
 
-- `navigation.js` ve `transitions.css`: açılış DOM hazır olduğunda başlar; 850 ms boyunca gerçek sayfa içeriği 3B perspektifle açılır, kâğıt kıvrımı ışığı üzerinden geçer ve başlıklar sırayla girer. Sayfa bağlantıları 320 ms çıkıştan sonra açılır. Yerel View Transition API'sine bağlı değildir. İndirme, PDF/görsel bağlantıları, başka sekme, dış bağlantı ve değiştirici tuşlarla tıklamalar bu gecikmeye dahil edilmez.
+- `brand-transition.css`, `navigation-head.js` ve ayrı yüklenen `navigation.js`: ilk açılışta sönük lineer armatür yanar, ışık yayıldıkça mevcut Ünüvar logosu aydınlanır ve içerik görünür. Kritik stiller HTML içine gömülüdür; açılış bir kez gösterme bayrağına bağlı değildir. Sekme arka plandaysa animasyon görünür olmasını bekler.
+- İlk açılış 1,3 saniye sahne + 0,4 saniye geçiştir. Menü bağlantısında 620 ms kısa ışık sahnesi, varışta 400 ms çözülme vardır. SessionStorage'daki tek kullanımlık, 10 saniyelik varış kaydı yalnız iki sahnenin devamlılığını sağlar; depolama kullanılamasa da gezinme sürer.
+- “Geçişi atla”, Escape ve Tab açılışı kapatır. Çıkış sırasında atlamak hedef sayfayı hemen açar. CSS ve başlatıcıdaki 2,6 saniyelik koruma, betik yüklenemediğinde içeriğin kapalı kalmasını önler. Azaltılmış hareket tercihinde sahne gösterilmez.
+- Sahnenin ardından `transitions.css` içindeki 850 ms 3B sayfa hareketi ve sıralı başlık girişleri çalışır. Yerel View Transition API'sine bağlı değildir. PDF/indirme, başka sekme, dış bağlantı, sayfa içi bağlantı ve değiştirici tuşlarla tıklamalar marka geçişiyle geciktirilmez.
 - Sayfa içi başlık bağlantısı doğal kaydırmayı korur ve hedef başlık görünür olduğunda canlanır. Mevcut menü sayfasına tıklamak giriş efektini tekrar oynatır. Geri/ileri gezinme, yarım kalan çıkış durumunu temizler.
 - Sayfa aşağı kaydırılırken bölümler sırayla belirir; menü, buton, kart, filtre ve açılır başlıklarda kısa geri bildirimler vardır. Gözlemci çalışmasa bile içerik görünür kalır.
 - Katalogda ileri/geri yönüne uygun 720 ms dönüş, kâğıt aydınlığı ve gölge efekti bulunur. Hızlı sayfa değişimi ve hareket tercihinin değişmesi mevcut animasyonu temizler.

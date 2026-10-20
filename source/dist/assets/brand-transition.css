@@ -1,0 +1,42 @@
+/* Inline critical styles: the opening is present on the very first paint. */
+.brand-transition{display:none;position:fixed;inset:0;z-index:10000;place-items:center;overflow:hidden;background:#11191a;color:#222b2b}
+.brand-transition[hidden]{display:none!important}
+html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-startup-safety 2.6s step-end forwards}
+.brand-transition[data-phase]{display:grid;animation:brand-safety 2.6s step-end forwards}
+.brand-transition[data-phase="waiting"]{animation-name:brand-startup-safety}
+.brand-wash{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 32%,#fffae6,#f5f3eb 65%);opacity:0}
+.brand-scene{position:relative;width:min(600px,86vw);height:360px;text-align:center}
+.brand-fixture{position:absolute;top:65px;left:8%;width:84%;height:19px;border-radius:3px;background:linear-gradient(#58615f,#192223 55%,#0a1112);box-shadow:0 6px 18px #0005;z-index:3}
+.brand-fixture:before,.brand-fixture:after{content:"";position:absolute;bottom:100%;width:1px;height:78px;background:linear-gradient(transparent,#79817b)}
+.brand-fixture:before{left:14%}.brand-fixture:after{right:14%}
+.brand-diffuser{position:absolute;inset:auto 3px 1px;height:4px;background:#62685f;border-radius:2px}
+.brand-light{position:absolute;inset:0;border-radius:2px;background:#fffce6;opacity:0;box-shadow:0 0 9px 2px #fff8d9,0 0 30px 9px #ffdf8a99}
+.brand-beam{position:absolute;top:82px;left:-8%;width:116%;height:270px;clip-path:polygon(14% 0,86% 0,100% 100%,0 100%);background:radial-gradient(ellipse at 50% 0,#ffe5a06b,transparent 72%);opacity:0;z-index:1;pointer-events:none}
+.brand-mark{position:absolute;top:164px;left:50%;transform:translateX(-50%);width:280px;height:120px;overflow:hidden;mix-blend-mode:multiply;opacity:.13;z-index:2}
+.brand-mark img{position:absolute;width:355px;height:355px;max-width:none;top:-108px;left:-44px}
+.brand-motto{position:absolute;top:310px;left:0;right:0;font:500 11px/1.5 Manrope,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;opacity:0;color:#776a45}
+.brand-skip{position:absolute;right:30px;bottom:28px;min-height:44px;padding:0 18px;border:1px solid #acaa9c66;border-radius:30px;color:#9b9e93;background:#11191a0a;font:500 12px/1 Manrope,Arial,sans-serif;cursor:pointer;z-index:4}
+.brand-skip:hover,.brand-skip:focus-visible{color:#b18f35;border-color:currentColor;outline-offset:5px}
+.brand-transition[data-phase="intro"] .brand-light,.brand-transition[data-phase="leave"] .brand-light{animation:linear-ignite 1.1s ease-out both}
+.brand-transition[data-phase="intro"] .brand-wash,.brand-transition[data-phase="leave"] .brand-wash{animation:room-illuminate 1.1s ease both}
+.brand-transition[data-phase="intro"] .brand-beam,.brand-transition[data-phase="leave"] .brand-beam{animation:beam-illuminate 1.1s ease both}
+.brand-transition[data-phase="intro"] .brand-mark,.brand-transition[data-phase="leave"] .brand-mark{animation:logo-illuminate 1.1s ease both}
+.brand-transition[data-phase="intro"] .brand-motto,.brand-transition[data-phase="leave"] .brand-motto{animation:motto-illuminate 1.1s ease both}
+.brand-transition[data-phase="intro"] .brand-skip,.brand-transition[data-phase="leave"] .brand-skip{animation:brand-skip-ink 1.1s ease both}
+.brand-transition[data-phase="leave"] :is(.brand-light,.brand-wash,.brand-beam,.brand-mark,.brand-motto,.brand-skip){animation-duration:.6s}
+.brand-transition[data-phase="arrive"] :is(.brand-light,.brand-wash,.brand-beam,.brand-mark,.brand-motto),
+.brand-transition[data-phase="out"] :is(.brand-light,.brand-wash,.brand-beam,.brand-mark,.brand-motto){opacity:1}
+.brand-transition[data-phase="arrive"] .brand-skip,.brand-transition[data-phase="out"] .brand-skip{color:#53564b}
+.brand-transition[data-phase="out"],.brand-transition[data-phase="arrive"]{animation:brand-reveal .4s ease-in-out both}
+@keyframes linear-ignite{0%,18%{opacity:0}45%{opacity:.55}80%,100%{opacity:1}}
+@keyframes room-illuminate{0%,18%{opacity:0}65%{opacity:.85}100%{opacity:1}}
+@keyframes beam-illuminate{0%,18%{opacity:0}100%{opacity:1}}
+@keyframes logo-illuminate{0%,20%{opacity:.13}75%,100%{opacity:1}}
+@keyframes motto-illuminate{0%,50%{opacity:0}100%{opacity:1}}
+@keyframes brand-skip-ink{0%,18%{color:#c3c8c2}65%,100%{color:#53564b}}
+@keyframes brand-reveal{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden;pointer-events:none}}
+@keyframes brand-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
+@keyframes brand-startup-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
+@media(max-width:600px){.brand-scene{height:320px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-skip{right:20px;bottom:24px}}
+@media(prefers-reduced-motion:reduce){html[data-brand-intro] .brand-transition,.brand-transition[data-phase]{display:none!important}}
+@media print{.brand-transition{display:none!important}}
