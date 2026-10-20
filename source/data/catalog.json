@@ -1,121 +1,197 @@
 {
-  "title": "Ünüvar Aydınlatma Kataloğu",
-  "page_count": 44,
+  "title": "Ünüvar Aydınlatma | Mekânın Işığı",
+  "page_count": 55,
   "pdf": "/assets/catalog/unuvar-aydinlatma-katalog.pdf",
   "sections": [
     {
       "id": "lineer-siva-ustu",
       "title": "Sıva üstü lineer",
-      "start": 5,
-      "end": 7
+      "start": 6,
+      "end": 8,
+      "image": "/assets/collection/lineer-siva-ustu.webp",
+      "width": 564,
+      "height": 599,
+      "family": "mimari"
     },
     {
       "id": "lineer-siva-alti",
       "title": "Sıva altı lineer",
-      "start": 8,
-      "end": 9
+      "start": 9,
+      "end": 10,
+      "image": "/assets/collection/lineer-siva-alti.webp",
+      "width": 717,
+      "height": 479,
+      "family": "mimari"
     },
     {
       "id": "mercekli-lineer",
       "title": "Mercekli lineer",
-      "start": 10,
-      "end": 10
+      "start": 11,
+      "end": 11,
+      "image": "/assets/collection/mercekli-lineer.webp",
+      "width": 441,
+      "height": 237,
+      "family": "mimari"
     },
     {
       "id": "dekoratif-lineer",
       "title": "Dekoratif lineer",
-      "start": 11,
-      "end": 15
+      "start": 13,
+      "end": 17,
+      "image": "/assets/collection/dekoratif-lineer.webp",
+      "width": 585,
+      "height": 471,
+      "family": "dekoratif"
     },
     {
       "id": "ozel-dekoratif",
       "title": "Özel dekoratif lineer",
-      "start": 16,
-      "end": 18
+      "start": 18,
+      "end": 20,
+      "image": "/assets/collection/ozel-dekoratif.webp",
+      "width": 587,
+      "height": 440,
+      "family": "dekoratif"
     },
     {
       "id": "artline-sarkit",
       "title": "Artline sarkıt",
-      "start": 19,
-      "end": 21
+      "start": 21,
+      "end": 26,
+      "image": "/assets/collection/artline-sarkit.webp",
+      "width": 275,
+      "height": 275,
+      "family": "dekoratif"
     },
     {
       "id": "artline-aplik",
       "title": "Artline aplik",
-      "start": 22,
-      "end": 24
+      "start": 27,
+      "end": 33,
+      "image": "/assets/collection/artline-aplik.webp",
+      "width": 362,
+      "height": 444,
+      "family": "dekoratif"
     },
     {
       "id": "artline-lambader",
       "title": "Artline lambader",
-      "start": 25,
-      "end": 26
+      "start": 34,
+      "end": 35,
+      "image": "/assets/collection/artline-lambader.webp",
+      "width": 381,
+      "height": 561,
+      "family": "dekoratif"
     },
     {
       "id": "kuyumcu",
       "title": "Kuyumcu armatürleri",
-      "start": 27,
-      "end": 27
+      "start": 37,
+      "end": 37,
+      "image": "/assets/collection/kuyumcu.webp",
+      "width": 200,
+      "height": 576,
+      "family": "ic"
     },
     {
       "id": "led-line",
       "title": "LED line",
-      "start": 28,
-      "end": 29
+      "start": 38,
+      "end": 39,
+      "image": "/assets/collection/led-line.webp",
+      "width": 564,
+      "height": 775,
+      "family": "ic"
     },
     {
       "id": "spot",
       "title": "Spot",
-      "start": 30,
-      "end": 31
+      "start": 40,
+      "end": 41,
+      "image": "/assets/collection/spot.webp",
+      "width": 212,
+      "height": 183,
+      "family": "ic"
     },
     {
       "id": "wallwasher-ustu",
       "title": "Sıva üstü wallwasher",
-      "start": 32,
-      "end": 33
+      "start": 43,
+      "end": 44,
+      "image": "/assets/collection/wallwasher-ustu.webp",
+      "width": 1576,
+      "height": 377,
+      "family": "dis"
     },
     {
       "id": "wallwasher-alti",
       "title": "Sıva altı wallwasher",
-      "start": 34,
-      "end": 35
+      "start": 45,
+      "end": 46,
+      "image": "/assets/collection/wallwasher-alti.webp",
+      "width": 498,
+      "height": 943,
+      "family": "dis"
     },
     {
       "id": "bahce",
       "title": "Ağaç ve bahçe",
-      "start": 36,
-      "end": 37
+      "start": 47,
+      "end": 48,
+      "image": "/assets/collection/bahce.webp",
+      "width": 564,
+      "height": 845,
+      "family": "dis"
     },
     {
       "id": "zemin",
       "title": "Sıva altı zemin",
-      "start": 38,
-      "end": 38
+      "start": 49,
+      "end": 49,
+      "image": "/assets/collection/zemin.webp",
+      "width": 564,
+      "height": 752,
+      "family": "dis"
     },
     {
       "id": "havuz",
       "title": "Havuz",
-      "start": 39,
-      "end": 40
+      "start": 50,
+      "end": 51,
+      "image": "/assets/collection/havuz.webp",
+      "width": 564,
+      "height": 446,
+      "family": "dis"
     },
     {
       "id": "kanopi",
       "title": "Kanopi ve yüksek tavan",
-      "start": 41,
-      "end": 41
+      "start": 52,
+      "end": 52,
+      "image": "/assets/collection/kanopi.webp",
+      "width": 970,
+      "height": 322,
+      "family": "dis"
     },
     {
       "id": "projektor",
       "title": "Projektör",
-      "start": 42,
-      "end": 42
+      "start": 53,
+      "end": 53,
+      "image": "/assets/collection/projektor.webp",
+      "width": 366,
+      "height": 384,
+      "family": "dis"
     },
     {
       "id": "etanj",
       "title": "Etanj",
-      "start": 43,
-      "end": 43
+      "start": 54,
+      "end": 54,
+      "image": "/assets/collection/etanj.webp",
+      "width": 560,
+      "height": 840,
+      "family": "dis"
     }
   ],
   "pages": [
@@ -126,7 +202,7 @@
     },
     {
       "page": 2,
-      "title": "Ünüvar Aydınlatma",
+      "title": "Işığı birlikte düşünelim",
       "image": "/assets/catalog/page-02.webp"
     },
     {
@@ -136,12 +212,12 @@
     },
     {
       "page": 4,
-      "title": "Kataloğu kullanırken",
+      "title": "Seçim rehberi",
       "image": "/assets/catalog/page-04.webp"
     },
     {
       "page": 5,
-      "title": "Sıva üstü lineer",
+      "title": "LINEER AYDINLATMA",
       "image": "/assets/catalog/page-05.webp"
     },
     {
@@ -156,7 +232,7 @@
     },
     {
       "page": 8,
-      "title": "Sıva altı lineer",
+      "title": "Sıva üstü lineer",
       "image": "/assets/catalog/page-08.webp"
     },
     {
@@ -166,17 +242,17 @@
     },
     {
       "page": 10,
-      "title": "Mercekli lineer",
+      "title": "Sıva altı lineer",
       "image": "/assets/catalog/page-10.webp"
     },
     {
       "page": 11,
-      "title": "Dekoratif lineer",
+      "title": "Mercekli lineer",
       "image": "/assets/catalog/page-11.webp"
     },
     {
       "page": 12,
-      "title": "Dekoratif lineer",
+      "title": "DEKORATİF AYDINLATMA",
       "image": "/assets/catalog/page-12.webp"
     },
     {
@@ -196,12 +272,12 @@
     },
     {
       "page": 16,
-      "title": "Özel dekoratif lineer",
+      "title": "Dekoratif lineer",
       "image": "/assets/catalog/page-16.webp"
     },
     {
       "page": 17,
-      "title": "Özel dekoratif lineer",
+      "title": "Dekoratif lineer",
       "image": "/assets/catalog/page-17.webp"
     },
     {
@@ -211,12 +287,12 @@
     },
     {
       "page": 19,
-      "title": "Artline sarkıt",
+      "title": "Özel dekoratif lineer",
       "image": "/assets/catalog/page-19.webp"
     },
     {
       "page": 20,
-      "title": "Artline sarkıt",
+      "title": "Özel dekoratif lineer",
       "image": "/assets/catalog/page-20.webp"
     },
     {
@@ -226,118 +302,173 @@
     },
     {
       "page": 22,
-      "title": "Artline aplik",
+      "title": "Artline sarkıt",
       "image": "/assets/catalog/page-22.webp"
     },
     {
       "page": 23,
-      "title": "Artline aplik",
+      "title": "Artline sarkıt",
       "image": "/assets/catalog/page-23.webp"
     },
     {
       "page": 24,
-      "title": "Artline aplik",
+      "title": "Artline sarkıt",
       "image": "/assets/catalog/page-24.webp"
     },
     {
       "page": 25,
-      "title": "Artline lambader",
+      "title": "Artline sarkıt",
       "image": "/assets/catalog/page-25.webp"
     },
     {
       "page": 26,
-      "title": "Artline lambader",
+      "title": "Artline sarkıt",
       "image": "/assets/catalog/page-26.webp"
     },
     {
       "page": 27,
-      "title": "Kuyumcu armatürleri",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-27.webp"
     },
     {
       "page": 28,
-      "title": "LED line",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-28.webp"
     },
     {
       "page": 29,
-      "title": "LED line",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-29.webp"
     },
     {
       "page": 30,
-      "title": "Spot",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-30.webp"
     },
     {
       "page": 31,
-      "title": "Spot",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-31.webp"
     },
     {
       "page": 32,
-      "title": "Sıva üstü wallwasher",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-32.webp"
     },
     {
       "page": 33,
-      "title": "Sıva üstü wallwasher",
+      "title": "Artline aplik",
       "image": "/assets/catalog/page-33.webp"
     },
     {
       "page": 34,
-      "title": "Sıva altı wallwasher",
+      "title": "Artline lambader",
       "image": "/assets/catalog/page-34.webp"
     },
     {
       "page": 35,
-      "title": "Sıva altı wallwasher",
+      "title": "Artline lambader",
       "image": "/assets/catalog/page-35.webp"
     },
     {
       "page": 36,
-      "title": "Ağaç ve bahçe",
+      "title": "İÇ MEKÂN VE VİTRİN",
       "image": "/assets/catalog/page-36.webp"
     },
     {
       "page": 37,
-      "title": "Ağaç ve bahçe",
+      "title": "Kuyumcu armatürleri",
       "image": "/assets/catalog/page-37.webp"
     },
     {
       "page": 38,
-      "title": "Sıva altı zemin",
+      "title": "LED line",
       "image": "/assets/catalog/page-38.webp"
     },
     {
       "page": 39,
-      "title": "Havuz",
+      "title": "LED line",
       "image": "/assets/catalog/page-39.webp"
     },
     {
       "page": 40,
-      "title": "Havuz",
+      "title": "Spot",
       "image": "/assets/catalog/page-40.webp"
     },
     {
       "page": 41,
-      "title": "Kanopi ve yüksek tavan",
+      "title": "Spot",
       "image": "/assets/catalog/page-41.webp"
     },
     {
       "page": 42,
-      "title": "Projektör",
+      "title": "DIŞ MEKÂN VE TEKNİK",
       "image": "/assets/catalog/page-42.webp"
     },
     {
       "page": 43,
-      "title": "Etanj",
+      "title": "Sıva üstü wallwasher",
       "image": "/assets/catalog/page-43.webp"
     },
     {
       "page": 44,
-      "title": "İletişim",
+      "title": "Sıva üstü wallwasher",
       "image": "/assets/catalog/page-44.webp"
+    },
+    {
+      "page": 45,
+      "title": "Sıva altı wallwasher",
+      "image": "/assets/catalog/page-45.webp"
+    },
+    {
+      "page": 46,
+      "title": "Sıva altı wallwasher",
+      "image": "/assets/catalog/page-46.webp"
+    },
+    {
+      "page": 47,
+      "title": "Ağaç ve bahçe",
+      "image": "/assets/catalog/page-47.webp"
+    },
+    {
+      "page": 48,
+      "title": "Ağaç ve bahçe",
+      "image": "/assets/catalog/page-48.webp"
+    },
+    {
+      "page": 49,
+      "title": "Sıva altı zemin",
+      "image": "/assets/catalog/page-49.webp"
+    },
+    {
+      "page": 50,
+      "title": "Havuz",
+      "image": "/assets/catalog/page-50.webp"
+    },
+    {
+      "page": 51,
+      "title": "Havuz",
+      "image": "/assets/catalog/page-51.webp"
+    },
+    {
+      "page": 52,
+      "title": "Kanopi ve yüksek tavan",
+      "image": "/assets/catalog/page-52.webp"
+    },
+    {
+      "page": 53,
+      "title": "Projektör",
+      "image": "/assets/catalog/page-53.webp"
+    },
+    {
+      "page": 54,
+      "title": "Etanj",
+      "image": "/assets/catalog/page-54.webp"
+    },
+    {
+      "page": 55,
+      "title": "İletişim",
+      "image": "/assets/catalog/page-55.webp"
     }
   ]
 }

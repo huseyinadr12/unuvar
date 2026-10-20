@@ -14,15 +14,15 @@ def metadata(path, title, description, origin, business):
         '/urunler/': 'Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma',
         '/rehber/': 'Işık Rehberi: Kelvin, Lümen, Duy Tipleri ve IP | Ünüvar Aydınlatma',
         '/hakkimizda/': 'Hakkımızda | Karaköy Ünüvar Aydınlatma',
-        '/iletisim/': 'İletişim ve Yol Tarifi | Ünüvar Aydınlatma Karaköy',
+        '/iletisim/': 'Fiyat Talebi ve İletişim | Ünüvar Aydınlatma Karaköy',
         '/gizlilik/': 'Gizlilik ve Site Bilgileri | Ünüvar Aydınlatma',
         '/404.html': 'Sayfa Bulunamadı | Ünüvar Aydınlatma',
     }
     descriptions = {
         '/': 'Karaköy’de aydınlatma ve elektrik malzemesi: avize, sarkıt, aplik, spot, LED ampul, şerit LED. Ürün fotoğrafını WhatsApp’tan gönderin veya Tutsak Sokak’taki mağazamıza gelin.',
-        '/urunler/': '44 sayfalık Ünüvar Aydınlatma kataloğunu inceleyin veya PDF olarak indirin. Lineer, dekoratif, dış mekân ve teknik aydınlatma ürünlerini keşfedin.',
+        '/urunler/': '55 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın.',
         '/hakkimizda/': 'Ünüvar Aydınlatma, Karaköy Tutsak Sokak’ta aydınlatma ve elektrik malzemesi mağazası. Ürün gruplarımızı ve çalıştığımız markaları tanıyın.',
-        '/iletisim/': 'Ünüvar Aydınlatma iletişim: 0545 610 50 09. Tutsak Sokak No:8, Karaköy, Beyoğlu. Mağaza konumu, yol tarifi, telefon ve WhatsApp bağlantılarına ulaşın.',
+        '/iletisim/': 'Ürün kodu, adet ve kullanım alanıyla fiyat ve stok bilgisi isteyin. Ünüvar Aydınlatma: 0545 610 50 09, Tutsak Sokak No:8, Karaköy.',
     }
     full_title = titles.get(path, f'{title} | {name}')
     description = descriptions.get(path, description)

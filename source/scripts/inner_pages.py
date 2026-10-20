@@ -1,10 +1,11 @@
+from editorial import quote_form, process
 """Store-led inner pages, using confirmed business details and the real store photo."""
 
 
 def about_page(icon, out, wa, photo, breadcrumb, sections, brands):
     return f'''<div class="container">{breadcrumb([('Hakkımızda', None)])}</div>
     <section class="about-opening"><div class="container about-grid">
-      <div class="about-intro"><span class="eyebrow">HAKKIMIZDA</span><h1>Karaköy’de aydınlatma ve elektrik mağazası.</h1><p class="lead">Ünüvar Aydınlatma, İstanbul’un aydınlatma ve elektrik malzemesi çarşısı Karaköy’de, Emekyemez Mahallesi Tutsak Sokak’ta hizmet veriyor.</p><p>Mağazamızda avize ve sarkıttan LED ampule, spot ve panelden şerit LED’e, dış mekân armatürlerinden elektrik malzemesine kadar geniş bir ürün yelpazesi bulabilirsiniz. Evinizdeki tek bir ampulden işletmenizin tüm aydınlatmasına kadar ihtiyacınızı birlikte çözelim.</p><div class="about-actions"><a class="button yellow" href="/iletisim/">Mağazaya ulaşın {icon('arrow')}</a>{out(wa(), icon('wa')+' WhatsApp’tan yazın', 'text-link')}</div></div>
+      <div class="about-intro"><span class="eyebrow">HAKKIMIZDA</span><h1>Karaköy’den<br>mekânınıza.</h1><p class="lead">Ünüvar Aydınlatma, İstanbul’un aydınlatma ve elektrik malzemesi çarşısı Karaköy’de, Emekyemez Mahallesi Tutsak Sokak’ta hizmet veriyor.</p><p>Mağazamızda avize ve sarkıttan LED ampule, spot ve panelden şerit LED’e, dış mekân armatürlerinden elektrik malzemesine kadar geniş bir ürün yelpazesi bulabilirsiniz. Evinizdeki tek bir ampulden işletmenizin tüm aydınlatmasına kadar ihtiyacınızı birlikte çözelim.</p><div class="about-actions"><a class="button yellow" href="/iletisim/">Mağazaya ulaşın {icon('arrow')}</a>{out(wa(), icon('wa')+' WhatsApp’tan yazın', 'text-link')}</div></div>
       <figure class="about-photo">{photo('Ünüvar Aydınlatma Karaköy mağazasının vitrini ve girişi', priority=True)}<figcaption>{icon('pin')} Emekyemez Mah. Tutsak Sk. No:8, Karaköy</figcaption></figure>
     </div></section>
     <section class="values-section"><div class="container"><div class="section-head"><div><span class="eyebrow">NELER YAPIYORUZ?</span><h2>Ürün satışından doğru ürünü bulmaya.</h2></div></div><div class="values-grid">
@@ -13,17 +14,18 @@ def about_page(icon, out, wa, photo, breadcrumb, sections, brands):
       <article class="value-card"><span class="value-icon">{icon('camera')}</span><h3>Fotoğrafla ürün bulma</h3><p>Elinizdeki ürünün fotoğrafını veya kodunu gönderin, aynısını ya da uygun bir seçeneği birlikte bulalım.</p></article>
     </div></div></section>
     {brands()}
-    {sections['ask']}
+    {process(icon)}
     {sections['social']}'''
 
 
 def contact_page(icon, out, wa, photo, breadcrumb, map_panel, map_url, hours_html):
     return f'''<div class="container">{breadcrumb([('İletişim', None)])}</div>
-    <section class="contact-opening"><div class="container"><div class="page-heading"><span class="eyebrow">İLETİŞİM VE ULAŞIM</span><h1>Arayın, yazın ya da uğrayın.</h1><p>Ürün, fiyat ve stok bilgisi için en hızlı yol WhatsApp. Karaköy’deki mağazamızda da sizi bekliyoruz.</p></div>
+    <section class="contact-opening"><div class="container"><div class="page-heading"><span class="eyebrow">İLETİŞİM VE ULAŞIM</span><h1>Işığı birlikte konuşalım.</h1><p>İlgilendiğiniz ürünü, adedi ve kullanım alanını paylaşın. Fiyat ve stok bilgisini öğrenin veya Karaköy’deki mağazamıza uğrayın.</p></div>
       <div class="contact-channels"><a class="channel-card" href="tel:+905456105009"><span class="channel-symbol">{icon('phone')}</span><span><small>TELEFON</small><strong>0545 610 50 09</strong><span>Doğrudan arayın</span></span></a>{out(wa(), '<span class="channel-symbol">'+icon('wa')+'</span><span><small>WHATSAPP</small><strong>Mesaj gönderin</strong><span>Fotoğraf ve ürün kodu paylaşabilirsiniz</span></span>', 'channel-card channel-wa')}<a class="channel-card" href="#magaza-konumu"><span class="channel-symbol">{icon('pin')}</span><span><small>MAĞAZA</small><strong>Karaköy, Beyoğlu</strong><span>Konum ve yol tarifi</span></span></a></div>
     </div></section>
+    {quote_form(icon, out, wa)}
     <section class="contact-destination" id="magaza-konumu" aria-labelledby="destination-title"><div class="container"><div class="destination-grid">{map_panel()}<aside class="destination-store"><div class="destination-photo">{photo('Ünüvar Aydınlatma mağaza girişi')}</div><div class="destination-address"><h2 id="destination-title">Ünüvar Aydınlatma</h2><address>Emekyemez Mahallesi<br/>Tutsak Sokak No:8, 34421<br/>Beyoğlu / İstanbul</address>{hours_html}<div class="destination-actions">{out(map_url, 'Yol tarifi al '+icon('up'), 'button outline')}<button class="text-button" type="button" data-copy="Ünüvar Aydınlatma, Emekyemez Mahallesi, Tutsak Sokak No:8, 34421 Beyoğlu / İstanbul">{icon('copy')} Adresi kopyala</button></div></div></aside></div></div></section>
-    <section class="conversation-section" aria-labelledby="conversation-title"><div class="container conversation-grid"><div class="conversation-intro"><span class="eyebrow">MESAJINIZI HAZIRLAYIN</span><h2 id="conversation-title">Ne aradığınızı yazın, WhatsApp’ta gönderin.</h2><p>Mesajınızı burada hazırlayıp WhatsApp’ta açabilirsiniz. Fotoğrafı sohbet sırasında ekleyebilirsiniz.</p><ul class="conversation-tips"><li>{icon('check')} Ürünün fotoğrafı veya kodu</li><li>{icon('check')} İhtiyacınız olan adet</li><li>{icon('check')} Varsa ölçü, renk veya ışık rengi tercihi</li></ul></div><div class="conversation-form"><div class="composer-top">{icon('wa')}<span>WhatsApp mesajınız</span></div><div data-contact-composer hidden><div class="composer-fields"><label for="contact-topic">Konu</label><select id="contact-topic"><option value="product">Bir ürün sormak istiyorum</option><option value="visit">Mağaza ziyareti</option><option value="question">Genel bir soru</option></select><label for="contact-note">Mesajınız <span>(isteğe bağlı)</span></label><textarea id="contact-note" rows="4" maxlength="700" placeholder="Örneğin: Fotoğraftaki spotun aynısından 6 adet lazım."></textarea></div><div class="message-preview"><span>Önizleme</span><p data-contact-preview>Merhaba Ünüvar Aydınlatma, bir ürün hakkında bilgi almak istiyorum.</p></div></div>{out(wa('Merhaba Ünüvar Aydınlatma, bir ürün hakkında bilgi almak istiyorum.'),icon('wa')+' WhatsApp’ta aç','button yellow composer-send')}<p class="composer-note">Mesajı WhatsApp içinde siz gönderirsiniz. Buraya yazdıklarınız bu siteye kaydedilmez.</p><noscript><p class="composer-note">Mesajınızı açılan WhatsApp sohbetinde yazabilirsiniz.</p></noscript></div></div></section>'''
+'''
 
 
 # General lighting reference values (EU lamp-equivalence lumen figures).
@@ -37,10 +39,10 @@ SOCKETS = [
 ]
 # (code, dust level 0-6, water level 0-8, meaning, where)
 IP_CLASSES = [
-    ('IP20', 2, 0, 'Suya karşı koruma yok', 'Kuru iç mekânlar: salon, yatak odası, koridor.'),
-    ('IP44', 4, 4, 'Sıçrayan suya dayanıklı', 'Banyo, mutfak, kapalı balkon ve saçak altı.'),
-    ('IP65', 6, 5, 'Toz geçirmez, su jetine dayanıklı', 'Dış cephe, bahçe, açık balkon ve otopark.'),
-    ('IP67', 6, 7, 'Kısa süreli suya daldırmaya dayanıklı', 'Zemine gömme armatürler ve su birikebilen alanlar.'),
+    ('IP20', 2, 0, 'Suya karşı koruma yok', '12,5 mm ve üzeri katı cisimlere karşı koruma; suya karşı koruma sınıfı yoktur.'),
+    ('IP44', 4, 4, 'Sıçrayan suya dayanıklı', 'Su sıçramasına karşı koruma. Montaj bölgesi ve ürünün kullanım talimatı ayrıca değerlendirilir.'),
+    ('IP65', 6, 5, 'Toz geçirmez, su jetine dayanıklı', 'Su jeti testine göre koruma. Ürünün dış mekân ve ortam uygunluğu ayrıca teyit edilir.'),
+    ('IP67', 6, 7, 'Kısa süreli suya daldırmaya dayanıklı', 'Belirli süre ve derinlikte daldırma testi. Sürekli su altında kullanıma tek başına uygunluk vermez.'),
 ]
 
 
@@ -58,5 +60,6 @@ def guide_page(icon, out, wa, breadcrumb, sections, kelvin_widget):
     <section class="guide-block alt" id="parlaklik" aria-labelledby="g-lumen"><div class="container guide-split"><div><span class="eyebrow">02 · PARLAKLIK</span><h2 id="g-lumen">Watt değil, lümen.</h2><p>LED ampullerde watt harcanan enerjiyi, lümen ise verilen ışığı gösterir. Eski ampulünüzün yerine LED alırken kutudaki lümen değerini karşılaştırın.</p><p class="guide-tip">{icon('bulb')}<span>LED gücü markaya ve modele göre değişir. Watt değerleri yaklaşıktır; asıl ölçü lümendir.</span></p></div>
       <div class="lumen-table-wrap"><table class="lumen-table"><caption class="sr-only">Akkor ampul gücüne göre ışık miktarı ve LED karşılığı</caption><thead><tr><th scope="col">Eski akkor ampul</th><th scope="col">Işık miktarı</th><th scope="col">LED karşılığı</th></tr></thead><tbody>{lumen_rows}</tbody></table></div></div></section>
     <section class="guide-block" id="duy-tipleri" aria-labelledby="g-socket"><div class="container"><div class="section-head"><div><span class="eyebrow">03 · DUY TİPLERİ</span><h2 id="g-socket">Ampulün takıldığı yer.</h2></div><p>Yeni ampul almadan önce eskisinin duyuna bakın. Emin değilseniz ampulün fotoğrafı yeterli.</p></div><div class="socket-grid">{sockets}</div></div></section>
-    <section class="guide-block alt" id="ip-koruma" aria-labelledby="g-ip"><div class="container"><div class="section-head"><div><span class="eyebrow">04 · IP KORUMA</span><h2 id="g-ip">Banyo ve dış mekân için IP sınıfı.</h2></div><p>IP kodundaki ilk rakam toza, ikinci rakam suya karşı korumayı gösterir. Rakam büyüdükçe koruma artar.</p></div><div class="ip-grid">{ips}</div></div></section>
-    {sections['spaces']}{sections['ask']}'''
+    <section class="guide-block alt" id="ip-koruma" aria-labelledby="g-ip"><div class="container"><div class="section-head"><div><span class="eyebrow">04 · IP KORUMA</span><h2 id="g-ip">Banyo ve dış mekân için IP sınıfı.</h2></div><p>İlk rakam katı cisimlere, ikinci rakam suya karşı koruma testini tanımlar. Montaj yeri ve maruz kalınacak koşullar birlikte değerlendirilmelidir.</p></div><div class="ip-grid">{ips}</div></div></section>
+    <div class="container guide-reference">Genel bilgi kaynakları: <a href="https://www.lighting.philips.com.tr/consumer/led-lights/how-to-choose-a-led-bulb" target="_blank" rel="noopener">Philips LED ampul seçim rehberi</a> · <a href="https://www.iec.ch/ip-ratings" target="_blank" rel="noopener">IEC IP koruma sınıfları</a>. Uygulama ve montaj için ürün talimatını ve elektrik uzmanının değerlendirmesini esas alın.</div>
+    {sections['spaces']}{process(icon)}'''

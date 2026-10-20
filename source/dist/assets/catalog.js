@@ -35,6 +35,12 @@
     large.href = source;
     pdf.href = `${pdfUrl}#page=${number}`;
     status.textContent = `Sayfa ${number} / ${total} · ${label}`;
+    const enquiry = document.querySelector('[data-reader-enquiry]');
+    if (enquiry) {
+      const enquiryUrl = new URL(enquiry.href);
+      enquiryUrl.searchParams.set('sayfa', String(number));
+      enquiry.href = enquiryUrl.href;
+    }
     if (updateHash) {
       try { history.replaceState(null, '', `#sayfa-${number}`); } catch (_) {}
     }

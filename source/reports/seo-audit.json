@@ -6,13 +6,13 @@
   "sitemap_urls": 6,
   "assets": {
     "app.css": {
-      "bytes": 57130,
-      "gzip_estimate_bytes": 12424,
+      "bytes": 78314,
+      "gzip_estimate_bytes": 16461,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 18133,
-      "gzip_estimate_bytes": 5981,
+      "bytes": 21585,
+      "gzip_estimate_bytes": 6936,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {
@@ -63,9 +63,9 @@
     },
     {
       "path": "/iletisim/",
-      "title": "İletişim ve Yol Tarifi | Ünüvar Aydınlatma Karaköy",
-      "title_characters": 50,
-      "description_characters": 150,
+      "title": "Fiyat Talebi ve İletişim | Ünüvar Aydınlatma Karaköy",
+      "title_characters": 52,
+      "description_characters": 130,
       "schema_types": [
         "Store",
         "WebSite",
@@ -103,7 +103,7 @@
       "path": "/urunler/",
       "title": "Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma",
       "title_characters": 50,
-      "description_characters": 146,
+      "description_characters": 147,
       "schema_types": [
         "Store",
         "WebSite",

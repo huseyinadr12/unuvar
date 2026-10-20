@@ -16,11 +16,11 @@ PRODUCT_GROUPS = [
 # (title, icon, advice, suggested product groups, WhatsApp phrase)
 SPACES = [
     ('Salon ve oturma odası', 'sofa', 'Tek bir tavan ışığı yerine katmanlı düşünün: genel ışık için avize veya sarkıt, okuma köşesine lambader, duvarlara aplik. 2700K ile 3000K arası sıcak beyaz rahat bir ortam verir.', ['Avize', 'Lambader', 'Aplik'], 'salonum'),
-    ('Mutfak', 'kitchen', 'Tezgâhta gölgesiz çalışmak için üst dolap altına şerit LED, genel ışık için spot veya panel. 3000K ile 4000K arası renkler yemeği doğal gösterir.', ['Şerit LED', 'Spot', 'Panel'], 'mutfağım'),
-    ('Banyo', 'drop', 'Nemli alanda en az IP44 korumalı armatür seçin. Ayna çevresinde yüzü eşit aydınlatan aplik veya şerit LED işe yarar.', ['IP44 aplik', 'Spot', 'Şerit LED'], 'banyom'),
+    ('Mutfak', 'kitchen', 'Tezgâhta gölgesiz çalışmak için üst dolap altına şerit LED, genel ışık için spot veya panel. Işık rengini ve renk geriverimini (CRI) birlikte değerlendirin.', ['Şerit LED', 'Spot', 'Panel'], 'mutfağım'),
+    ('Banyo', 'drop', 'Banyoda koruma sınıfı; montaj bölgesine ve suya maruz kalma koşuluna göre seçilir. Ayna çevresinde ışığın dağılımını, güvenli montajı ise elektrik uzmanıyla değerlendirin.', ['Aplik', 'Spot', 'Montaj uygunluğu'], 'banyom'),
     ('Çalışma odası ve ofis', 'desk', 'Odaklanmak için 4000K nötr beyaz ve göz kamaştırmayan panel veya spot. Masada ayrıca yönlendirilebilir bir masa lambası.', ['Panel', 'Spot', 'Masa lambası'], 'çalışma alanım'),
-    ('Mağaza ve vitrin', 'shop', 'Ürünü öne çıkarmak için yönlendirilebilir spot veya ray spot. Renk sunumu (CRI) 90 ve üzeri ışık, ürün renklerini doğru gösterir.', ['Ray spot', 'Panel', 'Şerit LED'], 'iş yerim'),
-    ('Bahçe, balkon ve cephe', 'tree', 'Yağmur alan yerlerde en az IP65. Yol ve bahçe kenarında alçak armatür, cephede projektör veya dış mekân apliği.', ['IP65 aplik', 'Projektör', 'Bahçe armatürü'], 'dış mekânım'),
+    ('Mağaza ve vitrin', 'shop', 'Ürünü öne çıkarmak için yönlendirilebilir spot veya ray spot. Yüksek renk geriverimi (CRI), ürün renklerini ayırt etmeyi destekler.', ['Ray spot', 'Panel', 'Şerit LED'], 'iş yerim'),
+    ('Bahçe, balkon ve cephe', 'tree', 'Bahçe, cephe ve yol için yön, kamaşma ve çevresel koşulları birlikte düşünün. Ürünün IP sınıfını ve dış mekân kullanımına uygunluğunu montaj yerine göre teyit edin.', ['Dış mekân apliği', 'Projektör', 'Bahçe armatürü'], 'dış mekânım'),
 ]
 
 # (id, kelvin, name, swatch colour, description, where)
@@ -75,7 +75,7 @@ def presentation_sections(icon, out, wa, instagram, facebook):
         ('Elimdeki ürünün aynısını bulabilir misiniz?', 'Ürünün ya da kutusunun fotoğrafını, varsa üzerindeki kodu gönderin. Mağazamızda aynısı veya uygun bir seçenek olup olmadığını size bildirelim.'),
         ('Hangi ışık rengini seçmeliyim?', 'Dinlenme alanları için 2700K ile 3000K arası sıcak beyaz, mutfak tezgâhı, banyo ve çalışma alanı için 4000K nötr beyaz uygundur. Ayrıntılar <a href="/rehber/#isik-rengi">Işık rehberimizde</a>.'),
         ('Eski ampulümün LED karşılığı kaç watt?', 'Karşılaştırırken watt yerine lümene bakın. 60W akkor ampulün ışığı yaklaşık 806 lümendir ve bunu genellikle 8 ile 9W arası bir LED ampul karşılar. <a href="/rehber/#parlaklik">Tablonun tamamı</a>'),
-        ('Banyo ve dış mekân için nelere dikkat etmeliyim?', 'Armatürün IP koruma sınıfına bakın: banyo için en az IP44, yağmur alan dış mekân için en az IP65. <a href="/rehber/#ip-koruma">IP sınıflarını inceleyin</a>.'),
+        ('Banyo ve dış mekân için nelere dikkat etmeliyim?', 'IP koruma sınıfını, ürünün kullanım talimatını ve montaj yerini birlikte değerlendirin. Banyo ve suya yakın alanlarda uygunluk, montaj bölgesine göre değişir. <a href="/rehber/#ip-koruma">IP sınıflarını inceleyin</a>.'),
         ('Mağazaya gelmeden önce aramalı mıyım?', 'Aradığınız ürün belliyse yola çıkmadan önce stok durumunu sormanızı öneririz. Ziyaret saatinizi de aynı numaradan teyit edebilirsiniz.'),
         ('Mağaza tam olarak nerede?', 'Karaköy’de, Emekyemez Mahallesi Tutsak Sokak No:8, Beyoğlu / İstanbul. Yol tarifi ve harita için <a href="/iletisim/#magaza-konumu">İletişim sayfamıza</a> bakabilirsiniz.'),
     ]

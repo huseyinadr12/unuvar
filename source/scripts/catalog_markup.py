@@ -2,6 +2,7 @@
 from pathlib import Path
 from html import escape
 import json
+from editorial import collection_grid
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,8 +22,8 @@ def catalog_data():
 def catalog_teaser(icon):
     data = catalog_data()
     return f'''<section class="catalog-teaser" aria-labelledby="catalog-teaser-title"><div class="container catalog-teaser-inner">
-      <div><span class="eyebrow">DİJİTAL KATALOG</span><h2 id="catalog-teaser-title">Işığı sayfa sayfa keşfedin.</h2>
-      <p>Lineer, dekoratif ve dış mekân aydınlatmaları. {data["page_count"]} sayfalık kataloğumuz artık yayında.</p></div>
+      <div><span class="eyebrow">DİJİTAL KATALOG</span><h2 id="catalog-teaser-title">Koleksiyon, elinizin altında.</h2>
+      <p>Lineer, dekoratif ve dış mekân aydınlatmaları. {data["page_count"]} sayfa, 19 ürün grubu. Çevrim içi inceleyin veya PDF olarak yanınızda taşıyın.</p></div>
       <a class="button yellow" href="/urunler/#katalog">Kataloğu inceleyin {icon("arrow")}</a>
     </div></section>'''
 
@@ -44,15 +45,15 @@ def catalog_page(icon, wa, out):
     )
     return f'''<section class="catalog-intro" id="katalog" aria-labelledby="catalog-title"><div class="container catalog-intro-grid">
       <div class="catalog-intro-copy"><span class="eyebrow">ÜNÜVAR AYDINLATMA KATALOĞU</span>
-      <h1 id="catalog-title">Mekânınıza<br>ışık tutan seçenekler.</h1>
+      <h1 id="catalog-title">Mekânın ışığı.<br>Aydınlatma koleksiyonu.</h1>
       <p>Lineer armatürlerden dekoratif sarkıtlara, bahçe aydınlatmasından teknik çözümlere. Ürünleri ve ölçülerini kataloğumuzdan inceleyin.</p>
       <div class="catalog-actions"><a class="button yellow" href="#katalog-okuyucu">Kataloğu incele {icon("arrow")}</a>
       <a class="button outline" href="{pdf}" download="unuvar-aydinlatma-katalog.pdf">PDF indir {icon("download")}</a></div>
       <p class="catalog-file-meta">{count} sayfa <span aria-hidden="true">·</span> {len(data["sections"])} ürün grubu <span aria-hidden="true">·</span> PDF / {data["size_label"]}</p>
-      </div><a class="catalog-cover" href="#katalog-okuyucu" aria-label="44 sayfalık kataloğu incelemeye başla">
-      <img src="{pages[0]["image"]}" width="1684" height="1191" alt="Ünüvar Aydınlatma kataloğu: Işığın mekânla buluşması" fetchpriority="high"></a>
+      </div><a class="catalog-cover" href="#katalog-okuyucu" aria-label="{count} sayfalık kataloğu incelemeye başla">
+      <img src="{pages[0]["image"]}" width="1684" height="1191" alt="Ünüvar Aydınlatma kataloğu: Mekânın ışığı" fetchpriority="high"></a>
     </div></section>
-    <section class="catalog-reading-section" id="katalog-okuyucu" aria-labelledby="reader-title"><div class="container">
+    {collection_grid(icon, full=True)}<section class="catalog-reading-section" id="katalog-okuyucu" aria-labelledby="reader-title"><div class="container">
       <div class="catalog-reading-heading"><div><span class="eyebrow">KATALOĞA GÖZ ATIN</span><h2 id="reader-title">Aradığınız bölüme geçin.</h2></div>
       <a class="text-link" href="{pdf}" target="_blank" rel="noopener">PDF’yi yeni sekmede aç {icon("up")}</a></div>
       <details class="catalog-contents"><summary>İçindekiler <span>{len(data["sections"])} ürün grubu</span></summary><nav aria-label="Katalog bölümleri">{chapters}</nav></details>
@@ -72,6 +73,6 @@ def catalog_page(icon, wa, out):
         <noscript><p class="reader-noscript">Tüm sayfalara ulaşmak için PDF’yi açın. İçindekiler bağlantıları PDF’de ilgili sayfaya gider.</p></noscript>
       </div>
       <div class="catalog-enquiry"><div><h3>Beğendiğiniz ürünün kodunu bize iletin.</h3><p>Güncel fiyat, stok, ölçü ve teknik özellikleri birlikte teyit edelim.</p></div>
-      {out(wa("Merhaba, Ünüvar Aydınlatma kataloğundaki bir ürün hakkında bilgi almak istiyorum. Ürün kodu: "),icon("wa")+" Katalogdan ürün sor","button yellow")}</div>
+      <a href="/iletisim/?sayfa=1#teklif" class="button yellow" data-reader-enquiry>Bu sayfadan ürün sorun {icon("arrow")}</a></div>
       <p class="catalog-source-note">Katalogdaki teknik bilgiler ürün koduna göre teyit edilir. “Teyit gerekli” olarak işaretlenen ölçüler için mağazamızla görüşebilirsiniz.</p>
     </div></section>'''
