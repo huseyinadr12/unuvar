@@ -25,7 +25,8 @@
   };
   const timing = {
     intro: duration('--brand-intro-duration', 1800),
-    travel: duration('--brand-travel-duration', 1800),
+    travel: duration('--brand-travel-duration', 900),
+    travelHold: duration('--brand-travel-hold-duration', 120),
     hold: duration('--brand-hold-duration', 180)
   };
   let exitTimer, entryTimer, brandTimer, prefetch, pending = null, revision = 0, visibilityStart = null, navigationStarted = false, finishing = false;
@@ -88,7 +89,7 @@
     if (!pending || finishing || navigationStarted) return;
     finishing = true;
     clearTimeout(exitTimer);
-    exitTimer = setTimeout(navigateNow, timing.hold);
+    exitTimer = setTimeout(navigateNow, timing.travelHold);
   }
   brand?.addEventListener('animationend', event => {
     if (event.animationName === 'brand-progress-fill') finishOpening();

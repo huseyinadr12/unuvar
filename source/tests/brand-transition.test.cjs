@@ -85,8 +85,8 @@ test('internal navigation plays one moving logo; destination never shows a secon
   const s=setup();s.paint();s.tick(3000);
   const url='https://example.test/unuvar/b2c/?urun=AS1101#talep-listesi';
   assert.equal(s.click(url),true);assert.equal(s.brand.dataset.phase,'navigate');
-  s.tick(1800);s.endAnimation('brand-travel');
-  s.tick(179);assert.deepEqual(s.visited,[]);
+  s.tick(900);s.endAnimation('brand-travel');
+  s.tick(119);assert.deepEqual(s.visited,[]);
   s.tick(1);assert.deepEqual(s.visited,[url]);
   assert.equal(JSON.parse(s.stored.get('unuvar-navigation-arrival')).url,url);
   const marker=JSON.parse(s.stored.get('unuvar-navigation-arrival'));
@@ -121,7 +121,7 @@ test('rapid repeat clicks and repeated skip keys cannot restart the scene or nav
   const s=setup();s.paint();s.tick(3000);
   const url='https://example.test/unuvar/urunler/';
   s.click(url);s.tick(600);s.click(url);s.click('https://example.test/unuvar/iletisim/');
-  s.tick(1200);s.endAnimation('brand-travel');s.tick(180);assert.deepEqual(s.visited,[url]);
+  s.tick(300);s.endAnimation('brand-travel');s.tick(120);assert.deepEqual(s.visited,[url]);
   s.skip.fire('click');s.document.fire('keydown',{key:'Tab'});s.document.fire('keydown',{key:'Escape'});
   assert.deepEqual(s.visited,[url]);
 });
@@ -129,7 +129,7 @@ test('storage-blocked internal arrivals skip the opening before first paint usin
   const s=setup({storageBlocked:true,referrer:'https://example.test/unuvar/urunler/'});
   assert.equal(s.firstPaint.brandIntro,undefined);
   s.paint();assert.equal(s.brand.hidden,true);
-  s.click('https://example.test/unuvar/b2c/');s.tick(1800);s.endAnimation('brand-travel');s.tick(180);
+  s.click('https://example.test/unuvar/b2c/');s.tick(900);s.endAnimation('brand-travel');s.tick(120);
   assert.equal(s.visited.length,1);
 });
 test('a reload still opens with the fixture, even with an internal referrer and stale arrival',()=>{
@@ -167,7 +167,7 @@ test('only the selected document is prefetched during motion; query is retained 
 test('unloading retains the completed logo instead of flashing the old page beneath it',()=>{
   const s=setup();s.paint();s.tick(3000);
   s.click('https://example.test/unuvar/urunler/');
-  s.tick(1800);s.endAnimation('brand-travel');s.tick(180);
+  s.tick(900);s.endAnimation('brand-travel');s.tick(120);
   s.win.fire('pagehide');s.tick(5000);
   assert.equal(s.brand.hidden,false);assert.equal(s.brand.dataset.phase,'navigate');
   assert.equal(s.root.dataset.navMotion,'idle');
@@ -177,11 +177,11 @@ test('unloading retains the completed logo instead of flashing the old page bene
 test('missing animationend events fail open and duplicate events never delay completion',()=>{
   const s=setup();s.paint();s.tick(2780);assert.equal(s.brand.hidden,true);
   s.click('https://example.test/unuvar/urunler/');
-  s.tick(2379);assert.deepEqual(s.visited,[]);
+  s.tick(1419);assert.deepEqual(s.visited,[]);
   s.tick(1);assert.equal(s.visited.length,1);
   const normal=setup();normal.paint();normal.tick(3000);
   normal.click('https://example.test/unuvar/b2c/');
-  normal.tick(1800);normal.endAnimation('brand-travel');normal.tick(100);
-  normal.endAnimation('brand-travel');normal.tick(80);
+  normal.tick(900);normal.endAnimation('brand-travel');normal.tick(100);
+  normal.endAnimation('brand-travel');normal.tick(20);
   assert.equal(normal.visited.length,1);
 });

@@ -1,5 +1,5 @@
 /* Inline critical styles: the opening is present on the very first paint. */
-.brand-transition{--brand-intro-duration:1800ms;--brand-travel-duration:1800ms;--brand-hold-duration:180ms;display:none;position:fixed;inset:0;z-index:10000;place-items:center;overflow:hidden;background:#11191a;color:#222b2b}
+.brand-transition{--brand-intro-duration:1800ms;--brand-travel-duration:900ms;--brand-travel-hold-duration:120ms;--brand-hold-duration:180ms;display:none;position:fixed;inset:0;z-index:10000;place-items:center;overflow:hidden;background:#11191a;color:#222b2b}
 .brand-transition[hidden]{display:none!important}
 html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-startup-safety 4.5s step-end forwards}
 .brand-transition[data-phase]{display:grid;animation:brand-safety 4.5s step-end forwards}
@@ -31,10 +31,10 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 .brand-transition[data-phase="out"] .brand-progress-fill{transform:scaleX(1)}
 .brand-transition[data-phase="out"]{animation:brand-reveal .4s ease-in-out both}
 /* Menu changes have their own scene; the fixture is reserved for the opening. */
-.brand-navigation{display:none;--runway-width:min(1120px,90vw);--brand-width:clamp(285px,40vw,460px);width:var(--runway-width)}
+.brand-navigation{display:none;--runway-width:min(1000px,90vw);--brand-width:clamp(205px,28vw,300px);width:var(--runway-width)}
 .brand-transition[data-phase="navigate"] :is(.brand-wash,.brand-scene){display:none}
 .brand-transition[data-phase="navigate"] .brand-navigation{display:block}
-.brand-runway{position:relative;width:100%;height:calc(var(--brand-width) * .454 + 64px)}
+.brand-runway{position:relative;width:100%;height:200px}
 .brand-runway:after{content:"";position:absolute;left:0;right:0;bottom:12px;height:1px;background:linear-gradient(90deg,transparent,#c3ad6440 15%,#c3ad6440 85%,transparent)}
 .brand-traveller{position:absolute;top:12px;left:0;width:var(--brand-width);height:auto;overflow:visible;mix-blend-mode:screen;will-change:transform}
 .brand-travel-word{filter:grayscale(1) invert(1);mix-blend-mode:screen}
@@ -64,6 +64,6 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 @keyframes brand-reveal{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-startup-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
-@media(max-width:600px){.brand-scene{height:340px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-progress{top:318px;width:240px}.brand-skip{right:20px;bottom:24px}.brand-navigation{--brand-width:min(68vw,285px)}}
+@media(max-width:600px){.brand-scene{height:340px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-progress{top:318px;width:240px}.brand-skip{right:20px;bottom:24px}.brand-runway{height:150px}}
 @media(prefers-reduced-motion:reduce){html[data-brand-intro] .brand-transition,.brand-transition[data-phase]{display:none!important}}
 @media print{.brand-transition{display:none!important}}
