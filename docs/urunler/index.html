@@ -19,13 +19,13 @@
   if (internal) { root.dataset.brandArrival = '1'; return; }
   root.dataset.brandIntro = 'pending';
   // Fail open even when the deferred script is unavailable.
-  setTimeout(() => { delete root.dataset.brandIntro; }, 2600);
+  setTimeout(() => { delete root.dataset.brandIntro; }, 4500);
 })();
 </script><title>Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma</title><meta name="description" content="164 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın."><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#ffffff"><link rel="canonical" href="https://huseyinadr12.github.io/unuvar/urunler/"><link rel="icon" href="/unuvar/assets/favicon.svg" type="image/svg+xml"><meta property="og:title" content="Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma"><meta property="og:site_name" content="Ünüvar Aydınlatma"><meta property="og:description" content="164 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın."><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:url" content="https://huseyinadr12.github.io/unuvar/urunler/"><meta property="og:image" content="https://huseyinadr12.github.io/unuvar/assets/share-cover.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:alt" content="Aydınlatma kataloğu · Ünüvar Aydınlatma"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma"><meta name="twitter:description" content="164 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın."><meta name="twitter:image" content="https://huseyinadr12.github.io/unuvar/assets/share-cover.jpg"><meta name="twitter:image:alt" content="Aydınlatma kataloğu · Ünüvar Aydınlatma"><link rel="preload" as="font" type="font/woff2" href="/unuvar/assets/fonts/manrope-latin.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/unuvar/assets/fonts/manrope-latin-ext.woff2" crossorigin><link rel="stylesheet" href="/unuvar/assets/app.css?v=58a68191be8f"><style>/* Inline critical styles: the opening is present on the very first paint. */
-.brand-transition{display:none;position:fixed;inset:0;z-index:10000;place-items:center;overflow:hidden;background:#11191a;color:#222b2b}
+.brand-transition{--brand-intro-duration:1800ms;--brand-travel-duration:1800ms;--brand-hold-duration:180ms;display:none;position:fixed;inset:0;z-index:10000;place-items:center;overflow:hidden;background:#11191a;color:#222b2b}
 .brand-transition[hidden]{display:none!important}
-html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-startup-safety 2.6s step-end forwards}
-.brand-transition[data-phase]{display:grid;animation:brand-safety 2.6s step-end forwards}
+html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-startup-safety 4.5s step-end forwards}
+.brand-transition[data-phase]{display:grid;animation:brand-safety 4.5s step-end forwards}
 .brand-transition[data-phase="waiting"]{animation-name:brand-startup-safety}
 .brand-wash{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 32%,#fffae6,#f5f3eb 65%);opacity:0}
 .brand-scene{position:relative;width:min(600px,86vw);height:360px;text-align:center}
@@ -38,36 +38,46 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 .brand-mark{position:absolute;top:164px;left:50%;transform:translateX(-50%);width:280px;height:120px;overflow:hidden;mix-blend-mode:multiply;opacity:.13;z-index:2}
 .brand-mark img{position:absolute;width:355px;height:355px;max-width:none;top:-108px;left:-44px}
 .brand-motto{position:absolute;top:310px;left:0;right:0;font:500 11px/1.5 Manrope,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;opacity:0;color:#776a45}
+.brand-progress{position:absolute;top:350px;left:50%;transform:translateX(-50%);width:min(280px,72vw);height:4px;border-radius:4px;background:#9b926735;overflow:hidden}
+.brand-progress-fill{display:block;width:100%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ab8228,#f4c94c,#ffe98c);box-shadow:0 0 14px #f4c94c80;transform:scaleX(0);transform-origin:left}
 .brand-skip{position:absolute;right:30px;bottom:28px;min-height:44px;padding:0 18px;border:1px solid #acaa9c66;border-radius:30px;color:#9b9e93;background:#11191a0a;font:500 12px/1 Manrope,Arial,sans-serif;cursor:pointer;z-index:4}
 .brand-skip:hover,.brand-skip:focus-visible{color:#b18f35;border-color:currentColor;outline-offset:5px}
-.brand-transition[data-phase="intro"] .brand-light{animation:linear-ignite 1.1s ease-out both}
-.brand-transition[data-phase="intro"] .brand-wash{animation:room-illuminate 1.1s ease both}
-.brand-transition[data-phase="intro"] .brand-beam{animation:beam-illuminate 1.1s ease both}
-.brand-transition[data-phase="intro"] .brand-mark{animation:logo-illuminate 1.1s ease both}
-.brand-transition[data-phase="intro"] .brand-motto{animation:motto-illuminate 1.1s ease both}
-.brand-transition[data-phase="intro"] .brand-skip{animation:brand-skip-ink 1.1s ease both}
+.brand-transition[data-phase="intro"] .brand-light{animation:linear-ignite var(--brand-intro-duration) ease-out both}
+.brand-transition[data-phase="intro"] .brand-wash{animation:room-illuminate var(--brand-intro-duration) ease both}
+.brand-transition[data-phase="intro"] .brand-beam{animation:beam-illuminate var(--brand-intro-duration) ease both}
+.brand-transition[data-phase="intro"] .brand-mark{animation:logo-illuminate var(--brand-intro-duration) ease both}
+.brand-transition[data-phase="intro"] .brand-motto{animation:motto-illuminate var(--brand-intro-duration) ease both}
+.brand-transition[data-phase="intro"] .brand-skip{animation:brand-skip-ink var(--brand-intro-duration) ease both}
+.brand-transition[data-phase="intro"] .brand-progress-fill{animation:brand-progress-fill var(--brand-intro-duration) cubic-bezier(.4,0,.6,1) both}
 .brand-transition[data-phase="out"] :is(.brand-light,.brand-wash,.brand-beam,.brand-mark,.brand-motto){opacity:1}
 .brand-transition[data-phase="out"] .brand-skip{color:#53564b}
+.brand-transition[data-phase="out"] .brand-progress-fill{transform:scaleX(1)}
 .brand-transition[data-phase="out"]{animation:brand-reveal .4s ease-in-out both}
 /* Menu changes have their own scene; the fixture is reserved for the opening. */
-.brand-navigation{display:none;--runway-width:min(1000px,90vw);--brand-width:clamp(205px,28vw,300px);width:var(--runway-width)}
+.brand-navigation{display:none;--runway-width:min(1120px,90vw);--brand-width:clamp(285px,40vw,460px);width:var(--runway-width)}
 .brand-transition[data-phase="navigate"] :is(.brand-wash,.brand-scene){display:none}
 .brand-transition[data-phase="navigate"] .brand-navigation{display:block}
-.brand-runway{position:relative;width:100%;height:200px}
+.brand-runway{position:relative;width:100%;height:calc(var(--brand-width) * .454 + 64px)}
 .brand-runway:after{content:"";position:absolute;left:0;right:0;bottom:12px;height:1px;background:linear-gradient(90deg,transparent,#c3ad6440 15%,#c3ad6440 85%,transparent)}
-.brand-traveller{position:absolute;top:12px;left:0;width:var(--brand-width);height:auto;overflow:visible;mix-blend-mode:screen}
+.brand-traveller{position:absolute;top:12px;left:0;width:var(--brand-width);height:auto;overflow:visible;mix-blend-mode:screen;will-change:transform}
 .brand-travel-word{filter:grayscale(1) invert(1);mix-blend-mode:screen}
-.brand-travel-lamp{fill:#474332;filter:drop-shadow(0 0 0 #ffdf6800)}
-.brand-transition[data-phase="navigate"] .brand-traveller{animation:brand-travel .9s cubic-bezier(.35,0,.25,1) both}
-.brand-transition[data-phase="navigate"] .brand-travel-lamp{animation:brand-tab-ignite .9s cubic-bezier(.35,0,.25,1) both}
+.brand-travel-lamp{fill:#2c2e27}
+/* Keep the blur constant and animate its opacity, avoiding a changing filter each frame. */
+.brand-travel-glow{fill:#ffe871;opacity:0;filter:drop-shadow(0 0 16px #fff4b7) drop-shadow(0 0 40px #ffd251) drop-shadow(0 0 72px #ffbf3c99)}
+.brand-transition[data-phase="navigate"] .brand-traveller{animation:brand-travel var(--brand-travel-duration) cubic-bezier(.4,0,.6,1) both}
+.brand-transition[data-phase="navigate"] .brand-travel-lamp{animation:brand-tab-ignite var(--brand-travel-duration) linear both}
+.brand-transition[data-phase="navigate"] .brand-travel-glow{animation:brand-tab-glow var(--brand-travel-duration) linear both}
 .brand-transition[data-phase="navigate"] .brand-skip{color:#c6c5b8}
 @keyframes brand-travel{from{transform:translateX(0)}to{transform:translateX(calc(var(--runway-width) - var(--brand-width)))}}
 @keyframes brand-tab-ignite{
-  0%{fill:#474332;filter:drop-shadow(0 0 0 #ffdf6800) drop-shadow(0 0 0 #ffcf5000)}
-  40%{fill:#b69c48;filter:drop-shadow(0 0 5px #ffdf6840) drop-shadow(0 0 12px #ffcf5020)}
-  75%{fill:#ffe66a;filter:drop-shadow(0 0 10px #ffdf68b0) drop-shadow(0 0 28px #ffcf5060)}
-  100%{fill:#fff3ad;filter:drop-shadow(0 0 15px #ffdf68) drop-shadow(0 0 42px #ffcf5090)}
+  0%{fill:#2c2e27}
+  25%{fill:#78602a}
+  50%{fill:#d6a331}
+  75%{fill:#ffda52}
+  100%{fill:#fff5be}
 }
+@keyframes brand-tab-glow{0%{opacity:0}25%{opacity:.03}50%{opacity:.18}75%{opacity:.5}100%{opacity:1}}
+@keyframes brand-progress-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes linear-ignite{0%,18%{opacity:0}45%{opacity:.55}80%,100%{opacity:1}}
 @keyframes room-illuminate{0%,18%{opacity:0}65%{opacity:.85}100%{opacity:1}}
 @keyframes beam-illuminate{0%,18%{opacity:0}100%{opacity:1}}
@@ -77,19 +87,21 @@ html[data-brand-intro="pending"] .brand-transition{display:grid;animation:brand-
 @keyframes brand-reveal{from{opacity:1;visibility:visible}to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
 @keyframes brand-startup-safety{to{opacity:0;visibility:hidden;pointer-events:none}}
-@media(max-width:600px){.brand-scene{height:320px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-skip{right:20px;bottom:24px}.brand-runway{height:150px}}
+@media(max-width:600px){.brand-scene{height:340px}.brand-fixture{top:48px;height:16px}.brand-beam{top:63px}.brand-mark{top:137px;width:250px;height:106px}.brand-mark img{width:314px;height:314px;top:-95px;left:-39px}.brand-motto{top:277px;font-size:10px;letter-spacing:.16em}.brand-progress{top:318px;width:240px}.brand-skip{right:20px;bottom:24px}.brand-navigation{--brand-width:min(68vw,285px)}}
 @media(prefers-reduced-motion:reduce){html[data-brand-intro] .brand-transition,.brand-transition[data-phase]{display:none!important}}
 @media print{.brand-transition{display:none!important}}
-</style><script defer src="/unuvar/assets/navigation.js?v=0ddefccb250c"></script><script defer src="/unuvar/assets/catalog.js?v=0d1420a1b930"></script><script defer src="/unuvar/assets/app.js?v=adb0730cdbba"></script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Store", "name": "Ünüvar Aydınlatma", "url": "https://huseyinadr12.github.io/unuvar", "logo": "https://huseyinadr12.github.io/unuvar/assets/logo.webp", "image": "https://huseyinadr12.github.io/unuvar/assets/magaza-profesyonel-v5-1448.webp", "telephone": "+90 545 610 50 09", "sameAs": ["https://www.instagram.com/unuvar.aydinlatma/", "https://www.facebook.com/p/%C3%9Cn%C3%BCvar-Elektrik-VE-Aydinlatma-100089000323477/"], "address": {"@type": "PostalAddress", "streetAddress": "Emekyemez Mahallesi, Tutsak Sokak No:8", "addressLocality": "Beyoğlu", "addressRegion": "İstanbul", "postalCode": "34421", "addressCountry": "TR"}, "geo": {"@type": "GeoCoordinates", "latitude": 41.0262442, "longitude": 28.9710587}, "hasMap": "https://www.google.com/maps/place/%C3%9Cn%C3%BCvar+Ayd%C4%B1nlatma+Elektrik/@41.0262442,28.9710587,17z/data=!3m1!4b1!4m6!3m5!1s0x14cab9f6e7d1a36d:0xfa8c9bd37519d265!8m2!3d41.0262442!4d28.9710587!16s%2Fg%2F11vcmwg5yl", "@id": "https://huseyinadr12.github.io/unuvar/#business"}, {"@type": "WebSite", "@id": "https://huseyinadr12.github.io/unuvar/#website", "url": "https://huseyinadr12.github.io/unuvar/", "name": "Ünüvar Aydınlatma", "inLanguage": "tr-TR", "publisher": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}}, {"@type": "WebPage", "@id": "https://huseyinadr12.github.io/unuvar/urunler/#webpage", "url": "https://huseyinadr12.github.io/unuvar/urunler/", "name": "Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma", "description": "164 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın.", "inLanguage": "tr-TR", "isPartOf": {"@id": "https://huseyinadr12.github.io/unuvar/#website"}, "about": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}, "primaryImageOfPage": {"@type": "ImageObject", "url": "https://huseyinadr12.github.io/unuvar/assets/share-cover.jpg"}, "breadcrumb": {"@id": "https://huseyinadr12.github.io/unuvar/urunler/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://huseyinadr12.github.io/unuvar/urunler/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Ana sayfa", "item": "https://huseyinadr12.github.io/unuvar/"}, {"@type": "ListItem", "position": 2, "name": "Katalog", "item": "https://huseyinadr12.github.io/unuvar/urunler/"}]}]}</script></head>
+</style><script defer src="/unuvar/assets/navigation.js?v=441d57fe8603"></script><script defer src="/unuvar/assets/catalog.js?v=0d1420a1b930"></script><script defer src="/unuvar/assets/app.js?v=adb0730cdbba"></script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Store", "name": "Ünüvar Aydınlatma", "url": "https://huseyinadr12.github.io/unuvar", "logo": "https://huseyinadr12.github.io/unuvar/assets/logo.webp", "image": "https://huseyinadr12.github.io/unuvar/assets/magaza-profesyonel-v5-1448.webp", "telephone": "+90 545 610 50 09", "sameAs": ["https://www.instagram.com/unuvar.aydinlatma/", "https://www.facebook.com/p/%C3%9Cn%C3%BCvar-Elektrik-VE-Aydinlatma-100089000323477/"], "address": {"@type": "PostalAddress", "streetAddress": "Emekyemez Mahallesi, Tutsak Sokak No:8", "addressLocality": "Beyoğlu", "addressRegion": "İstanbul", "postalCode": "34421", "addressCountry": "TR"}, "geo": {"@type": "GeoCoordinates", "latitude": 41.0262442, "longitude": 28.9710587}, "hasMap": "https://www.google.com/maps/place/%C3%9Cn%C3%BCvar+Ayd%C4%B1nlatma+Elektrik/@41.0262442,28.9710587,17z/data=!3m1!4b1!4m6!3m5!1s0x14cab9f6e7d1a36d:0xfa8c9bd37519d265!8m2!3d41.0262442!4d28.9710587!16s%2Fg%2F11vcmwg5yl", "@id": "https://huseyinadr12.github.io/unuvar/#business"}, {"@type": "WebSite", "@id": "https://huseyinadr12.github.io/unuvar/#website", "url": "https://huseyinadr12.github.io/unuvar/", "name": "Ünüvar Aydınlatma", "inLanguage": "tr-TR", "publisher": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}}, {"@type": "WebPage", "@id": "https://huseyinadr12.github.io/unuvar/urunler/#webpage", "url": "https://huseyinadr12.github.io/unuvar/urunler/", "name": "Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma", "description": "164 sayfalık Ünüvar Aydınlatma kataloğu ve 19 ürün grubu. Mimari, dekoratif ve dış mekân aydınlatmalarını keşfedin; ürün koduyla fiyat bilgisi alın.", "inLanguage": "tr-TR", "isPartOf": {"@id": "https://huseyinadr12.github.io/unuvar/#website"}, "about": {"@id": "https://huseyinadr12.github.io/unuvar/#business"}, "primaryImageOfPage": {"@type": "ImageObject", "url": "https://huseyinadr12.github.io/unuvar/assets/share-cover.jpg"}, "breadcrumb": {"@id": "https://huseyinadr12.github.io/unuvar/urunler/#breadcrumb"}}, {"@type": "BreadcrumbList", "@id": "https://huseyinadr12.github.io/unuvar/urunler/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Ana sayfa", "item": "https://huseyinadr12.github.io/unuvar/"}, {"@type": "ListItem", "position": 2, "name": "Katalog", "item": "https://huseyinadr12.github.io/unuvar/urunler/"}]}]}</script></head>
     <body class="page-products"><div class="brand-transition" data-brand-transition>
 <div class="brand-wash" aria-hidden="true"></div><div class="brand-scene" aria-hidden="true">
 <div class="brand-fixture"><div class="brand-diffuser"><div class="brand-light"></div></div></div><div class="brand-beam"></div>
 <div class="brand-mark"><img src="/unuvar/assets/logo.webp" width="903" height="903" alt=""></div>
-<p class="brand-motto">Mekânın ışığı.</p></div>
+<p class="brand-motto">Mekânın ışığı.</p>
+<div class="brand-progress"><span class="brand-progress-fill"></span></div></div>
 <div class="brand-navigation" aria-hidden="true"><div class="brand-runway">
 <svg class="brand-traveller" viewBox="136 260 705 320" xmlns="http://www.w3.org/2000/svg">
 <defs><clipPath id="brand-word-clip"><path d="M136 260H625V360H841V580H136Z"/></clipPath></defs>
 <image class="brand-travel-word" href="/unuvar/assets/logo.webp" width="903" height="903" clip-path="url(#brand-word-clip)"/>
+<path class="brand-travel-glow" d="M637 284H751C789 284 819 313 819 349H637Z"/>
 <path class="brand-travel-lamp" d="M637 284H751C789 284 819 313 819 349H637Z"/>
 </svg></div></div>
 <button class="brand-skip" type="button" data-brand-skip>Geçişi atla ↗</button></div><a class="skip" href="#main">İçeriğe geç</a>

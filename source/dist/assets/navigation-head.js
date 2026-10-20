@@ -19,5 +19,5 @@
   if (internal) { root.dataset.brandArrival = '1'; return; }
   root.dataset.brandIntro = 'pending';
   // Fail open even when the deferred script is unavailable.
-  setTimeout(() => { delete root.dataset.brandIntro; }, 2600);
+  setTimeout(() => { delete root.dataset.brandIntro; }, 4500);
 })();

@@ -19,20 +19,33 @@
   const brand = document.querySelector('[data-brand-transition]');
   const arrival = root.dataset.brandArrival === '1';
   delete root.dataset.brandArrival;
-  let exitTimer, entryTimer, brandTimer, pending = null, revision = 0, visibilityStart = null, navigationStarted = false;
+  const duration = (name, fallback) => {
+    const value = brand && parseFloat(getComputedStyle(brand).getPropertyValue(name));
+    return Number.isFinite(value) && value > 0 ? value : fallback;
+  };
+  const timing = {
+    intro: duration('--brand-intro-duration', 1800),
+    travel: duration('--brand-travel-duration', 1800),
+    hold: duration('--brand-hold-duration', 180)
+  };
+  let exitTimer, entryTimer, brandTimer, prefetch, pending = null, revision = 0, visibilityStart = null, navigationStarted = false, finishing = false;
   function hideBrand() {
     if (!brand) return;
     brand.hidden = true;
     delete brand.dataset.phase;
   }
-  function reset() {
+  function cancelTimers() {
     ++revision;
     clearTimeout(exitTimer);
     clearTimeout(entryTimer);
     clearTimeout(brandTimer);
     visibilityStart = null;
+  }
+  function reset() {
+    cancelTimers();
     pending = null;
     navigationStarted = false;
+    finishing = false;
     delete root.dataset.brandIntro;
     root.dataset.navMotion = 'idle';
     hideBrand();
@@ -42,14 +55,14 @@
       brand.dataset.phase = 'out';
       brandTimer = setTimeout(hideBrand, 400);
     }
-    root.dataset.navMotion = 'enter';
-    entryTimer = setTimeout(() => { root.dataset.navMotion = 'idle'; }, 1350);
+    // Reveal the already stable page. A second 3D/heading entrance looked like a reload.
+    root.dataset.navMotion = 'idle';
   }
   function enter(fromNavigation = false) {
     reset();
-    if (reduced.matches) return;
+    if (reduced.matches || fromNavigation) return;
     const ticket = revision;
-    if (brand && !fromNavigation) { brand.hidden = false; brand.dataset.phase = 'waiting'; }
+    if (brand) { brand.hidden = false; brand.dataset.phase = 'waiting'; }
     const begin = () => {
       if (ticket !== revision) return;
       // A background tab must not finish its opening before the visitor sees it.
@@ -57,13 +70,39 @@
       visibilityStart = null;
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (ticket !== revision) return;
-        // The outgoing page already played the brand scene, once.
-        if (fromNavigation || !brand) { revealContent(); return; }
+        if (!brand) return;
         brand.dataset.phase = 'intro';
-        brandTimer = setTimeout(revealContent, 1300);
+        // The bar's animationend normally finishes the opening; this is a fail-open fallback.
+        brandTimer = setTimeout(finishOpening, timing.intro + 400);
       }));
     };
     begin();
+  }
+  function finishOpening() {
+    if (brand?.dataset.phase !== 'intro' || finishing) return;
+    finishing = true;
+    clearTimeout(brandTimer);
+    brandTimer = setTimeout(revealContent, timing.hold);
+  }
+  function finishTravel() {
+    if (!pending || finishing || navigationStarted) return;
+    finishing = true;
+    clearTimeout(exitTimer);
+    exitTimer = setTimeout(navigateNow, timing.hold);
+  }
+  brand?.addEventListener('animationend', event => {
+    if (event.animationName === 'brand-progress-fill') finishOpening();
+    if (event.animationName === 'brand-travel') finishTravel();
+  });
+  function warmDestination(url) {
+    // Warm only the selected document while the logo travels, never the full PDF.
+    if (!document.createElement || !document.head) return;
+    prefetch?.remove();
+    prefetch = document.createElement('link');
+    prefetch.rel = 'prefetch';
+    prefetch.as = 'document';
+    prefetch.href = url.href.split('#')[0];
+    document.head.appendChild(prefetch);
   }
   function navigateNow() {
     if (!pending || navigationStarted) return;
@@ -107,14 +146,14 @@
     // A second click/keyboard activation must not restart or duplicate a trip.
     if (pending) { event.preventDefault(); return; }
     if (target.kind === 'anchor') { highlight(target.url); return; }
-    if (target.kind === 'same') { event.preventDefault(); enter(true); return; }
+    if (target.kind === 'same') { event.preventDefault(); return; }
     event.preventDefault();
     reset();
     pending = target.url.href;
-    root.dataset.navMotion = 'leave';
+    warmDestination(target.url);
     if (brand) { brand.hidden = false; brand.dataset.phase = 'navigate'; }
-    // 900 ms travel, then a brief hold at full illumination.
-    exitTimer = setTimeout(navigateNow, brand ? 1020 : 320);
+    // Wait for the rendered motion to finish, not a timer racing its first paint.
+    exitTimer = setTimeout(brand ? finishTravel : navigateNow, brand ? timing.travel + 400 : 0);
   });
   const skip = () => { if (pending) navigateNow(); else reset(); };
   document.querySelector('[data-brand-skip]')?.addEventListener('click', skip);
@@ -125,7 +164,9 @@
     if (document.visibilityState === 'visible') visibilityStart?.();
   });
   addEventListener('pageshow', event => { if (event.persisted) enter(true); });
-  addEventListener('pagehide', reset);
+  // Keep the completed logo painted until the next document commits. Restoring a
+  // BFCache page resets it in pageshow; hiding it here flashed the old page.
+  addEventListener('pagehide', cancelTimers);
   reduced.addEventListener('change', () => {
     if (reduced.matches && pending && !navigationStarted) { navigateNow(); hideBrand(); }
     else reset();

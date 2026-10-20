@@ -10,7 +10,7 @@ function setup({reduced=false,visible=true,arrival=false,headOnly=false,
   navigationType='navigate',referrer='',storageBlocked=false,marker,
   href='https://example.test/unuvar/',startTime=1000}={}){
   let now=startTime,id=0;
-  const timers=new Map(),frames=[],stored=new Map(),visited=[];
+  const timers=new Map(),frames=[],stored=new Map(),visited=[],warmed=[];
   function target(extra={}){
     const handlers={};
     return Object.assign({dataset:{},hidden:false,
@@ -21,6 +21,8 @@ function setup({reduced=false,visible=true,arrival=false,headOnly=false,
   const brand=target(),skip=target(),media=target({matches:reduced}),win=target();
   const document=target({
     readyState:'complete',visibilityState:visible?'visible':'hidden',documentElement:root,referrer,
+    head:{appendChild:el=>warmed.push(el)},
+    createElement:()=>({remove(){}}),
     querySelector:s=>s==='[data-brand-transition]'?brand:s==='[data-brand-skip]'?skip:null,
     getElementById:()=>null
   });
@@ -28,6 +30,7 @@ function setup({reduced=false,visible=true,arrival=false,headOnly=false,
   if(arrival||marker)stored.set('unuvar-navigation-arrival',JSON.stringify(marker||{url:href,time:now}));
   const storageAccess=fn=>{if(storageBlocked)throw new Error('Storage blocked');return fn();};
   const context={document,location,URL,matchMedia:()=>media,
+    getComputedStyle:()=>({getPropertyValue:()=>''}),
     performance:{getEntriesByType:()=>[{type:navigationType}]},
     Date:{now:()=>now},
     sessionStorage:{
@@ -58,13 +61,17 @@ function setup({reduced=false,visible=true,arrival=false,headOnly=false,
     document.fire('click',{button:0,target:{closest:()=>anchor},preventDefault(){prevented=true;}});
     return prevented;
   }
-  return {root,brand,skip,media,document,win,visited,stored,paint,tick,click,firstPaint};
+  const endAnimation=name=>brand.fire('animationend',{animationName:name});
+  return {root,brand,skip,media,document,win,visited,stored,paint,tick,click,firstPaint,endAnimation,warmed};
 }
 
-test('fresh opening starts with the fixture off, then reveals content and clears the overlay',()=>{
+test('opening waits for the progress bar to fill, holds at full, then reveals stable content',()=>{
   const s=setup();assert.equal(s.brand.dataset.phase,'waiting');
   s.paint();assert.equal(s.brand.dataset.phase,'intro');assert.equal(s.brand.hidden,false);
-  s.tick(1300);assert.equal(s.brand.dataset.phase,'out');assert.equal(s.root.dataset.navMotion,'enter');
+  s.tick(1799);assert.equal(s.brand.dataset.phase,'intro');
+  s.tick(1);s.endAnimation('brand-progress-fill');
+  s.tick(179);assert.equal(s.brand.dataset.phase,'intro');
+  s.tick(1);assert.equal(s.brand.dataset.phase,'out');assert.equal(s.root.dataset.navMotion,'idle');
   s.tick(400);assert.equal(s.brand.hidden,true);
   s.tick(950);assert.equal(s.root.dataset.navMotion,'idle');
 });
@@ -78,7 +85,8 @@ test('internal navigation plays one moving logo; destination never shows a secon
   const s=setup();s.paint();s.tick(3000);
   const url='https://example.test/unuvar/b2c/?urun=AS1101#talep-listesi';
   assert.equal(s.click(url),true);assert.equal(s.brand.dataset.phase,'navigate');
-  s.tick(1019);assert.deepEqual(s.visited,[]);
+  s.tick(1800);s.endAnimation('brand-travel');
+  s.tick(179);assert.deepEqual(s.visited,[]);
   s.tick(1);assert.deepEqual(s.visited,[url]);
   assert.equal(JSON.parse(s.stored.get('unuvar-navigation-arrival')).url,url);
   const marker=JSON.parse(s.stored.get('unuvar-navigation-arrival'));
@@ -86,7 +94,7 @@ test('internal navigation plays one moving logo; destination never shows a secon
   assert.equal(arriving.firstPaint.brandIntro,undefined);
   assert.equal(arriving.firstPaint.brandArrival,'1');
   assert.equal(arriving.brand.hidden,true);
-  arriving.paint();assert.equal(arriving.root.dataset.navMotion,'enter');
+  arriving.paint();assert.equal(arriving.root.dataset.navMotion,'idle');
   assert.equal(arriving.brand.dataset.phase,undefined);
   arriving.tick(3000);assert.equal(arriving.brand.hidden,true);
 });
@@ -94,7 +102,7 @@ test('skip and keyboard access dismiss opening; skipping an exit follows its des
   const s=setup();s.paint();s.document.fire('keydown',{key:'Tab'});
   assert.equal(s.brand.hidden,true);s.tick(5000);assert.equal(s.root.dataset.navMotion,'idle');
   s.click('https://example.test/unuvar/urunler/');s.skip.fire('click');
-  assert.equal(s.visited.length,1);s.tick(1020);assert.equal(s.visited.length,1);
+  assert.equal(s.visited.length,1);s.tick(3000);assert.equal(s.visited.length,1);
 });
 test('reduced motion keeps navigation native and cancels an in-progress opening',()=>{
   const s=setup({reduced:true});s.paint();assert.equal(s.brand.hidden,true);
@@ -102,10 +110,10 @@ test('reduced motion keeps navigation native and cancels an in-progress opening'
   const active=setup();active.paint();active.media.matches=true;active.media.fire('change');
   active.tick(3000);assert.equal(active.brand.hidden,true);assert.equal(active.root.dataset.navMotion,'idle');
 });
-test('current menu item only reveals content and cancelled callbacks cannot revive the opening',()=>{
+test('current menu item never restarts either the page or opening',()=>{
   const s=setup();s.paint();s.tick(3000);
   s.click('https://example.test/unuvar/');s.paint();assert.equal(s.brand.hidden,true);
-  assert.equal(s.root.dataset.navMotion,'enter');assert.deepEqual(s.visited,[]);
+  assert.equal(s.root.dataset.navMotion,'idle');assert.deepEqual(s.visited,[]);
   s.click('https://example.test/unuvar/');s.skip.fire('click');s.paint();
   assert.equal(s.brand.hidden,true);
 });
@@ -113,7 +121,7 @@ test('rapid repeat clicks and repeated skip keys cannot restart the scene or nav
   const s=setup();s.paint();s.tick(3000);
   const url='https://example.test/unuvar/urunler/';
   s.click(url);s.tick(600);s.click(url);s.click('https://example.test/unuvar/iletisim/');
-  s.tick(420);assert.deepEqual(s.visited,[url]);
+  s.tick(1200);s.endAnimation('brand-travel');s.tick(180);assert.deepEqual(s.visited,[url]);
   s.skip.fire('click');s.document.fire('keydown',{key:'Tab'});s.document.fire('keydown',{key:'Escape'});
   assert.deepEqual(s.visited,[url]);
 });
@@ -121,7 +129,7 @@ test('storage-blocked internal arrivals skip the opening before first paint usin
   const s=setup({storageBlocked:true,referrer:'https://example.test/unuvar/urunler/'});
   assert.equal(s.firstPaint.brandIntro,undefined);
   s.paint();assert.equal(s.brand.hidden,true);
-  s.click('https://example.test/unuvar/b2c/');s.tick(1020);
+  s.click('https://example.test/unuvar/b2c/');s.tick(1800);s.endAnimation('brand-travel');s.tick(180);
   assert.equal(s.visited.length,1);
 });
 test('a reload still opens with the fixture, even with an internal referrer and stale arrival',()=>{
@@ -145,5 +153,35 @@ test('history navigation and BFCache restoration never replay either brand scene
 });
 test('head bootstrap fails open even if the deferred navigation script never arrives',()=>{
   const s=setup({headOnly:true});assert.equal(s.root.dataset.brandIntro,'pending');
-  s.tick(2600);assert.equal(s.root.dataset.brandIntro,undefined);
+  s.tick(4500);assert.equal(s.root.dataset.brandIntro,undefined);
+});
+test('only the selected document is prefetched during motion; query is retained and hash is omitted',()=>{
+  const s=setup();s.paint();s.tick(3000);
+  s.click('https://example.test/unuvar/b2c/?sayfa=46#hizli-giris');
+  assert.equal(s.warmed.length,1);
+  assert.equal(s.warmed[0].rel,'prefetch');
+  assert.equal(s.warmed[0].as,'document');
+  assert.equal(s.warmed[0].href,'https://example.test/unuvar/b2c/?sayfa=46');
+  assert.deepEqual(s.visited,[]);
+});
+test('unloading retains the completed logo instead of flashing the old page beneath it',()=>{
+  const s=setup();s.paint();s.tick(3000);
+  s.click('https://example.test/unuvar/urunler/');
+  s.tick(1800);s.endAnimation('brand-travel');s.tick(180);
+  s.win.fire('pagehide');s.tick(5000);
+  assert.equal(s.brand.hidden,false);assert.equal(s.brand.dataset.phase,'navigate');
+  assert.equal(s.root.dataset.navMotion,'idle');
+  s.win.fire('pageshow',{persisted:true});
+  assert.equal(s.brand.hidden,true);assert.equal(s.root.dataset.navMotion,'idle');
+});
+test('missing animationend events fail open and duplicate events never delay completion',()=>{
+  const s=setup();s.paint();s.tick(2780);assert.equal(s.brand.hidden,true);
+  s.click('https://example.test/unuvar/urunler/');
+  s.tick(2379);assert.deepEqual(s.visited,[]);
+  s.tick(1);assert.equal(s.visited.length,1);
+  const normal=setup();normal.paint();normal.tick(3000);
+  normal.click('https://example.test/unuvar/b2c/');
+  normal.tick(1800);normal.endAnimation('brand-travel');normal.tick(100);
+  normal.endAnimation('brand-travel');normal.tick(80);
+  assert.equal(normal.visited.length,1);
 });

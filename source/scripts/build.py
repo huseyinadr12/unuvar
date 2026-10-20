@@ -22,11 +22,13 @@ BRAND_TRANSITION = '''<div class="brand-transition" data-brand-transition>
 <div class="brand-wash" aria-hidden="true"></div><div class="brand-scene" aria-hidden="true">
 <div class="brand-fixture"><div class="brand-diffuser"><div class="brand-light"></div></div></div><div class="brand-beam"></div>
 <div class="brand-mark"><img src="/assets/logo.webp" width="903" height="903" alt=""></div>
-<p class="brand-motto">Mekânın ışığı.</p></div>
+<p class="brand-motto">Mekânın ışığı.</p>
+<div class="brand-progress"><span class="brand-progress-fill"></span></div></div>
 <div class="brand-navigation" aria-hidden="true"><div class="brand-runway">
 <svg class="brand-traveller" viewBox="136 260 705 320" xmlns="http://www.w3.org/2000/svg">
 <defs><clipPath id="brand-word-clip"><path d="M136 260H625V360H841V580H136Z"/></clipPath></defs>
 <image class="brand-travel-word" href="/assets/logo.webp" width="903" height="903" clip-path="url(#brand-word-clip)"/>
+<path class="brand-travel-glow" d="M637 284H751C789 284 819 313 819 349H637Z"/>
 <path class="brand-travel-lamp" d="M637 284H751C789 284 819 313 819 349H637Z"/>
 </svg></div></div>
 <button class="brand-skip" type="button" data-brand-skip>Geçişi atla ↗</button></div>'''
