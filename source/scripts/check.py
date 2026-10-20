@@ -65,7 +65,7 @@ for path in pages:
         if required not in parsed.ids: errors.append(f'{path}: missing {required}')
     if parsed.h1 != 1: errors.append(f'{path}: expected 1 h1, got {parsed.h1}')
     if 'main' not in parsed.ids: errors.append(f'{path}: missing main anchor')
-if len(pages) != 7: errors.append('Expected exactly 6 pages and a 404; check for stale catalog/category pages')
+if len(pages) != 9: errors.append('Expected exactly 8 pages and a 404; check for stale routes')
 if 'collection-card' not in (DIST / 'urunler/index.html').read_text(encoding='utf-8'):
     errors.append('Product groups are missing from the products page')
 catalog = json.loads((DIST.parent / 'data/catalog.json').read_text(encoding='utf-8'))

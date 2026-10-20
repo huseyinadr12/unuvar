@@ -12,6 +12,8 @@ def metadata(path, title, description, origin, business):
     titles = {
         '/': 'Ünüvar Aydınlatma | Karaköy Aydınlatma Mağazası',
         '/urunler/': 'Aydınlatma Kataloğu ve Ürünler | Ünüvar Aydınlatma',
+        '/b2b/': 'B2B Teklif ve Ürün Talep Listesi | Ünüvar Aydınlatma',
+        '/cozumler/': 'Proje ve Mekân Aydınlatma Çözümleri | Ünüvar Aydınlatma',
         '/rehber/': 'Işık Rehberi: Kelvin, Lümen, Duy Tipleri ve IP | Ünüvar Aydınlatma',
         '/hakkimizda/': 'Hakkımızda | Karaköy Ünüvar Aydınlatma',
         '/iletisim/': 'Fiyat Talebi ve İletişim | Ünüvar Aydınlatma Karaköy',
@@ -28,7 +30,7 @@ def metadata(path, title, description, origin, business):
     description = descriptions.get(path, description)
     crumbs = [('Ana sayfa', '/')]
     if path != '/':
-        crumbs += [({'/urunler/':'Katalog','/rehber/':'Işık rehberi','/hakkimizda/':'Hakkımızda','/iletisim/':'İletişim','/gizlilik/':'Gizlilik ve site bilgileri'}.get(path, title), path)]
+        crumbs += [({'/b2b/':'B2B teklif','/cozumler/':'Proje çözümleri','/urunler/':'Katalog','/rehber/':'Işık rehberi','/hakkimizda/':'Hakkımızda','/iletisim/':'İletişim','/gizlilik/':'Gizlilik ve site bilgileri'}.get(path, title), path)]
     business = {key: value for key, value in business.items() if key != '@context'}
     business.update({'@id':origin+'/#business'})
     website = {'@type':'WebSite','@id':origin+'/#website','url':origin+'/','name':name,'inLanguage':CONFIG['language'],'publisher':{'@id':business['@id']}}

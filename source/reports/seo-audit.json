@@ -2,8 +2,8 @@
   "kind": "Static technical SEO audit; not Lighthouse or field Core Web Vitals",
   "publication": "owner-private",
   "indexing_enabled": false,
-  "page_count": 7,
-  "sitemap_urls": 6,
+  "page_count": 9,
+  "sitemap_urls": 8,
   "assets": {
     "app.css": {
       "bytes": 78314,
@@ -33,6 +33,32 @@
         "Store",
         "WebSite",
         "WebPage"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/b2b/",
+      "title": "B2B Teklif ve Ürün Talep Listesi | Ünüvar Aydınlatma",
+      "title_characters": 52,
+      "description_characters": 155,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "robots": "noindex,nofollow"
+    },
+    {
+      "path": "/cozumler/",
+      "title": "Proje ve Mekân Aydınlatma Çözümleri | Ünüvar Aydınlatma",
+      "title_characters": 55,
+      "description_characters": 140,
+      "schema_types": [
+        "Store",
+        "WebSite",
+        "WebPage",
+        "BreadcrumbList"
       ],
       "robots": "noindex,nofollow"
     },

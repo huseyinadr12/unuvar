@@ -4,7 +4,7 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, dijital katalog ve ürün grupları, ışık rehberi, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 55 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası fiyat talebi formuna aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
+Ana sayfa, koleksiyon/katalog, B2B teklif, proje çözümleri, teknik seçim bilgileri, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 55 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası fiyat talebi formuna aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
 
 ## Dijital katalog
 
@@ -44,3 +44,17 @@ GitHub Pages, `main` dalının `/docs` klasörünü yayınlar. Değişiklikten s
 İletişim formu bir mesaj taslağı hazırlar; mesajı ziyaretçi WhatsApp’ta gönderir. Formda kalıcı kayıt veya sunucuya gönderim yoktur. Google Haritalar bileşeni otomatik yüklenir. Animasyonlar azaltılmış hareket tercihini destekler.
 
 Marka logoları ilgili sahiplerine aittir. Manrope yazı tipi lisansı `source/dist/assets/fonts/OFL.txt` dosyasındadır.
+
+## B2B teklif ve proje çözümleri
+
+- `/b2b/`: 52 Artline kaydı, kod/ad ile arama, grup filtresi, toplu `KOD;ADET` girişi, en fazla 50 kalem ve 9999 adet/kalem. Diğer kodlar teyit notuyla eklenebilir.
+- Ürün kodları/adetler cihazda yedi gün saklanır. Firma, şehir, proje ve not bilgileri kalıcı kaydedilmez. Temizleme/çıkarma geri alınabilir.
+- Talep özeti WhatsApp'a aktarılır; mesajı ziyaretçi gönderir. Uzun metinler için kopyalama ve CSV indirme vardır. Yazdır / PDF düğmesi tarayıcının yazdırma penceresini açar.
+- Bu sayfa üyelikli bayi portalı, canlı fiyat/stok sistemi veya kesin sipariş kaydı değildir. Bunlar için yetkili bayi hesapları, fiyat/stok verisi, sunucu/veritabanı ve sipariş yönetimi gerekir.
+- `/cozumler/`: altı kullanım alanı, ürün grubu bağlantıları ve proje talebi hazırlama bilgileri. Teknik rehber ana menüden kaldırılmış, eski adresi ve alt menü erişimi korunmuştur.
+- `source/scripts/b2b.py`, `source/dist/assets/b2b.css`, `b2b-core.js`, `b2b.js`; B2B dosyaları yalnız gereken sayfalarda yüklenir.
+- `node --test source/tests/b2b-core.test.cjs`: miktar, toplu giriş, limit, saklama süresi ve CSV formül güvenliği kontrolleri.
+
+## Görsel çözünürlüğü
+
+Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altındadır; 8K orijinal yoktur. Ürün fotoğrafları 8K olarak etiketlenmez. Orijinaller geldiğinde ürün koduyla eşleştirilip kataloğa ve web boyutlarına aktarılmalıdır. Yapay zekâ ile hazırlanan tek ürün örneği inceleme çıktısıdır; gerçek ürün fotoğraflarının yerine yayımlanmamıştır.
