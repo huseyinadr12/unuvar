@@ -53,7 +53,7 @@ def catalog_page(icon, wa, out):
       </div><a class="catalog-cover" href="#katalog-okuyucu" aria-label="{count} sayfalık kataloğu incelemeye başla">
       <img src="{pages[0]["image"]}" width="1684" height="1191" alt="Ünüvar Aydınlatma kataloğu: Mekânın ışığı" fetchpriority="high"></a>
     </div></section>
-    {collection_grid(icon, full=True)}<section class="catalog-reading-section" id="katalog-okuyucu" aria-labelledby="reader-title"><div class="container">
+    <section class="catalog-reading-section" id="katalog-okuyucu" aria-labelledby="reader-title"><div class="container">
       <div class="catalog-reading-heading"><div><span class="eyebrow">KATALOĞA GÖZ ATIN</span><h2 id="reader-title">Aradığınız bölüme geçin.</h2></div>
       <a class="text-link" href="{pdf}" target="_blank" rel="noopener">PDF’yi yeni sekmede aç {icon("up")}</a></div>
       <details class="catalog-contents"><summary>İçindekiler <span>{len(data["sections"])} ürün grubu</span></summary><nav aria-label="Katalog bölümleri">{chapters}</nav></details>
@@ -75,4 +75,4 @@ def catalog_page(icon, wa, out):
       <div class="catalog-enquiry"><div><h3>Beğendiğiniz ürünün kodunu bize iletin.</h3><p>Güncel fiyat, stok, ölçü ve teknik özellikleri birlikte teyit edelim.</p></div>
       <a href="/b2c/?sayfa=1#hizli-giris" class="button yellow" data-reader-enquiry>B2C teklif listesine geçin {icon("arrow")}</a></div>
       <p class="catalog-source-note">Sayfaları ok tuşlarıyla veya telefonda sağa ve sola kaydırarak çevirebilirsiniz. Ölçü, renk ve donanım sipariş öncesinde ürün koduyla teyit edilir.</p>
-    </div></section>'''
+    </div></section>{collection_grid(icon, full=True)}'''

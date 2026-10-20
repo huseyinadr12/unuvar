@@ -11,11 +11,13 @@ Ana sayfa, koleksiyon/katalog, B2C teklif, proje çözümleri, teknik seçim bil
 - `source/data/catalog.json`: 164 sayfanın önizleme yolları, 19 bölümün sayfa aralıkları, koleksiyon görselleri ve filtre grupları.
 - `source/data/editorial-products.json`: kaynak katalogdan kontrol edilen 52 Artline ürün kaydı. Fiyat veya canlı stok verisi değildir.
 - `source/data/quote-products.json`: katalogdaki 19 gruba ait 360 seçilebilir ürün kodu ve ölçü/güç seçenekleri; B2C ekranının ürün kaynağı.
-- `source/dist/assets/catalog/`: standart A4 yatay PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; yaklaşık 38 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir. Güncel sürüm `unuvar-aydinlatma-katalog-v3.pdf` ve `catalog-v3-NNN.webp` yollarını kullanır.
+- `source/dist/assets/catalog/`: standart A4 yatay PDF ve WebP önizlemeleri. Okuyucu seçili sayfayı yükler, görünürken boşta bir sonraki sayfayı hazırlar; PDF otomatik yüklenmez. Güncel, doğrulanmış linearize PDF 31,0 MB'dır (`unuvar-aydinlatma-katalog-v4.pdf`); görsel pikselleri ve sayfa içerikleri değişmemiştir. Önizlemeler `catalog-v3-NNN.webp` yollarını kullanır.
 - `source/scripts/catalog_markup.py`, `source/dist/assets/catalog.css`, `source/dist/assets/catalog.js`: katalog tanıtımı, içindekiler, sayfa seçici ve ana sayfa bağlantısı.
 - JavaScript kapalıyken PDF indirme ve bölümün PDF sayfasına açılan bağlantıları çalışır. `#sayfa-25` gibi adresler açık bir katalog sayfasını paylaşmak için kullanılabilir.
 - Tüm ürün/model aileleri 160 ürün sayfasında aynı logo, görsel, teknik tablo ve sayfa düzeniyle sunulur. Kaynakta tekrar eden AS5011 kodu yıldızlı notla korunmuştur; AS5017 varsayılmamıştır. Eksik/çelişkili ölçüler, spot çizimindeki ölçü çelişkisi ve IP67/IP68 tutarsızlığı ilgili sayfalarda işaretlidir.
 - Sayfa çevirme animasyonu, sağ/sol ok tuşları ve yatay kaydırma desteklenir. Azaltılmış hareket tercihinde animasyon atlanır. Yeni sayfa yüklenmeden mevcut sayfa kaybolmaz; hızlı gezinmede eski istekler güncel sayfayı değiştirmez. `catalog.js` yalnız katalog sayfasında yüklenir.
+- Okuyucu ürün koleksiyonlarından önce gelir. Yakın sayfa ön yüklemesi veri tasarrufu / 2G'de kapanır; en fazla beş çözülmüş görsel tutulur. Başarısız arka plan isteği ziyaretçi tıkladığında tekrar denenir.
+- `source/scripts/optimize_catalog_pdf.py` (isteğe bağlı `pikepdf` bağımlılığı) PDF'deki ASCII85 katmanını kayıpsız kaldırır ve hızlı web görüntüleme için linearize eder. Orijinali değiştirmez; 164 sayfanın içerik akışını ve 148 görselin piksellerini, linearizasyonu ve PDF sözdizimini doğrular.
 
 Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin; `catalog.json`, `editorial-products.json` ve `quote-products.json` sayfa/bölüm aralıklarını eşleştirin. 146 ürün görseli kaynak referanslarıyla yapay zekâ kullanılarak standart stüdyo sunumuna dönüştürülmüştür. Görseller üretici teknik fotoğrafı veya 8K orijinal değildir. Kullanıcının isteğiyle görsel açıklama etiketleri kaldırılmıştır; üretim kayıtları çalışma alanında korunur.
 
@@ -72,7 +74,7 @@ Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altı
 
 ## Sayfa ve etkileşim animasyonları
 
-- `navigation.js` ve `transitions.css`: açılış DOM hazır olduğunda başlar; 800 ms kâğıt açılışı ve sıralı başlık girişleri kullanılır. Sayfa bağlantıları 260 ms çıkıştan sonra açılır. Yerel View Transition API'sine bağlı değildir. İndirme, PDF/görsel bağlantıları, başka sekme, dış bağlantı ve değiştirici tuşlarla tıklamalar bu gecikmeye dahil edilmez.
+- `navigation.js` ve `transitions.css`: açılış DOM hazır olduğunda başlar; 850 ms boyunca gerçek sayfa içeriği 3B perspektifle açılır, kâğıt kıvrımı ışığı üzerinden geçer ve başlıklar sırayla girer. Sayfa bağlantıları 320 ms çıkıştan sonra açılır. Yerel View Transition API'sine bağlı değildir. İndirme, PDF/görsel bağlantıları, başka sekme, dış bağlantı ve değiştirici tuşlarla tıklamalar bu gecikmeye dahil edilmez.
 - Sayfa içi başlık bağlantısı doğal kaydırmayı korur ve hedef başlık görünür olduğunda canlanır. Mevcut menü sayfasına tıklamak giriş efektini tekrar oynatır. Geri/ileri gezinme, yarım kalan çıkış durumunu temizler.
 - Sayfa aşağı kaydırılırken bölümler sırayla belirir; menü, buton, kart, filtre ve açılır başlıklarda kısa geri bildirimler vardır. Gözlemci çalışmasa bile içerik görünür kalır.
 - Katalogda ileri/geri yönüne uygun 720 ms dönüş, kâğıt aydınlığı ve gölge efekti bulunur. Hızlı sayfa değişimi ve hareket tercihinin değişmesi mevcut animasyonu temizler.

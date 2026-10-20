@@ -70,7 +70,7 @@
     reset();
     pending = target.url.href;
     root.dataset.navMotion = 'leave';
-    exitTimer = setTimeout(() => { if (pending) location.assign(pending); }, 260);
+    exitTimer = setTimeout(() => { if (pending) location.assign(pending); }, 320);
   });
   addEventListener('pageshow', event => { if (event.persisted) enter(); });
   addEventListener('pagehide', reset);

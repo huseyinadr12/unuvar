@@ -4,8 +4,8 @@ const {readFileSync}=require('node:fs');
 const vm=require('node:vm');
 const code=readFileSync(require('node:path').join(__dirname,'../dist/assets/catalog.js'),'utf8');
 
-function setup({reduced=false,hash=''}={}){
-  const pending=[],animations=[],links=[];
+function setup({reduced=false,hash='',saveData=false,effectiveType='4g'}={}){
+  const pending=[],animations=[],links=[],idle=[];
   class Element{
     constructor(){this.events={};this.attrs={};this.hidden=true;this.style={};this.children=[];this.classList={add(){},remove(){}};}
     addEventListener(type,fn){this.events[type]=fn;}
@@ -34,12 +34,15 @@ function setup({reduced=false,hash=''}={}){
   const context={
     document:{querySelector:s=>s==='[data-reader]'?reader:enquiry,querySelectorAll:()=>links,createElement:()=>new Element()},
     Image:class{decode(){return new Promise((resolve,reject)=>pending.push({source:this.src,resolve,reject}));}},
-    URL,location,history:{replaceState:(_,__,h)=>location.hash=h},matchMedia:()=>media,window:new Element()
+    URL,location,history:{replaceState:(_,__,h)=>location.hash=h},matchMedia:()=>media,
+    window:Object.assign(new Element(),{navigator:{connection:{saveData,effectiveType}},requestIdleCallback:fn=>idle.push(fn)})
   };
   vm.runInNewContext(code,context);
   const flush=async()=>{await new Promise(resolve=>setImmediate(resolve));};
   const settle=async(index=0,fail=false)=>{pending[index][fail?'reject':'resolve']();await flush();};
-  return {map,img,enquiry,location,pending,animations,media,settle,flush,next:()=>map['[data-reader-next]'].fire('click')};
+  return {map,img,enquiry,location,pending,animations,media,settle,flush,
+    warm:()=>{const tasks=idle.splice(0);tasks.forEach(fn=>fn());},
+    next:()=>map['[data-reader-next]'].fire('click')};
 }
 
 test('old page stays visible until the incoming page decodes; links move together',async()=>{
@@ -93,4 +96,29 @@ test('arrow keys and horizontal swipes navigate; vertical swipes do not',async()
   assert.equal(s.pending.length,1);
   canvas.fire('touchstart',{touches:[{clientX:200,clientY:30}]});canvas.fire('touchend',{changedTouches:[{clientX:90,clientY:40}]});await s.settle(1);
   assert.equal(s.img.src,'page-3.webp');
+});
+
+test('only the neighbouring page is warmed; a click reuses its in-flight download',async()=>{
+  const s=setup();assert.equal(s.pending.length,0);
+  s.next();await s.settle();s.warm();
+  assert.deepEqual(s.pending.map(p=>p.source),['page-2.webp','page-3.webp']);
+  s.next();assert.equal(s.pending.length,2);
+  await s.settle(1);assert.equal(s.img.src,'page-3.webp');
+});
+test('a failed background preview is retried on demand without showing an error',async()=>{
+  const s=setup();s.next();await s.settle();s.warm();await s.settle(1,true);
+  assert.equal(s.map['[data-reader-error]'].hidden,true);
+  s.next();assert.equal(s.pending.length,3);await s.settle(2);
+  assert.equal(s.img.src,'page-3.webp');
+});
+test('data saving and slow connections do not prefetch but still navigate',async()=>{
+  for(const options of [{saveData:true},{effectiveType:'2g'},{effectiveType:'slow-2g'}]){
+    const s=setup(options);s.next();await s.settle();s.warm();
+    assert.equal(s.pending.length,1);s.next();await s.settle(1);
+    assert.equal(s.img.src,'page-3.webp');
+  }
+});
+test('deep linking never warms unrelated first pages or the full PDF',async()=>{
+  const s=setup({hash:'#sayfa-3'});await s.settle();s.warm();
+  assert.deepEqual(s.pending.map(p=>p.source),['page-3.webp','page-4.webp']);
 });
