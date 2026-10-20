@@ -10,13 +10,14 @@ Ana sayfa, koleksiyon/katalog, B2C teklif, proje çözümleri, teknik seçim bil
 
 - `source/data/catalog.json`: 164 sayfanın önizleme yolları, 19 bölümün sayfa aralıkları, koleksiyon görselleri ve filtre grupları.
 - `source/data/editorial-products.json`: kaynak katalogdan kontrol edilen 52 Artline ürün kaydı. Fiyat veya canlı stok verisi değildir.
-- `source/dist/assets/catalog/`: standart A4 yatay PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; yaklaşık 38,1 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir.
+- `source/data/quote-products.json`: katalogdaki 19 gruba ait 360 seçilebilir ürün kodu ve ölçü/güç seçenekleri; B2C ekranının ürün kaynağı.
+- `source/dist/assets/catalog/`: standart A4 yatay PDF ve WebP önizlemeleri. Önizleme okuyucusu yalnız seçilen sayfanın görselini yükler; yaklaşık 38 MB PDF ancak ziyaretçi açtığında/indirdiğinde yüklenir. Güncel sürüm `unuvar-aydinlatma-katalog-v3.pdf` ve `catalog-v3-NNN.webp` yollarını kullanır.
 - `source/scripts/catalog_markup.py`, `source/dist/assets/catalog.css`, `source/dist/assets/catalog.js`: katalog tanıtımı, içindekiler, sayfa seçici ve ana sayfa bağlantısı.
 - JavaScript kapalıyken PDF indirme ve bölümün PDF sayfasına açılan bağlantıları çalışır. `#sayfa-25` gibi adresler açık bir katalog sayfasını paylaşmak için kullanılabilir.
 - Tüm ürün/model aileleri 160 ürün sayfasında aynı logo, görsel, teknik tablo ve sayfa düzeniyle sunulur. Kaynakta tekrar eden AS5011 kodu yıldızlı notla korunmuştur; AS5017 varsayılmamıştır. Eksik/çelişkili ölçüler, spot çizimindeki ölçü çelişkisi ve IP67/IP68 tutarsızlığı ilgili sayfalarda işaretlidir.
 - Sayfa çevirme animasyonu, sağ/sol ok tuşları ve yatay kaydırma desteklenir. Azaltılmış hareket tercihinde animasyon atlanır. Yeni sayfa yüklenmeden mevcut sayfa kaybolmaz; hızlı gezinmede eski istekler güncel sayfayı değiştirmez. `catalog.js` yalnız katalog sayfasında yüklenir.
 
-Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin, `catalog.json` ve `editorial-products.json` sayfa/bölüm aralıklarını eşleştirin ve aşağıdaki derleme/denetim/dışa aktarım komutlarını çalıştırın. 146 ürün görseli kaynak referanslarıyla yapay zekâ kullanılarak standart stüdyo sunumuna dönüştürülmüştür. Görseller temsili olarak etiketlenir; üretici teknik fotoğrafı veya 8K orijinal değildir.
+Yeni katalog sürümünde PDF'yi ve ilgili sayfa önizlemelerini birlikte güncelleyin; `catalog.json`, `editorial-products.json` ve `quote-products.json` sayfa/bölüm aralıklarını eşleştirin. 146 ürün görseli kaynak referanslarıyla yapay zekâ kullanılarak standart stüdyo sunumuna dönüştürülmüştür. Görseller üretici teknik fotoğrafı veya 8K orijinal değildir. Kullanıcının isteğiyle görsel açıklama etiketleri kaldırılmıştır; üretim kayıtları çalışma alanında korunur.
 
 ## Sık düzenlenenler
 
@@ -49,7 +50,7 @@ Marka logoları ilgili sahiplerine aittir. Manrope yazı tipi lisansı `source/d
 
 ## B2C teklif ve proje çözümleri
 
-- `/b2c/`: 52 Artline kaydı, kod/ad ile arama, grup filtresi, toplu `KOD;ADET` girişi, en fazla 50 kalem ve 9999 adet/kalem. Diğer kodlar teyit notuyla eklenebilir.
+- `/b2c/`: 19 grupta 360 ürün kodu, kod/ad/ölçü ile arama, grup filtresi, toplu `KOD;ADET` girişi, en fazla 50 kalem ve 9999 adet/kalem. İlk görünüm farklı gruplardan ürünleri gösterir. Belirtilmemiş güç değerleri boş bırakılır. Diğer kodlar teyit notuyla eklenebilir.
 - Ürün kodları/adetler cihazda yedi gün saklanır. Ad/liste adı, şehir, kullanım alanı ve not bilgileri kalıcı kaydedilmez. Temizleme/çıkarma geri alınabilir.
 - Talep özeti WhatsApp'a aktarılır; mesajı ziyaretçi gönderir. Uzun metinler için kopyalama ve CSV indirme vardır. Yazdır / PDF düğmesi tarayıcının yazdırma penceresini açar.
 - Bu sayfa üyelikli bayi portalı, canlı fiyat/stok sistemi veya kesin sipariş kaydı değildir. Bunlar için yetkili bayi hesapları, fiyat/stok verisi, sunucu/veritabanı ve sipariş yönetimi gerekir.
@@ -65,13 +66,14 @@ Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altı
 ## Görsel düzenleme ve B2C geçişi — 20 Ekim 2026
 
 - `/b2c/` bireysel müşteriler için ürün/adet listesi ve WhatsApp fiyat talebi sayfasıdır. `/b2b/` eski bağlantıları sorgu ve sayfa içi konumla birlikte buraya yönlendirir. Mevcut cihaz listelerinin korunması için teknik dosya adları, DOM anahtarları ve localStorage anahtarı değişmedi.
-- Ana sayfadaki kullanım görseli `interior-v2.webp` ve sıva üstü lineer kartı `lineer-siva-ustu-v2.webp`, yerleşik ImageGen ile düzenlendi. Duvar/tavan yüzeyleri iyileştirildi. Bu görseller düzenlenmiş kullanım örnekleri olarak etiketlenir; ürün teknik fotoğrafı veya tamamlanmış proje referansı değildir.
+- Ana sayfadaki kullanım görseli `interior-v2.webp` ve sıva üstü lineer kartı `lineer-siva-ustu-v2.webp`, yerleşik ImageGen ile düzenlendi. Duvar/tavan yüzeyleri iyileştirildi. Bunlar ürün teknik fotoğrafı veya tamamlanmış proje referansı değildir.
 - Ana sayfa kapak görseli `hero-v2.webp` de düzenlendi. PNG çıktıları ve kullanılan istemler çalışma alanındaki `output/imagegen/` klasöründedir. PDF katalog ve sitedeki ürün kartları aynı yeni stüdyo görsellerini kullanır.
-- `refinements.css` ve `motion.js` sayfa, kart, filtre, liste ve açılır başlık geri bildirimlerini sağlar; azaltılmış hareket tercihi desteklenir. Bağlantılar animasyon için geciktirilmez.
+- `refinements.css` ve `motion.js` kart, filtre, liste ve açılır başlık geri bildirimlerini sağlar; azaltılmış hareket tercihi desteklenir.
 
 ## Sayfa ve etkileşim animasyonları
 
-- `transitions.css`: destekleyen tarayıcılarda sayfalar arasında 640 ms süren, kâğıt dönüşünü andıran yerel View Transition geçişi. Menü ve mobil iletişim çubuğu sabit kalır. Desteklemeyen tarayıcılarda kısa giriş animasyonu kullanılır; bağlantıların doğal gezinmesi ve geçmiş davranışı korunur.
+- `navigation.js` ve `transitions.css`: açılış DOM hazır olduğunda başlar; 800 ms kâğıt açılışı ve sıralı başlık girişleri kullanılır. Sayfa bağlantıları 260 ms çıkıştan sonra açılır. Yerel View Transition API'sine bağlı değildir. İndirme, PDF/görsel bağlantıları, başka sekme, dış bağlantı ve değiştirici tuşlarla tıklamalar bu gecikmeye dahil edilmez.
+- Sayfa içi başlık bağlantısı doğal kaydırmayı korur ve hedef başlık görünür olduğunda canlanır. Mevcut menü sayfasına tıklamak giriş efektini tekrar oynatır. Geri/ileri gezinme, yarım kalan çıkış durumunu temizler.
 - Sayfa aşağı kaydırılırken bölümler sırayla belirir; menü, buton, kart, filtre ve açılır başlıklarda kısa geri bildirimler vardır. Gözlemci çalışmasa bile içerik görünür kalır.
 - Katalogda ileri/geri yönüne uygun 720 ms dönüş, kâğıt aydınlığı ve gölge efekti bulunur. Hızlı sayfa değişimi ve hareket tercihinin değişmesi mevcut animasyonu temizler.
 - Hareketi azaltma tercihi bütün bu animasyonları devre dışı bırakır.

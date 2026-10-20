@@ -74,5 +74,5 @@ def catalog_page(icon, wa, out):
       </div>
       <div class="catalog-enquiry"><div><h3>Beğendiğiniz ürünün kodunu bize iletin.</h3><p>Güncel fiyat, stok, ölçü ve teknik özellikleri birlikte teyit edelim.</p></div>
       <a href="/b2c/?sayfa=1#hizli-giris" class="button yellow" data-reader-enquiry>B2C teklif listesine geçin {icon("arrow")}</a></div>
-      <p class="catalog-source-note">Sayfaları ok tuşlarıyla veya telefonda sağa ve sola kaydırarak çevirebilirsiniz. Teknik bilgiler ürün koduna göre teyit edilir. Düzenlenmiş ürün görselleri temsilidir; ölçü, renk ve donanım sipariş öncesinde doğrulanır.</p>
+      <p class="catalog-source-note">Sayfaları ok tuşlarıyla veya telefonda sağa ve sola kaydırarak çevirebilirsiniz. Ölçü, renk ve donanım sipariş öncesinde ürün koduyla teyit edilir.</p>
     </div></section>'''

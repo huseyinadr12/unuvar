@@ -1,115 +1,38 @@
-/* All motion is optional, brief, and leaves navigation and focus behavior intact. */
+/* Motion is explicit and independent of native cross-document View Transitions. */
+@view-transition{navigation:none}
 .intro-screen{display:none}
 @media(prefers-reduced-motion:no-preference){
-  /* Turn the viewport, not the entire height of a long catalog page. Links stay native. */
-  @view-transition{navigation:auto}
-  .site-header{view-transition-name:site-header}
-  .mobile-contact{view-transition-name:mobile-contact}
-  ::view-transition-group(root){animation-duration:.64s}
-  ::view-transition-image-pair(root){isolation:isolate;perspective:1800px}
-  ::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal;backface-visibility:hidden}
-  ::view-transition-old(root){z-index:2;transform-origin:left center;animation:site-page-turn .64s cubic-bezier(.38,.02,.22,1) both;box-shadow:24px 0 70px #17212426}
-  ::view-transition-new(root){z-index:1;transform-origin:right center;animation:site-page-settle .64s cubic-bezier(.22,.7,.2,1) both}
-  ::view-transition-group(site-header),::view-transition-group(mobile-contact){z-index:3;animation-duration:.3s}
-  ::view-transition-old(site-header),::view-transition-new(site-header),::view-transition-old(mobile-contact),::view-transition-new(mobile-contact){animation:none;mix-blend-mode:normal}
-  /* Also animate entry where cross-document transitions are unsupported. */
-  .js:not(.has-native-transition) main{animation:site-page-arrive .55s cubic-bezier(.22,.7,.2,1) backwards}
-  .js .site-header:after{content:'';position:absolute;inset:auto 0 -1px;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#c2a55d,transparent);animation:header-light .8s ease-out both}
-
-  /* Nothing is hidden while waiting for an observer or a slow script. */
+  html[data-nav-motion="enter"] main{animation:page-arrive .75s cubic-bezier(.22,.7,.2,1) both}
+  html[data-nav-motion="leave"] main{animation:page-depart .26s ease-in both}
+  html[data-nav-motion="enter"] body:before,html[data-nav-motion="leave"] body:before{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;background:linear-gradient(100deg,#f4f2ec,#e6e2d7);box-shadow:20px 0 55px #17212424;backface-visibility:hidden}
+  html[data-nav-motion="enter"] body:before{transform-origin:left center;animation:paper-open .8s cubic-bezier(.22,.7,.2,1) both}
+  html[data-nav-motion="leave"] body:before{transform-origin:right center;animation:paper-close .26s ease-in both}
+  html[data-nav-motion="enter"] .site-header:after{content:"";position:absolute;inset:auto 0 0;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#b79a50,transparent);animation:header-light .9s ease-out both}
   .reveal{opacity:1;transform:none}
-  .reveal.is-visible{animation:section-arrive .6s cubic-bezier(.22,.7,.2,1) var(--reveal-delay,0ms) backwards}
+  .reveal.is-visible{animation:section-arrive .65s cubic-bezier(.22,.7,.2,1) var(--reveal-delay,0ms) backwards}
   .reveal:focus-within{animation:none}
   .reveal.is-visible .eyebrow:before{animation:eyebrow-draw .65s ease var(--reveal-delay,0ms) backwards;transform-origin:left}
-
-  /* First visit to the home page: the sign lights up, then the curtain lifts. */
-  .intro{--intro:1.25s}
-  .intro:not(.intro-done) .intro-screen{position:fixed;inset:0;z-index:300;display:grid;place-items:center;clip-path:inset(0 0 0 0);background:radial-gradient(40% 50% at 50% 46%,#f9d84a14,transparent 70%),var(--night);animation:intro-out .7s cubic-bezier(.76,0,.24,1) 1.15s forwards}
-  .intro-mark{text-align:center}
-  .intro-word{position:relative;display:inline-block;font-size:clamp(52px,9vw,104px);font-weight:700;line-height:1;letter-spacing:-.045em;color:#fff;animation:intro-word .8s cubic-bezier(.22,.7,.15,1) both}
-  .intro-tab{position:absolute;top:-.3em;right:-.14em;width:.6em;height:.28em;border-radius:0 .28em 0 0;background:var(--yellow);animation:intro-tab .95s linear .3s both}
-  .intro-sub{display:block;margin-top:20px;padding-left:.6em;font-size:clamp(11px,1.3vw,14px);font-weight:700;letter-spacing:.6em;color:var(--night-muted);animation:intro-sub .9s cubic-bezier(.22,.7,.15,1) .4s both}
-  .intro-line{display:block;width:min(320px,60vw);height:2px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--yellow),transparent);transform:scaleX(0);animation:intro-line .8s cubic-bezier(.22,.7,.15,1) .55s forwards}
-
-  /* Home hero: the storefront lights come on and the headline ignites like a tube.
-     Content is in place from the first paint; only opacity, transform and filter move. */
-  .js:not(.has-native-transition) .page-home main{animation:none}
-  .js .hero-stage:before{animation:glow-in 2.2s ease calc(var(--intro,0s) + .25s) backwards}
-  .js .hero .eyebrow,.js .hero h1,.js .hero-description,.js .hero-actions,.js .hero-facts{animation:rise .85s cubic-bezier(.22,.7,.15,1) var(--intro,0s) backwards}
-  .js .hero h1{animation-delay:calc(var(--intro,0s) + .08s)}
-  .js .hero-description{animation-delay:calc(var(--intro,0s) + .2s)}
-  .js .hero-actions{animation-delay:calc(var(--intro,0s) + .3s)}
-  .js .hero-facts{animation-delay:calc(var(--intro,0s) + .42s)}
-  .js .hero .glow{animation:ignite 1.8s linear calc(var(--intro,0s) + .5s) backwards}
-  .js .hero-visual{animation:rise 1s cubic-bezier(.22,.7,.15,1) calc(var(--intro,0s) + .1s) backwards}
-  .js .hero-visual img{animation:lights-on 1.8s linear calc(var(--intro,0s) + .5s) backwards}
-  .js .hero-visual figcaption{animation:rise .6s cubic-bezier(.22,.7,.15,1) calc(var(--intro,0s) + 1.5s) backwards}
-
-  .button,.text-link .icon,.icon-button,.desktop-nav a:after{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .button,.text-link .icon,.icon-button,.desktop-nav a:after{transition:transform .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease}
   .button:is(:hover,:focus-visible){transform:translateY(-2px);box-shadow:0 5px 15px #17212412}
   .button:active,.icon-button:active{transform:translateY(1px) scale(.98)}
   .button:is(:hover,:focus-visible) .icon:last-child,.text-link:is(:hover,:focus-visible) .icon:last-child{transform:translateX(3px)}
   .desktop-nav a:focus-visible:after{transform:scaleX(1)}
   .mobile-nav:not([hidden]){animation:menu-reveal .28s cubic-bezier(.22,.7,.2,1) both}
   .mobile-nav:not([hidden]) a{animation:menu-link .32s ease backwards}
-  .mobile-nav a:nth-child(2){animation-delay:35ms}
-  .mobile-nav a:nth-child(3){animation-delay:70ms}
-  .mobile-nav a:nth-child(4){animation-delay:105ms}
-  .mobile-nav a:nth-child(5){animation-delay:140ms}
+  .mobile-nav a:nth-child(2){animation-delay:35ms}.mobile-nav a:nth-child(3){animation-delay:70ms}.mobile-nav a:nth-child(4){animation-delay:105ms}.mobile-nav a:nth-child(5){animation-delay:140ms}
 }
-@keyframes site-page-turn{
-  0%{transform:rotateY(0);opacity:1;filter:brightness(1)}
-  55%{opacity:1;filter:brightness(.92)}
-  100%{transform:rotateY(-78deg);opacity:0;filter:brightness(.8)}
-}
-@keyframes site-page-settle{from{transform:translateX(4%) scale(.985);opacity:.55}to{transform:none;opacity:1}}
-@keyframes site-page-arrive{from{opacity:.55;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes section-arrive{from{opacity:.35;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes page-arrive{from{opacity:.25;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes page-depart{to{opacity:.25;transform:translateX(-20px)}}
+@keyframes paper-open{0%{transform:perspective(1800px) rotateY(0);opacity:.95}100%{transform:perspective(1800px) rotateY(-100deg);opacity:0}}
+@keyframes paper-close{from{transform:perspective(1800px) rotateY(90deg);opacity:0}to{transform:perspective(1800px) rotateY(0);opacity:.95}}
+@keyframes section-arrive{from{opacity:.3;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes eyebrow-draw{from{transform:scaleX(.2)}to{transform:scaleX(1)}}
+@keyframes menu-reveal{from{opacity:.3;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @keyframes menu-link{from{opacity:.4;transform:translateX(-10px)}to{opacity:1;transform:none}}
 @keyframes header-light{from{opacity:0;transform:scaleX(.1)}45%{opacity:1}to{opacity:0;transform:scaleX(1)}}
-@keyframes page-leave{to{opacity:0;transform:translateY(-14px)}}
-@keyframes page-enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@keyframes menu-reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-@keyframes sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
-@keyframes heading-in{from{clip-path:inset(0 0 100% 0);transform:translateY(.35em)}to{clip-path:inset(0 0 0 0);transform:none}}
-@keyframes intro-out{to{clip-path:inset(0 0 100% 0);visibility:hidden}}
-@keyframes intro-word{from{opacity:0;transform:translateY(28px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
-@keyframes intro-tab{
-  0%,8%{opacity:.06;box-shadow:none}
-  12%{opacity:1;box-shadow:0 0 40px 6px #f9d84acc}
-  18%{opacity:.12;box-shadow:none}
-  28%{opacity:1;box-shadow:0 0 50px 10px #f9d84acc}
-  34%{opacity:.45;box-shadow:0 0 12px #f9d84a66}
-  46%,100%{opacity:1;box-shadow:0 0 36px 4px #f9d84a80}
-}
-@keyframes intro-sub{from{opacity:0;letter-spacing:1.2em}to{opacity:1;letter-spacing:.6em}}
-@keyframes intro-line{to{transform:scaleX(1)}}
-@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes glow-in{from{opacity:0}to{opacity:1}}
-@keyframes ignite{
-  0%,6%{color:#4d4832;text-shadow:none}
-  9%{color:var(--yellow);text-shadow:0 0 36px #f9d84a99}
-  13%{color:#5a5434;text-shadow:none}
-  20%{color:var(--yellow);text-shadow:0 0 40px #f9d84aa6}
-  24%{color:#9c8a3e;text-shadow:0 0 12px #f9d84a40}
-  34%{color:var(--yellow);text-shadow:0 0 48px #f9d84ab3}
-  100%{color:var(--yellow);text-shadow:0 0 32px #f9d84a59}
-}
-@keyframes lights-on{
-  0%,6%{filter:brightness(.28) saturate(.45);transform:scale(1.06)}
-  9%{filter:brightness(.7) saturate(.8)}
-  13%{filter:brightness(.34) saturate(.5)}
-  20%{filter:brightness(.82) saturate(.9)}
-  24%{filter:brightness(.55) saturate(.7)}
-  34%{filter:brightness(1.06) saturate(1.05)}
-  100%{filter:none;transform:none}
-}
 @media(prefers-reduced-motion:reduce){
-  @view-transition{navigation:none}
-  html{scroll-behavior:auto!important}
-  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .reveal{opacity:1!important;transform:none!important}
-  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+ html{scroll-behavior:auto!important}
+ *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .reveal{opacity:1!important;transform:none!important}
 }
-@media print{.intro-screen{display:none!important}.reveal{opacity:1!important;transform:none!important}.reading-progress,.back-to-top{display:none!important}}
+@media print{body:before{display:none!important}.reveal{opacity:1!important;transform:none!important}.reading-progress,.back-to-top{display:none!important}}

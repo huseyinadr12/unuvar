@@ -34,7 +34,7 @@ def asset_url(name):
     return '/assets/' + name + '?v=' + hashlib.sha256((DIST/'assets'/name).read_bytes()).hexdigest()[:12]
 
 CSS = bundle('app.css', ['site.css', 'orders.css', 'catalog.css', 'transitions.css', 'editorial.css', 'refinements.css'])
-JS = bundle('app.js', ['site.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js', 'editorial.js'])
+JS = bundle('app.js', ['site.js', 'navigation.js', 'motion.js', 'contact.js', 'order-core.js', 'orders.js', 'editorial.js'])
 CATEGORIES = {
     'panel-spot': ('Panel ve spot', 'İhtiyacınız olan ışık, sade bir görünüm.', 'spot'),
     'dekoratif-led': ('Dekoratif LED', 'Mekânınızın çizgilerini ışıkla vurgulayın.', 'spark'),

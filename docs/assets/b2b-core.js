@@ -27,7 +27,7 @@
     const out=['ÜNÜVAR AYDINLATMA — TEKLİF TALEBİ',''];
     for(const [key,label] of [['company','Ad / liste'],['city','Şehir'],['sector','Kullanım alanı']]){if(clean(details[key],120))out.push(label+': '+clean(details[key],120));}
     out.push('');
-    items.forEach((r,i)=>{const p=products.get(r.code);out.push(`${i+1}. ${r.code} — ${r.quantity} adet${p?' · '+p.name+' · '+p.power+' W · Katalog s.'+p.page:' · Kod teyidi gerekli'}`);if(r.code.includes('*'))out.push('   Kaynak katalogda kod tekrarı var; ürün teyidi gerekli.');});
+    items.forEach((r,i)=>{const p=products.get(r.code);out.push(`${i+1}. ${r.code} — ${r.quantity} adet${p?' · '+p.name+(p.power?' · '+p.power+' W':'')+' · Katalog s.'+p.page:' · Kod teyidi gerekli'}`);if(r.code.includes('*'))out.push('   Kaynak katalogda kod tekrarı var; ürün teyidi gerekli.');});
     if(clean(details.note,700))out.push('','Not: '+clean(details.note,700));
     out.push('','Güncel fiyat, stok, ürün seçenekleri ve teslim koşullarını paylaşır mısınız?','Bu liste teklif talebidir; kesinleşmiş sipariş değildir.',source);
     return out.join('\n');

@@ -2,31 +2,35 @@
 from pathlib import Path
 from html import escape as e
 import json
+from itertools import zip_longest
 
 ROOT = Path(__file__).resolve().parents[1]
 
 def records():
-    products = json.loads((ROOT / "data/editorial-products.json").read_text(encoding="utf-8"))
-    for p in products:
-        p["family"] = "sarkit" if p["source_page"] < 22 else ("aplik" if p["source_page"] < 25 else "lambader")
-        p["name"] = {"sarkit": "Artline sarkıt", "aplik": "Artline aplik", "lambader": "Artline lambader"}[p["family"]]
-    return products
+    return json.loads((ROOT / "data/quote-products.json").read_text(encoding="utf-8"))
 
 def b2b_page(icon, breadcrumb):
     products = records()
+    catalog = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+    groups = ''.join(f'<option value="{s["id"]}">{e(s["title"])}</option>' for s in catalog["sections"])
     cards = []
-    for p in products:
-        measure = lambda value: e(value) + " cm" if value else "Teyit gerekli"
-        warning = '<span class="b2b-warning">Kod / ölçü teyidi gerekli</span>' if "*" in p["code"] or p["width"] is None or p["height"] is None else ""
-        cards.append(f'''<article class="b2b-product" data-b2b-card data-family="{p['family']}" data-search="{e(p['code']+' '+p['name'])}">
+    # The unfiltered opening shows different categories, not twelve sizes of one model.
+    by_group = [[p for p in products if p["family"]==s["id"]] for s in catalog["sections"]]
+    browsing = [p for row in zip_longest(*by_group) for p in row if p]
+    for index,p in enumerate(browsing):
+        measure = '<br>'.join(e(label)+': '+e(value) for label,value in p["measures"])
+        power = e(str(p["power"]))+' W' if p.get("power") else ''
+        warning = '<span class="b2b-warning">'+e(p["warning"])+'</span>' if p.get("warning") else ""
+        search = ' '.join([p["code"],p["name"],p["group"],str(p.get("power") or '')]+[v for _,v in p["measures"]])
+        cards.append(f'''<article class="b2b-product" data-b2b-card data-family="{p['family']}" data-search="{e(search)}" {'hidden' if index>=12 else ''}>
           <a href="/urunler/#sayfa-{p['page']}" aria-label="{e(p['code'])} katalog sayfası"><img src="{p['web_image']}" width="{p['image_width']}" height="{p['image_height']}" alt="{e(p['code']+' '+p['name'])}" loading="lazy"></a>
-          <div class="b2b-product-info"><small>{p['name']}</small><h3>{e(p['code'])} <span>{p['power']} W</span></h3><p>G: {measure(p['width'])}<br>Y: {measure(p['height'])}</p>{warning}<button class="button outline" type="button" data-b2b-add="{e(p['code'])}">Listeye ekle +</button></div></article>''')
+          <div class="b2b-product-info"><small>{e(p['group'])}</small><h3>{e(p['code'])} <span>{power}</span></h3><p>{e(p['name'])}<br>{measure}</p>{warning}<button class="button outline" type="button" data-b2b-add="{e(p['code'])}">Listeye ekle +</button></div></article>''')
     return f'''<div class="container">{breadcrumb([('B2C teklif',None)])}</div>
     <section class="b2b-intro"><div class="container b2b-intro-grid"><div><span class="eyebrow">B2C · BİREYSEL ALIŞVERİŞ</span><h1>Evinizin ışığını seçin.<br><em>Listenizi birlikte tamamlayalım.</em></h1><p>Beğendiğiniz ürünleri seçin, ihtiyacınız olan adetleri ekleyin. Eviniz veya yaşam alanınız için güncel fiyatı, renk seçeneklerini ve teslim bilgisini WhatsApp üzerinden öğrenin.</p><div class="b2b-intro-actions"><a class="button yellow" href="#b2b-urunler">Ürün seçin {icon('arrow')}</a><a class="text-link" href="#hizli-giris">Kodla hızlı giriş {icon('up')}</a></div></div><aside class="b2b-how"><span>NASIL İLERLER?</span><ol><li><b>01</b><div>Listenizi oluşturun<small>Ürün seçin veya katalog kodunu yazın.</small></div></li><li><b>02</b><div>İhtiyacınızı anlatın<small>Odanızı, ışık rengini ve tercihlerinizi belirtin.</small></div></li><li><b>03</b><div>Teklif isteyin<small>Özeti WhatsApp'ta mağazamıza gönderin.</small></div></li></ol><p>Fiyat ve bulunabilirlik görüşmede netleşir. Bu ekran kesin sipariş veya ödeme oluşturmaz.</p></aside></div></section>
     <div class="container b2b-workspace" data-b2b-root data-page-count="{json.loads((ROOT/'data/catalog.json').read_text(encoding='utf-8'))['page_count']}">
-      <section class="b2b-browser" id="b2b-urunler"><div class="section-head"><div><span class="eyebrow">ÜRÜN SEÇİMİ</span><h2>Listenize ekleyin.</h2></div><span class="b2b-count" data-b2b-count role="status">52 ürün</span></div>
-      <p class="b2b-help">Artline ürünlerini buradan seçebilirsiniz. Katalogdaki diğer modeller için aşağıdaki kod girişini kullanın. Ürün görselleri dijital olarak düzenlenmiş temsili stüdyo görselleridir. <a href="/urunler/">Kataloğu açın ↗</a></p>
-      <div class="b2b-toolbar"><label>Ürün ara<input type="search" data-b2b-search placeholder="Kod veya ürün adı" maxlength="80"></label><label>Ürün grubu<select data-b2b-family><option value="">Tümü</option><option value="sarkit">Sarkıt</option><option value="aplik">Aplik</option><option value="lambader">Lambader</option></select></label><a href="#talep-listesi" class="b2b-list-jump">Listem <span data-b2b-badge>0</span> ↓</a></div>
+      <section class="b2b-browser" id="b2b-urunler"><div class="section-head"><div><span class="eyebrow">ÜRÜN SEÇİMİ</span><h2>Listenize ekleyin.</h2></div><span class="b2b-count" data-b2b-count role="status">{len(products)} ürün</span></div>
+      <p class="b2b-help">{len(catalog["sections"])} ürün grubu, {len(products)} ürün kodu. Grubunuzu seçin, ölçü ve güç seçeneklerini karşılaştırıp listenize ekleyin. <a href="/urunler/">Kataloğu açın ↗</a></p>
+      <div class="b2b-toolbar"><label>Ürün ara<input type="search" data-b2b-search placeholder="Kod, ürün adı veya ölçü" maxlength="80"></label><label>Ürün grubu<select data-b2b-family><option value="">Tüm ürün grupları</option>{groups}</select></label><a href="#talep-listesi" class="b2b-list-jump">Listem <span data-b2b-badge>0</span> ↓</a></div>
       <div class="b2b-products">{''.join(cards)}</div><button type="button" class="button outline b2b-more" data-b2b-more hidden>Daha fazla ürün göster</button><p data-b2b-empty-search hidden>Bu aramada ürün bulunamadı. Kodu aşağıdaki hızlı giriş alanından ekleyebilirsiniz.</p>
       <section class="b2b-quick" id="hizli-giris"><span class="eyebrow">HIZLI GİRİŞ</span><h2>Kodlar elinizde mi?</h2><p>Her satıra bir ürün kodu ve adet yazın. Katalogda bulunan diğer ürünleri de bu alandan talebinize ekleyebilirsiniz.</p><form data-b2b-bulk><label for="bulk-lines">Ürün kodu ; adet</label><textarea id="bulk-lines" rows="4" maxlength="4000" placeholder="AS5002; 6&#10;AS5206; 12"></textarea><p class="b2b-help">En fazla 50 kalem. Her kalemde 1–9999 adet. Tanınmayan kodlar teyit notuyla eklenir.</p><button type="submit" class="button outline">Satırları listeye ekle</button></form></section>
       </section>

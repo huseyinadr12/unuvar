@@ -23,7 +23,7 @@
     list.replaceChildren();
     rows.forEach(r=>{
       const p=products.get(r.code),li=make('li','b2b-line'),top=make('div','b2b-line-top'),name=make('div');
-      name.append(make('b','',r.code),make('small','',p?p.name+' · '+p.power+' W':'Kod teyidi gerekli'));
+      name.append(make('b','',r.code),make('small','',p?p.name+(p.power?' · '+p.power+' W':''):'Kod teyidi gerekli'));
       if(p){const a=make('a','','Katalog s.'+p.page);a.href=source+'#sayfa-'+p.page;name.append(a);}
       const remove=make('button','','Çıkar');remove.type='button';remove.setAttribute('aria-label',r.code+' ürününü çıkar');
       remove.addEventListener('click',()=>{undo=rows.map(x=>({...x}));rows=rows.filter(x=>x.code!==r.code);persist();render();say(r.code+' listeden çıkarıldı. Geri alabilirsiniz.');});top.append(name,remove);
@@ -48,7 +48,7 @@
   const norm=s=>s.toLocaleLowerCase('tr-TR').replace(/ı/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   let visibleLimit=12;
   function filter(){const term=norm($('[data-b2b-search]').value.trim()),family=$('[data-b2b-family]').value;let n=0;root.querySelectorAll('[data-b2b-card]').forEach(c=>{const matches=(!family||c.dataset.family===family)&&norm(c.dataset.search).includes(term);if(matches)n++;c.hidden=!matches||n>visibleLimit;});$('[data-b2b-count]').textContent=Math.min(n,visibleLimit)+' / '+n+' ürün';$('[data-b2b-empty-search]').hidden=n!==0;$('[data-b2b-more]').hidden=n<=visibleLimit;}
-  const resetFilter=()=>{visibleLimit=12;filter();};
+  const resetFilter=()=>{visibleLimit=12;filter();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)root.querySelectorAll('[data-b2b-card]:not([hidden])').forEach((card,i)=>card.animate?.([{opacity:.3,transform:'translateY(12px)'},{opacity:1,transform:'none'}],{duration:420,delay:i%3*45,easing:'ease-out'}));};
   $('[data-b2b-search]').addEventListener('input',resetFilter);$('[data-b2b-family]').addEventListener('change',resetFilter);
   $('[data-b2b-more]').addEventListener('click',()=>{visibleLimit+=12;filter();});
   form.addEventListener('input',preview);form.addEventListener('change',preview);
