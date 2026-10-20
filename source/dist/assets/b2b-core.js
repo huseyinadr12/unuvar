@@ -25,7 +25,7 @@
   function message(items,products,details,source){
     if(!items.length)return '';
     const out=['ÜNÜVAR AYDINLATMA — TEKLİF TALEBİ',''];
-    for(const [key,label] of [['company','Firma / proje'],['city','Şehir'],['sector','Proje türü']]){if(clean(details[key],120))out.push(label+': '+clean(details[key],120));}
+    for(const [key,label] of [['company','Ad / liste'],['city','Şehir'],['sector','Kullanım alanı']]){if(clean(details[key],120))out.push(label+': '+clean(details[key],120));}
     out.push('');
     items.forEach((r,i)=>{const p=products.get(r.code);out.push(`${i+1}. ${r.code} — ${r.quantity} adet${p?' · '+p.name+' · '+p.power+' W · Katalog s.'+p.page:' · Kod teyidi gerekli'}`);if(r.code.includes('*'))out.push('   Kaynak katalogda kod tekrarı var; ürün teyidi gerekli.');});
     if(clean(details.note,700))out.push('','Not: '+clean(details.note,700));

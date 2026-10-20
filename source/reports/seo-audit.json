@@ -6,13 +6,13 @@
   "sitemap_urls": 8,
   "assets": {
     "app.css": {
-      "bytes": 78314,
-      "gzip_estimate_bytes": 16461,
+      "bytes": 80715,
+      "gzip_estimate_bytes": 17028,
       "budget_bytes": 90000
     },
     "app.js": {
-      "bytes": 21585,
-      "gzip_estimate_bytes": 6936,
+      "bytes": 23147,
+      "gzip_estimate_bytes": 7453,
       "budget_bytes": 26000
     },
     "manrope-latin-ext.woff2": {
@@ -37,10 +37,10 @@
       "robots": "noindex,nofollow"
     },
     {
-      "path": "/b2b/",
-      "title": "B2B Teklif ve Ürün Talep Listesi | Ünüvar Aydınlatma",
+      "path": "/b2c/",
+      "title": "B2C Teklif ve Ürün Talep Listesi | Ünüvar Aydınlatma",
       "title_characters": 52,
-      "description_characters": 155,
+      "description_characters": 164,
       "schema_types": [
         "Store",
         "WebSite",

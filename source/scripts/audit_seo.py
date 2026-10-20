@@ -45,6 +45,9 @@ for path in sorted(DIST.rglob('*.html')):
     check(page.lang=='tr',f'{route}: wrong document language')
     check(len(canonical)==1,f'{route}: expected one canonical')
     if len(canonical)!=1: continue
+    if route == '/b2b/':
+        check(page.meta.get('site-redirect') == '/b2c/' and urlsplit(canonical[0]).path == '/b2c/' and 'noindex' in page.meta.get('robots',''), 'Legacy route must canonicalize to B2C and stay out of the index')
+        continue
     url=urlsplit(canonical[0]); origin=f'{url.scheme}://{url.netloc}'
     check(url.scheme=='https' and url.path==route and not url.query and not url.fragment,f'{route}: canonical mismatch')
     check(page.title not in titles and page.title.strip(),f'{route}: duplicate/empty title'); titles.add(page.title)

@@ -54,6 +54,10 @@ for path in pages:
     parsed = Page(path)
     source = path.read_text(encoding='utf-8')
     parsed.feed(source)
+    if path.relative_to(DIST).as_posix() == 'b2b/index.html':
+        if '<meta name="site-redirect" content="/b2c/">' not in source or parsed.h1 != 1:
+            errors.append('Legacy B2B route must redirect to B2C with an accessible fallback')
+        continue
     if 'data-map-load' in source: errors.append(f'{path}: obsolete map activation button')
     for marker in ['data-product', 'data-catalog', 'product-detail', 'category-grid', 'search-trigger', '/urun/']:
         if marker in source: errors.append(f'{path}: removed catalog interface is still published: {marker}')
@@ -65,7 +69,7 @@ for path in pages:
         if required not in parsed.ids: errors.append(f'{path}: missing {required}')
     if parsed.h1 != 1: errors.append(f'{path}: expected 1 h1, got {parsed.h1}')
     if 'main' not in parsed.ids: errors.append(f'{path}: missing main anchor')
-if len(pages) != 9: errors.append('Expected exactly 8 pages and a 404; check for stale routes')
+if len(pages) != 10: errors.append('Expected 8 pages, a 404 and the legacy B2B redirect; check for stale routes')
 if 'collection-card' not in (DIST / 'urunler/index.html').read_text(encoding='utf-8'):
     errors.append('Product groups are missing from the products page')
 catalog = json.loads((DIST.parent / 'data/catalog.json').read_text(encoding='utf-8'))

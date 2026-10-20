@@ -1,0 +1,30 @@
+/* Motion supports browsing; content and links also work without it. */
+.b2b-summary [data-b2b-badge]{display:inline-grid;place-items:center;transform-origin:center}
+.media-retouched{display:block;margin-top:9px;font-size:9px;line-height:1.7;color:var(--muted)}
+@media(prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .editorial-hero-copy>:is(.eyebrow,h1,p,.hero-actions),.b2b-intro h1,.solutions-intro h1{animation:refined-arrival .7s cubic-bezier(.2,.7,.2,1) both}
+  .editorial-hero-copy h1{animation-delay:.07s}
+  .editorial-hero-copy>p{animation-delay:.13s}
+  .editorial-hero-copy .hero-actions{animation-delay:.2s}
+  .editorial-hero-image{animation:refined-arrival .9s cubic-bezier(.2,.7,.2,1) .12s backwards}
+  :is(.space-links,.guide-short-links,.solution-links) a{transition:color .22s ease,background-color .22s ease}
+  :is(.space-links,.guide-short-links) a:is(:hover,:focus-visible){color:var(--ink);background:#f0eadb}
+  :is(.space-links,.guide-short-links,.solution-links) a .icon{transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+  :is(.space-links,.guide-short-links,.solution-links) a:is(:hover,:focus-visible) .icon{transform:translateX(5px)}
+  .collection-card .collection-arrow{transition:transform .3s ease,background .3s ease}
+  .collection-card:is(:hover,:focus-visible) .collection-arrow{transform:rotate(45deg);background:var(--yellow)}
+  .b2b-product{transition:border-color .25s ease,box-shadow .25s ease}
+  .b2b-product:focus-within{border-color:#b89748;box-shadow:0 8px 28px #1721240a}
+  .b2b-line{animation:refined-arrival .25s ease both}
+  :target:is(section,article,aside) :is(h2,.eyebrow){animation:destination-accent .8s ease both}
+  details[open] > :not(summary){animation:refined-arrival .25s ease both}
+  @supports (interpolate-size:allow-keywords){
+    details{interpolate-size:allow-keywords}
+    details::details-content{block-size:0;opacity:0;overflow:clip;transition:block-size .32s ease,opacity .25s ease,content-visibility .32s allow-discrete}
+    details[open]::details-content{block-size:auto;opacity:1}
+  }
+}
+@keyframes refined-arrival{from{opacity:.15;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes destination-accent{0%{color:#947322}100%{color:inherit}}
+@media print{.reveal{opacity:1!important;transform:none!important}*{animation:none!important;transition:none!important}}

@@ -47,7 +47,7 @@ def export(output, url):
                     text = text.replace('href="/', 'href="'+base+'/')
                     # Avoid applying the base twice to asset hrefs already rewritten.
                     text = text.replace(base+base+'/assets/', base+'/assets/') if base else text
-                    if relative.as_posix() not in ('404.html','gizlilik/index.html'):
+                    if relative.as_posix() not in ('404.html','gizlilik/index.html','b2b/index.html'):
                         text = text.replace('content="noindex,nofollow"', 'content="index,follow,max-image-preview:large"')
             if relative.as_posix() == 'robots.txt':
                 text = f'User-agent: *\nAllow: /\nSitemap: {origin}/sitemap.xml\n'
@@ -81,7 +81,8 @@ def validate(output, origin, base):
         if OLD_ORIGIN in text: errors.append('Old canonical origin in '+str(page))
         Links().feed(text)
         route = '/'+page.relative_to(output).as_posix().removesuffix('index.html')
-        if f'rel="canonical" href="{origin}{route}"' not in text:
+        canonical_route = '/b2c/' if route == '/b2b/' else route
+        if f'rel="canonical" href="{origin}{canonical_route}"' not in text:
             errors.append('Incorrect canonical: '+route)
     if errors: raise ValueError('\n'.join(errors))
 

@@ -8,10 +8,11 @@
       "title": "Sıva üstü lineer",
       "start": 6,
       "end": 8,
-      "image": "/assets/collection/lineer-siva-ustu.webp",
-      "width": 564,
-      "height": 599,
-      "family": "mimari"
+      "image": "/assets/collection/lineer-siva-ustu-v2.webp",
+      "width": 1217,
+      "height": 1293,
+      "family": "mimari",
+      "retouched": true
     },
     {
       "id": "lineer-siva-alti",

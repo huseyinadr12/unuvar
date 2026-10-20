@@ -4,7 +4,7 @@ Karaköy, İstanbul’daki Ünüvar Aydınlatma mağazasının web sitesi.
 
 **Web sitesi:** https://huseyinadr12.github.io/unuvar/
 
-Ana sayfa, koleksiyon/katalog, B2B teklif, proje çözümleri, teknik seçim bilgileri, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 55 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası fiyat talebi formuna aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
+Ana sayfa, koleksiyon/katalog, B2C teklif, proje çözümleri, teknik seçim bilgileri, hakkımızda, iletişim ve gizlilik sayfaları bulunur. 55 sayfalık PDF katalog 19 ürün grubu, dört koleksiyon ailesi, sayfa önizlemesi ve indirme bağlantısıyla `/urunler/` adresinde yayınlanır. Ürün kodu veya katalog sayfası fiyat talebi formuna aktarılır; ziyaretçi adet ve kullanım alanını ekleyip mesajını WhatsApp’ta gönderir. Sipariş listesi altyapısı, ayrı sipariş kataloğuna kayıt eklendiğinde görünür.
 
 ## Dijital katalog
 
@@ -45,10 +45,10 @@ GitHub Pages, `main` dalının `/docs` klasörünü yayınlar. Değişiklikten s
 
 Marka logoları ilgili sahiplerine aittir. Manrope yazı tipi lisansı `source/dist/assets/fonts/OFL.txt` dosyasındadır.
 
-## B2B teklif ve proje çözümleri
+## B2C teklif ve proje çözümleri
 
-- `/b2b/`: 52 Artline kaydı, kod/ad ile arama, grup filtresi, toplu `KOD;ADET` girişi, en fazla 50 kalem ve 9999 adet/kalem. Diğer kodlar teyit notuyla eklenebilir.
-- Ürün kodları/adetler cihazda yedi gün saklanır. Firma, şehir, proje ve not bilgileri kalıcı kaydedilmez. Temizleme/çıkarma geri alınabilir.
+- `/b2c/`: 52 Artline kaydı, kod/ad ile arama, grup filtresi, toplu `KOD;ADET` girişi, en fazla 50 kalem ve 9999 adet/kalem. Diğer kodlar teyit notuyla eklenebilir.
+- Ürün kodları/adetler cihazda yedi gün saklanır. Ad/liste adı, şehir, kullanım alanı ve not bilgileri kalıcı kaydedilmez. Temizleme/çıkarma geri alınabilir.
 - Talep özeti WhatsApp'a aktarılır; mesajı ziyaretçi gönderir. Uzun metinler için kopyalama ve CSV indirme vardır. Yazdır / PDF düğmesi tarayıcının yazdırma penceresini açar.
 - Bu sayfa üyelikli bayi portalı, canlı fiyat/stok sistemi veya kesin sipariş kaydı değildir. Bunlar için yetkili bayi hesapları, fiyat/stok verisi, sunucu/veritabanı ve sipariş yönetimi gerekir.
 - `/cozumler/`: altı kullanım alanı, ürün grubu bağlantıları ve proje talebi hazırlama bilgileri. Teknik rehber ana menüden kaldırılmış, eski adresi ve alt menü erişimi korunmuştur.
@@ -58,3 +58,11 @@ Marka logoları ilgili sahiplerine aittir. Manrope yazı tipi lisansı `source/d
 ## Görsel çözünürlüğü
 
 Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altındadır; 8K orijinal yoktur. Ürün fotoğrafları 8K olarak etiketlenmez. Orijinaller geldiğinde ürün koduyla eşleştirilip kataloğa ve web boyutlarına aktarılmalıdır. Yapay zekâ ile hazırlanan tek ürün örneği inceleme çıktısıdır; gerçek ürün fotoğraflarının yerine yayımlanmamıştır.
+
+
+## Görsel düzenleme ve B2C geçişi — 20 Ekim 2026
+
+- `/b2c/` bireysel müşteriler için ürün/adet listesi ve WhatsApp fiyat talebi sayfasıdır. `/b2b/` eski bağlantıları sorgu ve sayfa içi konumla birlikte buraya yönlendirir. Mevcut cihaz listelerinin korunması için teknik dosya adları, DOM anahtarları ve localStorage anahtarı değişmedi.
+- Ana sayfadaki kullanım görseli `interior-v2.webp` ve sıva üstü lineer kartı `lineer-siva-ustu-v2.webp`, yerleşik ImageGen ile düzenlendi. Duvar/tavan yüzeyleri iyileştirildi. Bu görseller düzenlenmiş kullanım örnekleri olarak etiketlenir; ürün teknik fotoğrafı veya tamamlanmış proje referansı değildir.
+- Yeni görseller 8K olarak etiketlenmez. PNG çıktıları ve kullanılan istemler çalışma alanındaki `output/imagegen/` klasöründedir. PDF kataloğun teknik ürün görselleri bu düzenlemede değişmedi.
+- `refinements.css` ve `motion.js` sayfa, kart, filtre, liste ve açılır başlık geri bildirimlerini sağlar; azaltılmış hareket tercihi desteklenir. Bağlantılar animasyon için geciktirilmez.
