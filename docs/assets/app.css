@@ -605,6 +605,7 @@ main:focus{outline:none}
 
 /* Motion is explicit and independent of native cross-document View Transitions. */
 @view-transition{navigation:none}
+html{overflow-x:clip}
 .intro-screen{display:none}
 @media(prefers-reduced-motion:no-preference){
   html[data-nav-motion="enter"] main{transform-origin:left top;backface-visibility:hidden;animation:page-arrive .85s cubic-bezier(.2,.65,.25,1) both}

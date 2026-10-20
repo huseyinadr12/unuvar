@@ -1,4 +1,4 @@
-/* Branded light-on opening and navigation, independent of other site scripts. */
+/* Separate fixture opening and single-pass moving-logo navigation. */
 (() => {
   'use strict';
   function destination(link, event, current) {
@@ -19,7 +19,7 @@
   const brand = document.querySelector('[data-brand-transition]');
   const arrival = root.dataset.brandArrival === '1';
   delete root.dataset.brandArrival;
-  let exitTimer, entryTimer, brandTimer, pending = null, revision = 0, visibilityStart = null;
+  let exitTimer, entryTimer, brandTimer, pending = null, revision = 0, visibilityStart = null, navigationStarted = false;
   function hideBrand() {
     if (!brand) return;
     brand.hidden = true;
@@ -32,21 +32,24 @@
     clearTimeout(brandTimer);
     visibilityStart = null;
     pending = null;
+    navigationStarted = false;
     delete root.dataset.brandIntro;
     root.dataset.navMotion = 'idle';
     hideBrand();
   }
   function revealContent() {
-    if (brand) brand.dataset.phase = 'out';
+    if (brand && !brand.hidden) {
+      brand.dataset.phase = 'out';
+      brandTimer = setTimeout(hideBrand, 400);
+    }
     root.dataset.navMotion = 'enter';
-    brandTimer = setTimeout(hideBrand, 400);
     entryTimer = setTimeout(() => { root.dataset.navMotion = 'idle'; }, 1350);
   }
   function enter(fromNavigation = false) {
     reset();
     if (reduced.matches) return;
     const ticket = revision;
-    if (brand) { brand.hidden = false; brand.dataset.phase = 'waiting'; }
+    if (brand && !fromNavigation) { brand.hidden = false; brand.dataset.phase = 'waiting'; }
     const begin = () => {
       if (ticket !== revision) return;
       // A background tab must not finish its opening before the visitor sees it.
@@ -54,20 +57,17 @@
       visibilityStart = null;
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (ticket !== revision) return;
-        if (!brand) { revealContent(); return; }
-        if (fromNavigation) {
-          revealContent();
-          brand.dataset.phase = 'arrive';
-        } else {
-          brand.dataset.phase = 'intro';
-          brandTimer = setTimeout(revealContent, 1300);
-        }
+        // The outgoing page already played the brand scene, once.
+        if (fromNavigation || !brand) { revealContent(); return; }
+        brand.dataset.phase = 'intro';
+        brandTimer = setTimeout(revealContent, 1300);
       }));
     };
     begin();
   }
   function navigateNow() {
-    if (!pending) return;
+    if (!pending || navigationStarted) return;
+    navigationStarted = true;
     const url = pending;
     clearTimeout(exitTimer);
     try { sessionStorage.setItem('unuvar-navigation-arrival', JSON.stringify({ url, time: Date.now() })); } catch (_) {}
@@ -103,15 +103,18 @@
       href: anchor.href, target: anchor.target, download: anchor.hasAttribute('download'),
       reader: anchor.hasAttribute('data-reader-go')
     }, event, location.href);
-    if (!target) { if (pending && !event.defaultPrevented) reset(); return; }
+    if (!target) return;
+    // A second click/keyboard activation must not restart or duplicate a trip.
+    if (pending) { event.preventDefault(); return; }
     if (target.kind === 'anchor') { highlight(target.url); return; }
-    if (target.kind === 'same') { event.preventDefault(); enter(); return; }
+    if (target.kind === 'same') { event.preventDefault(); enter(true); return; }
     event.preventDefault();
     reset();
     pending = target.url.href;
     root.dataset.navMotion = 'leave';
-    if (brand) { brand.hidden = false; brand.dataset.phase = 'leave'; }
-    exitTimer = setTimeout(navigateNow, brand ? 620 : 320);
+    if (brand) { brand.hidden = false; brand.dataset.phase = 'navigate'; }
+    // 900 ms travel, then a brief hold at full illumination.
+    exitTimer = setTimeout(navigateNow, brand ? 1020 : 320);
   });
   const skip = () => { if (pending) navigateNow(); else reset(); };
   document.querySelector('[data-brand-skip]')?.addEventListener('click', skip);
@@ -124,7 +127,7 @@
   addEventListener('pageshow', event => { if (event.persisted) enter(true); });
   addEventListener('pagehide', reset);
   reduced.addEventListener('change', () => {
-    if (reduced.matches && pending) { const url = pending; reset(); location.assign(url); }
+    if (reduced.matches && pending && !navigationStarted) { navigateNow(); hideBrand(); }
     else reset();
   });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => enter(arrival), { once: true });
