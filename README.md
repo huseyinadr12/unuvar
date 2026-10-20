@@ -68,3 +68,10 @@ Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altı
 - Ana sayfadaki kullanım görseli `interior-v2.webp` ve sıva üstü lineer kartı `lineer-siva-ustu-v2.webp`, yerleşik ImageGen ile düzenlendi. Duvar/tavan yüzeyleri iyileştirildi. Bu görseller düzenlenmiş kullanım örnekleri olarak etiketlenir; ürün teknik fotoğrafı veya tamamlanmış proje referansı değildir.
 - Ana sayfa kapak görseli `hero-v2.webp` de düzenlendi. PNG çıktıları ve kullanılan istemler çalışma alanındaki `output/imagegen/` klasöründedir. PDF katalog ve sitedeki ürün kartları aynı yeni stüdyo görsellerini kullanır.
 - `refinements.css` ve `motion.js` sayfa, kart, filtre, liste ve açılır başlık geri bildirimlerini sağlar; azaltılmış hareket tercihi desteklenir. Bağlantılar animasyon için geciktirilmez.
+
+## Sayfa ve etkileşim animasyonları
+
+- `transitions.css`: destekleyen tarayıcılarda sayfalar arasında 640 ms süren, kâğıt dönüşünü andıran yerel View Transition geçişi. Menü ve mobil iletişim çubuğu sabit kalır. Desteklemeyen tarayıcılarda kısa giriş animasyonu kullanılır; bağlantıların doğal gezinmesi ve geçmiş davranışı korunur.
+- Sayfa aşağı kaydırılırken bölümler sırayla belirir; menü, buton, kart, filtre ve açılır başlıklarda kısa geri bildirimler vardır. Gözlemci çalışmasa bile içerik görünür kalır.
+- Katalogda ileri/geri yönüne uygun 720 ms dönüş, kâğıt aydınlığı ve gölge efekti bulunur. Hızlı sayfa değişimi ve hareket tercihinin değişmesi mevcut animasyonu temizler.
+- Hareketi azaltma tercihi bütün bu animasyonları devre dışı bırakır.

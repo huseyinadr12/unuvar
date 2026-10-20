@@ -70,13 +70,15 @@
       const direction = number > current ? -1 : 1;
       const shouldTurn = animate && !reduced.matches && img.complete && img.naturalWidth && !!img.animate;
       if (shouldTurn) {
-        sheet = img.cloneNode(false);
-        sheet.removeAttribute('data-reader-image');
-        sheet.removeAttribute('loading');
-        sheet.alt = '';
+        sheet = document.createElement('div');
         sheet.setAttribute('aria-hidden', 'true');
-        sheet.className = 'reader-turning-sheet';
+        sheet.className = `reader-turning-sheet ${direction < 0 ? 'turn-forward' : 'turn-backward'}`;
         sheet.style.transformOrigin = direction < 0 ? 'left center' : 'right center';
+        const face = img.cloneNode(false);
+        face.removeAttribute('data-reader-image');
+        face.removeAttribute('loading');
+        face.alt = '';
+        sheet.append(face);
         canvas.append(sheet);
       }
       commit(number, source, updateHash);
@@ -85,9 +87,10 @@
         canvas.classList.add('is-turning');
         turning = sheet.animate([
           { transform: 'rotateY(0deg)', opacity: 1, filter: 'brightness(1)' },
-          { transform: `rotateY(${direction * 45}deg)`, opacity: 1, filter: 'brightness(.88)', offset: .55 },
-          { transform: `rotateY(${direction * 96}deg)`, opacity: 0, filter: 'brightness(.78)' }
-        ], { duration: 580, easing: 'cubic-bezier(.22,.65,.2,1)', fill: 'forwards' });
+          { transform: `rotateY(${direction * 32}deg)`, opacity: 1, filter: 'brightness(.96)', offset: .45 },
+          { transform: `rotateY(${direction * 78}deg)`, opacity: .85, filter: 'brightness(.87)', offset: .85 },
+          { transform: `rotateY(${direction * 104}deg)`, opacity: 0, filter: 'brightness(.82)' }
+        ], { duration: 720, easing: 'cubic-bezier(.38,.02,.22,1)', fill: 'forwards' });
         try { await turning.finished; } catch (_) {}
         if (request === revision) clearTurn();
       }

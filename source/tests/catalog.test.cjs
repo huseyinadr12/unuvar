@@ -32,7 +32,7 @@ function setup({reduced=false,hash=''}={}){
   const location={hash};
   const media=new Element();media.matches=reduced;
   const context={
-    document:{querySelector:s=>s==='[data-reader]'?reader:enquiry,querySelectorAll:()=>links},
+    document:{querySelector:s=>s==='[data-reader]'?reader:enquiry,querySelectorAll:()=>links,createElement:()=>new Element()},
     Image:class{decode(){return new Promise((resolve,reject)=>pending.push({source:this.src,resolve,reject}));}},
     URL,location,history:{replaceState:(_,__,h)=>location.hash=h},matchMedia:()=>media,window:new Element()
   };
@@ -46,7 +46,9 @@ test('old page stays visible until the incoming page decodes; links move togethe
   const s=setup();s.next();assert.equal(s.img.src,'page-1.webp');assert.equal(s.map['.reader-canvas'].attrs['aria-busy'],'true');
   await s.settle();assert.equal(s.img.src,'page-2.webp');assert.equal(s.location.hash,'#sayfa-2');
   assert.equal(s.map['[data-reader-pdf]'].href,'/catalog.pdf#page=2');assert.match(s.enquiry.href,/sayfa=2/);
-  assert.equal(s.animations.length,1);assert.match(s.animations[0].frames[2].transform,/-96/);
+  assert.equal(s.animations.length,1);
+  const sheet=s.map['.reader-canvas'].children[0];
+  assert.equal(sheet.attrs['aria-hidden'],'true');assert.equal(sheet.children[0].alt,'');
 });
 test('rapid navigation ignores a late older response',async()=>{
   const s=setup();s.next();s.next();await s.settle(1);await s.settle(0);
@@ -63,6 +65,21 @@ test('stale failure cannot replace a successful newer state',async()=>{
 });
 test('reduced motion still navigates without a turning sheet',async()=>{
   const s=setup({reduced:true});s.next();await s.settle();assert.equal(s.img.src,'page-2.webp');assert.equal(s.animations.length,0);
+});
+test('a reverse turn cancels the old sheet and uses the opposite page edge',async()=>{
+  const s=setup();s.next();await s.settle();
+  const forward=s.map['.reader-canvas'].children[0];
+  assert.equal(forward.style.transformOrigin,'left center');
+  s.map['[data-reader-prev]'].fire('click');
+  assert.equal(s.animations[0].cancelled,true);assert.equal(forward.removed,true);
+  await s.settle(1);
+  const reverse=s.map['.reader-canvas'].children[1];
+  assert.equal(reverse.style.transformOrigin,'right center');assert.equal(s.img.src,'page-1.webp');
+});
+test('enabling reduced motion during a turn removes the animation and keeps the selected page',async()=>{
+  const s=setup();s.next();await s.settle();s.media.matches=true;s.media.fire('change');
+  assert.equal(s.animations[0].cancelled,true);assert.equal(s.map['.reader-canvas'].children[0].removed,true);
+  assert.equal(s.img.src,'page-2.webp');assert.equal(s.map['#reader-page'].value,'2');
 });
 test('deep link loads the intended page without an introductory flip',async()=>{
   const s=setup({hash:'#sayfa-4'});await s.settle();assert.equal(s.img.src,'page-4.webp');

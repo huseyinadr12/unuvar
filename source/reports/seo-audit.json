@@ -6,8 +6,8 @@
   "sitemap_urls": 8,
   "assets": {
     "app.css": {
-      "bytes": 81480,
-      "gzip_estimate_bytes": 17254,
+      "bytes": 82941,
+      "gzip_estimate_bytes": 17595,
       "budget_bytes": 90000
     },
     "app.js": {

@@ -551,11 +551,17 @@ main:focus{outline:none}
 .reader-page-field{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;font-size:13px}
 .reader-page-field select{width:300px;max-width:100%;min-width:0;padding:10px 12px;border:1px solid var(--line-strong);border-radius:8px;background:#fff;font-size:13px;min-height:44px;color:var(--ink)}
 .reader-page-field>span{white-space:nowrap;color:var(--muted)}
-.reader-canvas{position:relative;background:#e8e7e3;min-height:120px;aspect-ratio:841.89/595.276;perspective:2200px;isolation:isolate;touch-action:pan-y pinch-zoom}
+.reader-canvas{position:relative;background:#e8e7e3;min-height:120px;aspect-ratio:841.89/595.276;perspective:2200px;isolation:isolate;overflow:hidden;touch-action:pan-y pinch-zoom}
 .reader-canvas>img{width:100%;height:100%;object-fit:contain;background:white}
 .reader-canvas[aria-busy=true]:after{content:"Sayfa hazırlanıyor…";position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:#172124ed;color:white;padding:9px 16px;border-radius:20px;font-size:12px;z-index:4}
-.reader-canvas>.reader-turning-sheet{position:absolute;inset:0;z-index:2;backface-visibility:hidden;box-shadow:18px 0 36px #17212430;will-change:transform}
-.reader-canvas.is-turning:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#1721241a,transparent 45%)}
+.reader-canvas>.reader-turning-sheet{position:absolute;inset:0;z-index:2;backface-visibility:hidden;box-shadow:18px 0 36px #17212430;will-change:transform;pointer-events:none;background:#fff}
+.reader-turning-sheet>img{display:block;width:100%;height:100%;object-fit:contain}
+.reader-turning-sheet:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#1721241c,transparent 10%,transparent 65%,#fff8 83%,#17212430);animation:reader-paper-light .72s ease both}
+.reader-turning-sheet.turn-backward:after{transform:scaleX(-1)}
+.reader-turning-sheet.turn-backward{box-shadow:-18px 0 36px #17212430}
+.reader-canvas.is-turning:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:#172124;animation:reader-paper-shadow .72s ease both}
+@keyframes reader-paper-light{0%,100%{opacity:0}45%,75%{opacity:1}}
+@keyframes reader-paper-shadow{0%{opacity:.08}40%{opacity:.15}100%{opacity:0}}
 .reader-error{position:absolute;bottom:14px;left:14px;right:14px;z-index:3;padding:18px 22px;background:#fff9e6;border:1px solid #e4d5ad;font-size:13px;margin:auto}
 .catalog-reader-footer{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-top:1px solid var(--line)}
 .catalog-reader-footer>p{font-size:12px;color:var(--muted)}
@@ -600,27 +606,26 @@ main:focus{outline:none}
 /* All motion is optional, brief, and leaves navigation and focus behavior intact. */
 .intro-screen{display:none}
 @media(prefers-reduced-motion:no-preference){
-  /* Page to page: the old page lifts away, the new one rises in, a yellow line sweeps under the header. */
+  /* Turn the viewport, not the entire height of a long catalog page. Links stay native. */
   @view-transition{navigation:auto}
   .site-header{view-transition-name:site-header}
-  main{view-transition-name:page-content}
   .mobile-contact{view-transition-name:mobile-contact}
-  ::view-transition-group(*){animation-duration:.62s;animation-timing-function:cubic-bezier(.22,.7,.15,1)}
-  ::view-transition-group(page-content){animation:none}
-  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+  ::view-transition-group(root){animation-duration:.64s}
+  ::view-transition-image-pair(root){isolation:isolate;perspective:1800px}
+  ::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal;backface-visibility:hidden}
+  ::view-transition-old(root){z-index:2;transform-origin:left center;animation:site-page-turn .64s cubic-bezier(.38,.02,.22,1) both;box-shadow:24px 0 70px #17212426}
+  ::view-transition-new(root){z-index:1;transform-origin:right center;animation:site-page-settle .64s cubic-bezier(.22,.7,.2,1) both}
+  ::view-transition-group(site-header),::view-transition-group(mobile-contact){z-index:3;animation-duration:.3s}
   ::view-transition-old(site-header),::view-transition-new(site-header),::view-transition-old(mobile-contact),::view-transition-new(mobile-contact){animation:none;mix-blend-mode:normal}
-  ::view-transition-old(page-content){animation:page-leave .26s cubic-bezier(.4,0,1,1) both;mix-blend-mode:normal}
-  ::view-transition-new(page-content){animation:page-enter .7s cubic-bezier(.22,.7,.15,1) .08s both;mix-blend-mode:normal}
   /* Also animate entry where cross-document transitions are unsupported. */
-  .js:not(.has-native-transition) main{animation:page-enter .7s cubic-bezier(.22,.7,.15,1) .04s backwards}
-  .js .site-header:after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--yellow) 35%,var(--yellow) 65%,transparent);transform:translateX(-100%);pointer-events:none;animation:sweep 1.1s cubic-bezier(.65,0,.35,1) .1s both}
+  .js:not(.has-native-transition) main{animation:site-page-arrive .55s cubic-bezier(.22,.7,.2,1) backwards}
+  .js .site-header:after{content:'';position:absolute;inset:auto 0 -1px;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#c2a55d,transparent);animation:header-light .8s ease-out both}
 
-  /* Sections: headings unmask upwards, the eyebrow line draws, cards follow one by one. */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease var(--reveal-delay,0ms),transform .85s cubic-bezier(.22,.7,.15,1) var(--reveal-delay,0ms)}
-  .reveal.is-visible,.reveal:focus-within{opacity:1;transform:none}
-  .reveal .eyebrow:before{transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.22,.7,.15,1) calc(var(--reveal-delay,0ms) + .2s)}
-  .reveal.is-visible .eyebrow:before{transform:none}
-  .reveal.is-visible :is(h1,h2){animation:heading-in .95s cubic-bezier(.22,.7,.15,1) calc(var(--reveal-delay,0ms) + .06s) backwards}
+  /* Nothing is hidden while waiting for an observer or a slow script. */
+  .reveal{opacity:1;transform:none}
+  .reveal.is-visible{animation:section-arrive .6s cubic-bezier(.22,.7,.2,1) var(--reveal-delay,0ms) backwards}
+  .reveal:focus-within{animation:none}
+  .reveal.is-visible .eyebrow:before{animation:eyebrow-draw .65s ease var(--reveal-delay,0ms) backwards;transform-origin:left}
 
   /* First visit to the home page: the sign lights up, then the curtain lifts. */
   .intro{--intro:1.25s}
@@ -646,10 +651,28 @@ main:focus{outline:none}
   .js .hero-visual figcaption{animation:rise .6s cubic-bezier(.22,.7,.15,1) calc(var(--intro,0s) + 1.5s) backwards}
 
   .button,.text-link .icon,.icon-button,.desktop-nav a:after{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
-  .button:hover{transform:translateY(-1px)}
-  .button:hover .icon:last-child,.text-link:hover .icon:last-child{transform:translateX(2px)}
-  .mobile-nav:not([hidden]){animation:menu-reveal .2s ease both}
+  .button:is(:hover,:focus-visible){transform:translateY(-2px);box-shadow:0 5px 15px #17212412}
+  .button:active,.icon-button:active{transform:translateY(1px) scale(.98)}
+  .button:is(:hover,:focus-visible) .icon:last-child,.text-link:is(:hover,:focus-visible) .icon:last-child{transform:translateX(3px)}
+  .desktop-nav a:focus-visible:after{transform:scaleX(1)}
+  .mobile-nav:not([hidden]){animation:menu-reveal .28s cubic-bezier(.22,.7,.2,1) both}
+  .mobile-nav:not([hidden]) a{animation:menu-link .32s ease backwards}
+  .mobile-nav a:nth-child(2){animation-delay:35ms}
+  .mobile-nav a:nth-child(3){animation-delay:70ms}
+  .mobile-nav a:nth-child(4){animation-delay:105ms}
+  .mobile-nav a:nth-child(5){animation-delay:140ms}
 }
+@keyframes site-page-turn{
+  0%{transform:rotateY(0);opacity:1;filter:brightness(1)}
+  55%{opacity:1;filter:brightness(.92)}
+  100%{transform:rotateY(-78deg);opacity:0;filter:brightness(.8)}
+}
+@keyframes site-page-settle{from{transform:translateX(4%) scale(.985);opacity:.55}to{transform:none;opacity:1}}
+@keyframes site-page-arrive{from{opacity:.55;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes section-arrive{from{opacity:.35;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes eyebrow-draw{from{transform:scaleX(.2)}to{transform:scaleX(1)}}
+@keyframes menu-link{from{opacity:.4;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes header-light{from{opacity:0;transform:scaleX(.1)}45%{opacity:1}to{opacity:0;transform:scaleX(1)}}
 @keyframes page-leave{to{opacity:0;transform:translateY(-14px)}}
 @keyframes page-enter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes menu-reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
@@ -688,6 +711,7 @@ main:focus{outline:none}
   100%{filter:none;transform:none}
 }
 @media(prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
   html{scroll-behavior:auto!important}
   *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1!important;transform:none!important}
@@ -907,13 +931,7 @@ em{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.
 .prose h2{font-size:24px;letter-spacing:-.02em}
 .prose p{font-size:14px}
 .follow-link{border-radius:0}
-/* Content stays readable even during long scrolls, printing and screenshots. */
-body .reveal{opacity:1;transform:none;transition:none}
-body .reveal .eyebrow:before{transform:none}
-body .reveal.is-visible :is(h1,h2){animation:none}
-@view-transition{navigation:none}
-.js:not(.has-native-transition) main,.js .hero-actions{animation:none}
-.js .site-header:after{display:none}
+/* Optional motion is managed in transitions.css; content stays visible by default. */
 @media(min-width:1500px){.editorial-hero-grid{gap:95px}.editorial-hero-image{height:680px}.editorial-hero-copy{padding-top:105px}}
 @media(max-width:1100px){
  .header-inner{gap:15px}.desktop-nav{gap:17px}.header-wa{font-size:12px;padding-inline:14px}
