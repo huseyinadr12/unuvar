@@ -8,7 +8,7 @@ const head=readFileSync(join(__dirname,'../dist/assets/navigation-head.js'),'utf
 
 function setup({reduced=false,visible=true,arrival=false,headOnly=false,
   navigationType='navigate',referrer='',storageBlocked=false,marker,
-  href='https://example.test/unuvar/',startTime=1000}={}){
+  href='https://example.test/unuvar/',startTime=1000,siteRevision,links=[]}={}){
   let now=startTime,id=0;
   const timers=new Map(),frames=[],stored=new Map(),visited=[],warmed=[];
   function target(extra={}){
@@ -17,13 +17,14 @@ function setup({reduced=false,visible=true,arrival=false,headOnly=false,
       addEventListener(type,fn){(handlers[type]??=[]).push(fn);},
       fire(type,event={}){for(const fn of handlers[type]||[])fn(event);}},extra);
   }
-  const root=target();
+  const root=target({dataset:{...(siteRevision?{siteRevision}:{})}});
   const brand=target(),skip=target(),media=target({matches:reduced}),win=target();
   const document=target({
     readyState:'complete',visibilityState:visible?'visible':'hidden',documentElement:root,referrer,
     head:{appendChild:el=>warmed.push(el)},
     createElement:()=>({remove(){}}),
     querySelector:s=>s==='[data-brand-transition]'?brand:s==='[data-brand-skip]'?skip:null,
+    querySelectorAll:()=>links,
     getElementById:()=>null
   });
   const location={href,origin:new URL(href).origin,assign:url=>visited.push(url)};
@@ -74,6 +75,26 @@ test('opening waits for the progress bar to fill, holds at full, then reveals st
   s.tick(1);assert.equal(s.brand.dataset.phase,'out');assert.equal(s.root.dataset.navMotion,'idle');
   s.tick(400);assert.equal(s.brand.hidden,true);
   s.tick(950);assert.equal(s.root.dataset.navMotion,'idle');
+});
+test('menu links, prefetch and eventual navigation share the current release, even from a bare URL',()=>{
+  const links=[
+    {href:'https://example.test/unuvar/urunler/',target:'',hasAttribute:()=>false},
+    {href:'https://example.test/unuvar/assets/catalog.pdf',target:'_blank',hasAttribute:()=>false}
+  ];
+  const s=setup({siteRevision:'current-release',links});s.paint();s.tick(3000);
+  assert.equal(links[0].href,'https://example.test/unuvar/urunler/?_v=current-release');
+  assert.equal(links[1].href,'https://example.test/unuvar/assets/catalog.pdf');
+  s.click('https://example.test/unuvar/b2c/?sayfa=46#hizli-giris');
+  assert.equal(s.warmed[0].href,'https://example.test/unuvar/b2c/?sayfa=46&_v=current-release');
+  s.tick(900);s.endAnimation('brand-travel');s.tick(120);
+  assert.deepEqual(s.visited,['https://example.test/unuvar/b2c/?sayfa=46&_v=current-release#hizli-giris']);
+});
+test('reduced motion still prepares versioned native links without a navigation overlay',()=>{
+  const links=[{href:'https://example.test/unuvar/b2c/',target:'',hasAttribute:()=>false}];
+  const s=setup({siteRevision:'current-release',reduced:true,links});
+  assert.equal(links[0].href,'https://example.test/unuvar/b2c/?_v=current-release');
+  assert.equal(s.brand.hidden,true);
+  assert.equal(s.click(links[0].href),false);
 });
 test('opening waits for a background tab to become visible',()=>{
   const s=setup({visible:false});s.paint();s.tick(5000);

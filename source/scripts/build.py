@@ -152,11 +152,15 @@ def shell(title, desc, body, current='home', path='/', hero=False, schema=None, 
     <button class="back-to-top" type="button" aria-label="Sayfanın başına dön" hidden>{icon("arrow")}</button><div class="mobile-contact"><a href="tel:+905456105009">{icon('phone')} Ara</a>{out(wa(),icon('wa')+' WhatsApp’tan yazın')}</div><div class="toast" role="status" aria-live="polite"></div>{order_markup(icon, ORDER_PRODUCTS, PHONE, ORIGIN)}</body></html>'''
 
 
+BUILT_PAGES = {}
+
 def write(path,content):
     f=DIST / path.lstrip('/')
     if not f.suffix: f=f/'index.html'
     f.parent.mkdir(parents=True,exist_ok=True)
     f.write_text(content,encoding='utf-8')
+    if f.suffix == '.html':
+        BUILT_PAGES[f] = content
 
 # Remove previously generated catalog routes from the deployment. The original
 # product records and assets stay in source control for the owner's future work.
@@ -193,4 +197,14 @@ write('/404.html',shell('Sayfa bulunamadı','Aradığınız sayfaya ulaşılamad
 paths=['/','/urunler/','/b2c/','/cozumler/','/rehber/','/hakkimizda/','/iletisim/','/gizlilik/']
 write('/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>{ORIGIN}{path}</loc></url>' for path in paths)+'</urlset>')
 write('/robots.txt',robots(ORIGIN))
+# One content-derived revision for the entire publication. Page links can bypass
+# an older cached document without disabling caching or reloading the open page.
+revision_hash = hashlib.sha256()
+for page, content in sorted(BUILT_PAGES.items()):
+    revision_hash.update(page.relative_to(DIST).as_posix().encode())
+    revision_hash.update(b'\0' + content.encode('utf-8') + b'\0')
+site_revision = revision_hash.hexdigest()[:12]
+for page, content in BUILT_PAGES.items():
+    page.write_text(content.replace('<html lang="tr"', f'<html lang="tr" data-site-revision="{site_revision}"', 1), encoding='utf-8')
+print(f'Site revision: {site_revision}')
 print(f'Built {len(paths)} pages + 404 + legacy redirect, sitemap and robots. Orderable catalog items: {len(ORDER_PRODUCTS)}.')

@@ -2,10 +2,12 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
-import json
+import json, re
 
 DIST = Path(__file__).resolve().parents[1] / 'dist'
 errors = []
+revisions = set()
+brand_style = (DIST / 'assets/brand-transition.css').read_text(encoding='utf-8')
 
 class Page(HTMLParser):
     def __init__(self, path):
@@ -53,11 +55,16 @@ product_names = [p['name'] for p in json.loads((DIST.parent / 'data/products.jso
 for path in pages:
     parsed = Page(path)
     source = path.read_text(encoding='utf-8')
+    revision = re.search(r'data-site-revision="([0-9a-f]{12})"', source)
+    if not revision: errors.append(f'{path}: missing publication revision')
+    else: revisions.add(revision.group(1))
     parsed.feed(source)
     if path.relative_to(DIST).as_posix() == 'b2b/index.html':
         if '<meta name="site-redirect" content="/b2c/">' not in source or parsed.h1 != 1:
             errors.append('Legacy B2B route must redirect to B2C with an accessible fallback')
         continue
+    if f'<style>{brand_style}</style>' not in source:
+        errors.append(f'{path}: inconsistent brand transition settings')
     if 'data-map-load' in source: errors.append(f'{path}: obsolete map activation button')
     for marker in ['data-product', 'data-catalog', 'product-detail', 'category-grid', 'search-trigger', '/urun/']:
         if marker in source: errors.append(f'{path}: removed catalog interface is still published: {marker}')
@@ -92,5 +99,6 @@ if 'data-reader' not in catalog_html or 'download="unuvar-aydinlatma-katalog.pdf
     errors.append('Catalog reader or download link is missing')
 for path in pages:
     if 'site-loader' in path.read_text(encoding='utf-8'): errors.append(f'{path}: first-visit loader is published')
+if len(revisions) != 1: errors.append('Generated pages must share one publication revision')
 if errors: raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(pages)} pages; {len(order_records)} published orderable products; no QA fixtures; internal links, assets/srcsets, headings, IDs, automatic maps, order markup, product groups and JSON-LD.')

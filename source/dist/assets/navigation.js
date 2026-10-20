@@ -1,6 +1,16 @@
 /* Separate fixture opening and single-pass moving-logo navigation. */
 (() => {
   'use strict';
+  function pageSearch(url) {
+    const clean = new URL(url.href);
+    clean.searchParams.delete('_v');
+    return clean.search;
+  }
+  function withRevision(url, revision) {
+    const result = new URL(url.href);
+    if (revision) result.searchParams.set('_v', revision);
+    return result;
+  }
   function destination(link, event, current) {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
         link.download || link.target && link.target !== '_self' || link.reader) return null;
@@ -9,12 +19,16 @@
     const here = new URL(current);
     if (!/^https?:$/.test(url.protocol) || url.origin !== here.origin ||
         !(/\/$/.test(url.pathname) || /\.html$/.test(url.pathname))) return null;
-    if (url.pathname === here.pathname && url.search === here.search)
+    if (url.pathname === here.pathname && pageSearch(url) === pageSearch(here)) {
+      // Keep section links in this document even if it was opened with a revision.
+      url.search = here.search;
       return { kind: url.hash ? 'anchor' : 'same', url };
+    }
     return { kind: 'page', url };
   }
-  if (typeof module === 'object' && module.exports) { module.exports = { destination }; return; }
+  if (typeof module === 'object' && module.exports) { module.exports = { destination, withRevision }; return; }
   const root = document.documentElement;
+  const siteRevision = root.dataset.siteRevision;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const brand = document.querySelector('[data-brand-transition]');
   const arrival = root.dataset.brandArrival === '1';
@@ -105,6 +119,16 @@
     prefetch.href = url.href.split('#')[0];
     document.head.appendChild(prefetch);
   }
+  function prepareLink(anchor) {
+    const target = destination({
+      href: anchor.href, target: '_self', download: anchor.hasAttribute('download'),
+      reader: anchor.hasAttribute('data-reader-go')
+    }, { button: 0 }, location.href);
+    if (target) anchor.href = (target.kind === 'page' ? withRevision(target.url, siteRevision) : target.url).href;
+  }
+  function prepareLinks() {
+    document.querySelectorAll('a[href]').forEach(prepareLink);
+  }
   function navigateNow() {
     if (!pending || navigationStarted) return;
     navigationStarted = true;
@@ -138,12 +162,15 @@
   }
   document.addEventListener('click', event => {
     const anchor = event.target.closest('a[href]');
-    if (!anchor || reduced.matches) return;
+    if (!anchor) return;
     const target = destination({
       href: anchor.href, target: anchor.target, download: anchor.hasAttribute('download'),
       reader: anchor.hasAttribute('data-reader-go')
     }, event, location.href);
     if (!target) return;
+    if (target.kind === 'page') target.url = withRevision(target.url, siteRevision);
+    anchor.href = target.url.href;
+    if (reduced.matches) return;
     // A second click/keyboard activation must not restart or duplicate a trip.
     if (pending) { event.preventDefault(); return; }
     if (target.kind === 'anchor') { highlight(target.url); return; }
@@ -155,6 +182,12 @@
     if (brand) { brand.hidden = false; brand.dataset.phase = 'navigate'; }
     // Wait for the rendered motion to finish, not a timer racing its first paint.
     exitTimer = setTimeout(brand ? finishTravel : navigateNow, brand ? timing.travel + 400 : 0);
+  });
+  // Native new-tab actions and links filled in by other components use the same
+  // publication too. Assets, PDFs and external destinations remain untouched.
+  for (const type of ['pointerover', 'focusin']) document.addEventListener(type, event => {
+    const anchor = event.target.closest('a[href]');
+    if (anchor) prepareLink(anchor);
   });
   const skip = () => { if (pending) navigateNow(); else reset(); };
   document.querySelector('[data-brand-skip]')?.addEventListener('click', skip);
@@ -172,6 +205,7 @@
     if (reduced.matches && pending && !navigationStarted) { navigateNow(); hideBrand(); }
     else reset();
   });
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => enter(arrival), { once: true });
-  else enter(arrival);
+  const start = () => { prepareLinks(); enter(arrival); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  else start();
 })();
