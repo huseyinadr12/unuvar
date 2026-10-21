@@ -3,7 +3,7 @@
   const root=document.querySelector('[data-b2b-root]');if(!root)return;
   const C=window.UnuvarB2B,records=JSON.parse(document.getElementById('b2b-records').textContent),products=new Map(records.map(p=>[p.code,p]));
   const $=s=>root.querySelector(s),form=$('[data-b2b-request]'),fields=form.elements,status=$('[data-b2b-status]'),list=$('[data-b2b-lines]');
-  let rows=[],undo=null,storage=true;
+  let rows=[],undo=null,storage=true,pdfBusy=false;
   try{rows=C.restore(localStorage.getItem(C.KEY));}catch{storage=false;}
   const say=t=>{status.textContent=t;};
   const source=new URL('../urunler/',location.href).href;
@@ -18,6 +18,7 @@
     const long=link().length>7500;$('[data-b2b-long]').hidden=!long;
     $('[data-b2b-send]').disabled=!rows.length||long||!validQuantities();
     ['copy','csv','print'].forEach(k=>$('[data-b2b-'+k+']').disabled=!rows.length||!validQuantities());
+    if(pdfBusy)$('[data-b2b-print]').disabled=true;
   }
   function render(){
     list.replaceChildren();
@@ -55,7 +56,18 @@
   form.addEventListener('submit',e=>{e.preventDefault();if(rows.length&&validQuantities()&&form.reportValidity()&&link().length<=7500)window.open(link(),'_blank','noopener,noreferrer');});
   $('[data-b2b-copy]').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(text());say('Talep özeti kopyalandı.');}catch{const area=$('[data-b2b-preview]');area.closest('details').open=true;area.focus();area.select();say('Otomatik kopyalama kullanılamadı. Seçili metni kopyalayabilirsiniz.');}});
   $('[data-b2b-csv]').addEventListener('click',()=>{const blob=new Blob([C.csv(rows,products)],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=make('a');a.href=url;a.download='unuvar-teklif-listesi.csv';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-  $('[data-b2b-print]').addEventListener('click',()=>{document.getElementById('b2b-print-copy').textContent=text();window.print();});
+  $('[data-b2b-print]').addEventListener('click',async()=>{
+    if(pdfBusy||!rows.length||!validQuantities())return;
+    const button=$('[data-b2b-print]'),label=button.querySelector('span');
+    pdfBusy=true;button.disabled=true;button.setAttribute('aria-busy','true');label.textContent='PDF hazırlanıyor…';say('Teklif talep belgeniz hazırlanıyor.');
+    try{
+      const id=crypto.randomUUID().replaceAll('-','').slice(0,8);
+      const data=window.UnuvarQuoteDocument.snapshot(rows,products,details(),{id});
+      await window.UnuvarQuoteDownload(data);
+      say('PDF hazır; indirme başlatıldı. Belgeyi WhatsApp sohbetine dosya olarak ekleyebilirsiniz.');
+    }catch{say('PDF hazırlanamadı. Bağlantınızı kontrol edip yeniden deneyin; özeti kopyalama ve Excel indirme seçeneklerini de kullanabilirsiniz.');}
+    finally{pdfBusy=false;button.removeAttribute('aria-busy');label.textContent='PDF indir';preview();}
+  });
   const query=new URLSearchParams(location.search),catalogPage=Number(query.get('sayfa'));
   if(Number.isInteger(catalogPage)&&catalogPage>0&&catalogPage<=Number(root.dataset.pageCount)&&!fields.note.value)fields.note.value='Katalog sayfası: '+catalogPage;
   const incoming=C.code(query.get('urun')||'');

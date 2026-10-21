@@ -35,6 +35,7 @@ def export(output, url):
                 pending.append(candidate)
     license_file = DIST/'assets/fonts/OFL.txt'
     if license_file.is_file(): files.add(license_file)
+    files.update((DIST/'assets/quote-pdf').glob('*LICENSE.txt'))
     for file in sorted(files):
         relative = file.relative_to(DIST)
         destination = output/relative
