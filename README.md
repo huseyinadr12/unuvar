@@ -85,3 +85,9 @@ Mevcut kaynak katalogda 254 görselin 213'ünün uzun kenarı 600 pikselin altı
 - Sayfa aşağı kaydırılırken bölümler sırayla belirir; menü, buton, kart, filtre ve açılır başlıklarda kısa geri bildirimler vardır. Gözlemci çalışmasa bile içerik görünür kalır.
 - Katalogda ileri/geri yönüne uygun 720 ms dönüş, kâğıt aydınlığı ve gölge efekti bulunur. Hızlı sayfa değişimi ve hareket tercihinin değişmesi mevcut animasyonu temizler.
 - Hareketi azaltma tercihi bütün bu animasyonları devre dışı bırakır.
+
+## Mağaza ve yönetim hazırlığı
+
+`commerce/` klasöründe ayrı Node.js + SQLite uygulaması bulunur. 360 katalog ürünü taslak olarak hazırlanmıştır; yönetici fiyat, stok ve yayın durumunu düzenler. Sepet ve sipariş talebi kaydı ile yönetim ekranında durum/not takibi çalışır. Kurulum ve test adımları [commerce/README.md](commerce/README.md) dosyasındadır.
+
+Bu uygulama GitHub Pages yayınına dahil değildir. Çevrimiçi ödeme henüz entegre edilmedi; ödeme sağlayıcısı hesabı ve HTTPS sunucu gerekir. Kart bilgisi alınmaz, talepler ödenmiş sipariş olarak gösterilmez. Veritabanı ve yönetici hesapları Git'e eklenmez.
